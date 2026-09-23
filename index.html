@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>daily feed</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  background: #f4f1ea;
+  color: #171717;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.app {
+  max-width: 520px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 28px 22px 40px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #222;
+  padding-bottom: 12px;
+  margin-bottom: 32px;
+}
+
+.logo {
+  font-size: 25px;
+  font-weight: bold;
+  letter-spacing: -1px;
+}
+
+.date {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #666;
+}
+
+h1 {
+  font-size: 42px;
+  line-height: 0.98;
+  margin: 0 0 18px;
+  letter-spacing: -2px;
+}
+
+.subtitle {
+  font-size: 20px;
+  line-height: 1.35;
+  margin-bottom: 38px;
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.label {
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 10px;
+}
+
+.option {
+  border: 1px solid #222;
+  padding: 16px;
+  margin-bottom: 8px;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.option.selected {
+  background: #171717;
+  color: white;
+}
+
+button {
+  width: 100%;
+  border: none;
+  background: #171717;
+  color: white;
+  padding: 18px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.edition {
+  display: none;
+}
+
+.edition-header {
+  border-bottom: 1px solid #222;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.edition-title {
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.progress {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #666;
+  margin-top: 7px;
+}
+
+.card {
+  height: 68vh;
+  min-height: 480px;
+  background: #222;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 26px;
+  position: relative;
+  touch-action: pan-y;
+}
+
+.card-number {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.card h2 {
+  font-size: 31px;
+  line-height: 1.05;
+  margin: 0 0 10px;
+}
+
+.card p {
+  font-size: 17px;
+  line-height: 1.4;
+  margin: 0;
+  opacity: 0.85;
+}
+
+.swipe {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  font-size: 11px;
+  color: #777;
+  margin-top: 13px;
+}
+
+.end {
+  display: none;
+  text-align: center;
+  padding-top: 25vh;
+}
+
+.end h1 {
+  font-size: 44px;
+}
+
+.end p {
+  font-size: 19px;
+  line-height: 1.4;
+  color: #555;
+}
+
+.small-button {
+  margin-top: 30px;
+  background: transparent;
+  color: #171717;
+  border: 1px solid #171717;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+  <div class="top">
+    <div class="logo">daily feed</div>
+    <div class="date">23. SEPTEMBER 2026</div>
+  </div>
+
+  <!-- START -->
+  <div id="start">
+
+    <h1>Deine Ausgabe.<br>Mit einem Ende.</h1>
+
+    <div class="subtitle">
+      Jeden Tag eine neue, begrenzte Auswahl.
+      Keine endlose Timeline. Keine „Mehr laden“.
+    </div>
+
+    <div class="section">
+      <div class="label">Deine Grenze</div>
+
+      <div class="option selected" onclick="selectLimit(this, 'count')">
+        30 Inhalte
+      </div>
+
+      <div class="option" onclick="selectLimit(this, 'time')">
+        60 Minuten
+      </div>
+
+      <div class="option" onclick="selectLimit(this, 'both')">
+        30 Inhalte oder 60 Minuten
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="label">Quelle</div>
+
+      <div class="option selected">
+        Meine Accounts
+      </div>
+
+      <div class="option">
+        Mein Feed
+      </div>
+    </div>
+
+    <button onclick="startEdition()">
+      Ausgabe erstellen
+    </button>
+
+  </div>
+
+  <!-- EDITION -->
+  <div id="edition" class="edition">
+
+    <div class="edition-header">
+      <div class="edition-title">Ausgabe 01</div>
+      <div class="progress" id="progress">1 / 30</div>
+    </div>
+
+    <div class="card" id="card">
+      <div class="card-number" id="cardNumber">INHALT 01</div>
+      <h2 id="cardTitle">Deine heutige Ausgabe wartet.</h2>
+      <p id="cardText">
+        Wische nach oben oder tippe auf die Karte.
+      </p>
+    </div>
+
+    <div class="swipe">
+      ↑ Wischen oder tippen für den nächsten Inhalt
+    </div>
+
+  </div>
+
+  <!-- END -->
+  <div id="end" class="end">
+
+    <h1>Das war's<br>für heute.</h1>
+
+    <p>
+      Deine Ausgabe ist beendet.<br>
+      Morgen gibt es eine neue.
+    </p>
+
+    <button class="small-button" onclick="location.reload()">
+      Test neu starten
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+let current = 1;
+let limit = 30;
+let mode = "count";
+
+const titles = [
+  "Ein Gedanke für heute",
+  "Das Internet entdeckt etwas Neues",
+  "Eine Geschichte, die hängen bleibt",
+  "Was heute interessant ist",
+  "Ein kurzer Moment aus der Welt",
+  "Etwas, das du noch nicht kanntest",
+  "Die Überraschung des Tages",
+  "Ein Blick hinter die Kulissen",
+  "Eine kleine Entdeckung",
+  "Das solltest du gesehen haben",
+  "Ein ungewöhnlicher Moment",
+  "Was gerade diskutiert wird",
+  "Eine neue Perspektive",
+  "Einfach interessant",
+  "Ein Fundstück für zwischendurch",
+  "Heute im Netz",
+  "Eine Geschichte in wenigen Sekunden",
+  "Etwas zum Nachdenken",
+  "Ein unerwarteter Fund",
+  "Das Internet in einem Moment",
+  "Eine kleine Inspiration",
+  "Was heute hängen bleibt",
+  "Ein interessanter Blickwinkel",
+  "Noch eine Entdeckung",
+  "Eine Sache, die du vielleicht noch nicht gesehen hast",
+  "Ein Moment aus deiner Ausgabe",
+  "Heute darfst du überrascht werden",
+  "Fast am Ende",
+  "Der vorletzte Inhalt",
+  "Das letzte Stück deiner heutigen Ausgabe"
+];
+
+const texts = [
+  "Dein Feed entscheidet heute, was hier landet.",
+  "Keine Suche. Kein Nachladen. Einfach der nächste Inhalt.",
+  "Genau dafür gibt es daily feed: entdecken, ohne endlos weiterzuscrollen.",
+  "Die Auswahl ist bereits festgelegt.",
+  "Du musst nichts auswählen. Nur anschauen.",
+  "Noch ein kleiner Fund aus deiner heutigen Ausgabe.",
+  "Man weiß vorher nicht genau, was kommt.",
+  "Und genau das ist der Punkt.",
+  "Eine begrenzte Ausgabe statt einer endlosen Timeline.",
+  "Der Algorithmus darf überraschen – aber nicht unendlich weitermachen."
+];
+
+function selectLimit(element, selectedMode) {
+  document.querySelectorAll(".section:first-of-type .option")
+    .forEach(o => o.classList.remove("selected"));
+
+  element.classList.add("selected");
+
+  mode = selectedMode;
+
+  if (selectedMode === "count") limit = 30;
+  if (selectedMode === "time") limit = 30;
+  if (selectedMode === "both") limit = 30;
+}
+
+function startEdition() {
+  document.getElementById("start").style.display = "none";
+  document.getElementById("edition").style.display = "block";
+
+  showCard();
+}
+
+function showCard() {
+
+  document.getElementById("progress").textContent =
+    current + " / " + limit;
+
+  document.getElementById("cardNumber").textContent =
+    "INHALT " + String(current).padStart(2, "0");
+
+  document.getElementById("cardTitle").textContent =
+    titles[current - 1] || "Ein letzter Fund";
+
+  document.getElementById("cardText").textContent =
+    texts[(current - 1) % texts.length];
+}
+
+function nextCard() {
+
+  if (current >= limit) {
+    document.getElementById("edition").style.display = "none";
+    document.getElementById("end").style.display = "block";
+    return;
+  }
+
+  current++;
+  showCard();
+}
+
+document.getElementById("card").addEventListener("click", nextCard);
+
+let startY = 0;
+
+document.getElementById("card").addEventListener("touchstart", function(e) {
+  startY = e.touches[0].clientY;
+});
+
+document.getElementById("card").addEventListener("touchend", function(e) {
+  let endY = e.changedTouches[0].clientY;
+
+  if (startY - endY > 50) {
+    nextCard();
+  }
+});
+
+</script>
+
+</body>
+</html>
