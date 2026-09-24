@@ -11,11 +11,19 @@
       box-sizing: border-box;
     }
 
+    html,
     body {
       margin: 0;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #f5f5f5;
       color: #111;
+    }
+
+    body {
+      overflow-x: hidden;
     }
 
     .screen {
@@ -52,7 +60,7 @@
       border-radius: 20px;
       padding: 22px;
       margin-bottom: 16px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.06);
     }
 
     .section-title {
@@ -73,6 +81,7 @@
     input[type="radio"] {
       width: 20px;
       height: 20px;
+      flex-shrink: 0;
     }
 
     input[type="number"] {
@@ -142,7 +151,9 @@
       line-height: 1.4;
     }
 
-    /* Ausgabe */
+    /* =========================
+       AUSGABE
+       ========================= */
 
     #editionScreen {
       padding: 0;
@@ -152,6 +163,7 @@
     .edition {
       width: 100%;
       min-height: 100vh;
+      min-height: 100dvh;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -194,6 +206,7 @@
       padding: 12px;
       font-size: 14px;
       color: #666;
+      min-height: 40px;
     }
 
     .content-area {
@@ -203,6 +216,7 @@
       align-items: center;
       padding: 20px;
       touch-action: pan-y;
+      overflow: hidden;
     }
 
     .content-card {
@@ -211,7 +225,7 @@
       background: white;
       border-radius: 25px;
       padding: 30px 25px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
     }
 
     .platform {
@@ -254,7 +268,9 @@
       padding-bottom: 10px;
     }
 
-    /* Ende */
+    /* =========================
+       ENDE
+       ========================= */
 
     .end-card {
       text-align: center;
@@ -273,13 +289,17 @@
       font-size: 50px;
       margin-bottom: 10px;
     }
+
+    .end-navigation {
+      margin-top: 25px;
+    }
   </style>
 </head>
 
 <body>
 
   <!-- =========================
-       START / EINSTELLUNGEN
+       EINSTELLUNGEN
        ========================= -->
 
   <div id="setupScreen" class="screen">
@@ -336,14 +356,19 @@
         </label>
       </div>
 
-      <!-- Auswahlmodus -->
+      <!-- Auswahl -->
 
       <div class="card">
+
         <div class="section-title">
           Wie sollen die Inhalte ausgewählt werden?
         </div>
 
-        <div class="card mode-card" id="accountsModeCard">
+        <div
+          class="card mode-card"
+          id="accountsModeCard"
+        >
+
           <label>
             <input
               type="radio"
@@ -356,9 +381,15 @@
           <div class="mode-description">
             Du bestimmst selbst, welchen Accounts du folgen möchtest.
           </div>
+
         </div>
 
-        <div class="card mode-card" id="feedModeCard">
+
+        <div
+          class="card mode-card"
+          id="feedModeCard"
+        >
+
           <label>
             <input
               type="radio"
@@ -371,20 +402,30 @@
           <div class="mode-description">
             Die Auswahl erfolgt algorithmisch aus deinen gewählten Plattformen.
           </div>
+
         </div>
+
       </div>
+
 
       <!-- Accounts -->
 
-      <div id="accountsSection" class="card hidden">
+      <div
+        id="accountsSection"
+        class="card hidden"
+      >
 
         <div class="section-title">
           Welche Accounts möchtest du sehen?
         </div>
 
-        <div id="accountList" class="account-list"></div>
+        <div
+          id="accountList"
+          class="account-list"
+        ></div>
 
       </div>
+
 
       <!-- Limit -->
 
@@ -393,6 +434,7 @@
         <div class="section-title">
           Wie viel möchtest du sehen?
         </div>
+
 
         <label>
           <input
@@ -403,7 +445,12 @@
           Anzahl der Inhalte
         </label>
 
-        <div id="countInput" class="hidden">
+
+        <div
+          id="countInput"
+          class="hidden"
+        >
+
           <input
             type="number"
             id="contentCount"
@@ -411,7 +458,9 @@
             value="10"
             placeholder="z. B. 10"
           >
+
         </div>
+
 
         <label>
           <input
@@ -422,7 +471,12 @@
           Zeit
         </label>
 
-        <div id="timeInput" class="hidden">
+
+        <div
+          id="timeInput"
+          class="hidden"
+        >
+
           <input
             type="number"
             id="timeMinutes"
@@ -430,7 +484,9 @@
             value="10"
             placeholder="z. B. 10 Minuten"
           >
+
         </div>
+
 
         <label>
           <input
@@ -441,7 +497,11 @@
           Anzahl UND Zeit
         </label>
 
-        <div id="bothInput" class="hidden">
+
+        <div
+          id="bothInput"
+          class="hidden"
+        >
 
           <input
             type="number"
@@ -463,6 +523,7 @@
 
       </div>
 
+
       <button id="startButton">
         Ausgabe starten
       </button>
@@ -475,20 +536,42 @@
        AUSGABE
        ========================= -->
 
-  <div id="editionScreen" class="screen hidden">
+  <div
+    id="editionScreen"
+    class="screen hidden"
+  >
 
     <div class="edition">
 
       <div class="edition-header">
-        <div class="logo">daily feed</div>
-        <div id="counter" class="counter"></div>
+
+        <div class="logo">
+          daily feed
+        </div>
+
+        <div
+          id="counter"
+          class="counter"
+        ></div>
+
       </div>
+
 
       <div class="progress-container">
-        <div id="progress" class="progress"></div>
+
+        <div
+          id="progress"
+          class="progress"
+        ></div>
+
       </div>
 
-      <div id="timer" class="timer"></div>
+
+      <div
+        id="timer"
+        class="timer"
+      ></div>
+
 
       <div
         id="contentArea"
@@ -502,9 +585,12 @@
 
       </div>
 
+
       <div class="hint">
-        Wische nach links/rechts oder benutze die Buttons.
+        ↑ Wischen = weiter &nbsp; · &nbsp;
+        ↓ Wischen = zurück
       </div>
+
 
       <div class="navigation">
 
@@ -529,30 +615,49 @@
 
 
   <!-- =========================
-       ENDE
+       ENDE DER AUSGABE
        ========================= -->
 
-  <div id="endScreen" class="screen hidden">
+  <div
+    id="endScreen"
+    class="screen hidden"
+  >
 
     <div class="container">
 
       <div class="card end-card">
 
-        <div class="success">✓</div>
+        <div class="success">
+          ✓
+        </div>
 
-        <h2>Das war's für heute.</h2>
+        <h2>
+          Das war's für heute.
+        </h2>
 
         <p>
-          Deine tägliche Ausgabe ist beendet.
+          Du hast deine heutige Ausgabe abgeschlossen.
+        </p>
+
+        <p>
+          Du kannst sie weiterhin anschauen und zurückscrollen.
         </p>
 
         <p>
           Morgen wartet eine neue Ausgabe auf dich.
         </p>
 
-        <button id="backToStartButton">
-          Einstellungen ansehen
-        </button>
+
+        <div class="end-navigation">
+
+          <button
+            id="reviewButton"
+            class="secondary"
+          >
+            Ausgabe noch einmal ansehen
+          </button>
+
+        </div>
 
       </div>
 
@@ -588,14 +693,15 @@
 
     /* =====================================================
        TEST-INHALTE
-
-       Jeder Account bekommt 10 Beispielinhalte.
-       Dadurch können wir z.B. 10 Inhalte testen.
        ===================================================== */
 
-    function makeTestContent(platform, account) {
+    function makeTestContent(
+      platform,
+      account
+    ) {
 
       const titles = [
+
         "Ein neuer Beitrag",
         "Das solltest du heute sehen",
         "Interessante Entdeckung",
@@ -606,40 +712,85 @@
         "Das Internet diskutiert",
         "Neue Perspektiven",
         "Zum Nachdenken"
+
       ];
 
-      return titles.map((title, index) => {
 
-        return {
-          platform: platform,
-          account: account,
-          title: title,
-          text:
-            `Beispielinhalt ${index + 1} von ${account}. ` +
-            `Dieser Inhalt dient momentan als Test für daily feed. ` +
-            `Später wird hier echter Inhalt der jeweiligen Plattform angezeigt.`
-        };
+      return titles.map(
+        (title, index) => {
 
-      });
+          return {
+
+            platform: platform,
+
+            account: account,
+
+            title: title,
+
+            text:
+              `Beispielinhalt ${index + 1} von ${account}. ` +
+              `Dieser Inhalt dient momentan als Test für daily feed. ` +
+              `Später wird hier echter Inhalt der jeweiligen Plattform angezeigt.`
+
+          };
+
+        }
+      );
 
     }
 
 
     const content = [
 
-      ...makeTestContent("Instagram", "@natgeo"),
-      ...makeTestContent("Instagram", "@nike"),
-      ...makeTestContent("Instagram", "@designmilk"),
+      ...makeTestContent(
+        "Instagram",
+        "@natgeo"
+      ),
 
-      ...makeTestContent("TikTok", "@science"),
-      ...makeTestContent("TikTok", "@creator_daily"),
-      ...makeTestContent("TikTok", "@techworld"),
+      ...makeTestContent(
+        "Instagram",
+        "@nike"
+      ),
 
-      ...makeTestContent("YouTube", "Kurzgesagt"),
-      ...makeTestContent("YouTube", "MrBeast"),
+      ...makeTestContent(
+        "Instagram",
+        "@designmilk"
+      ),
 
-      ...makeTestContent("Reddit", "r/science"),
-      ...makeTestContent("Reddit", "r/technology")
+      ...makeTestContent(
+        "TikTok",
+        "@science"
+      ),
+
+      ...makeTestContent(
+        "TikTok",
+        "@creator_daily"
+      ),
+
+      ...makeTestContent(
+        "TikTok",
+        "@techworld"
+      ),
+
+      ...makeTestContent(
+        "YouTube",
+        "Kurzgesagt"
+      ),
+
+      ...makeTestContent(
+        "YouTube",
+        "MrBeast"
+      ),
+
+      ...makeTestContent(
+        "Reddit",
+        "r/science"
+      ),
+
+      ...makeTestContent(
+        "Reddit",
+        "r/technology"
+      )
 
     ];
 
@@ -649,36 +800,51 @@
        ===================================================== */
 
     let selectedSources = [];
+
     let selectedMode = "";
+
     let selectedAccounts = [];
 
     let limitMode = "";
+
     let contentLimit = 0;
+
     let timeLimitMinutes = 0;
 
     let dailyEdition = [];
+
     let currentIndex = 0;
 
     let startedAt = null;
+
     let timerInterval = null;
 
-    const STORAGE_KEY = "dailyFeedState";
+    let editionFinished = false;
+
+
+    const STORAGE_KEY =
+      "dailyFeedState";
 
 
     /* =====================================================
-       HEUTIGES DATUM
+       DATUM
        ===================================================== */
 
     function getTodayKey() {
 
-      const now = new Date();
+      const now =
+        new Date();
 
       return (
         now.getFullYear() +
         "-" +
-        String(now.getMonth() + 1).padStart(2, "0") +
+        String(
+          now.getMonth() + 1
+        ).padStart(2, "0") +
         "-" +
-        String(now.getDate()).padStart(2, "0")
+        String(
+          now.getDate()
+        ).padStart(2, "0")
       );
 
     }
@@ -692,22 +858,41 @@
 
       const state = {
 
-        date: getTodayKey(),
+        date:
+          getTodayKey(),
 
-        dailyEdition: dailyEdition,
-        currentIndex: currentIndex,
+        dailyEdition:
+          dailyEdition,
 
-        selectedSources: selectedSources,
-        selectedMode: selectedMode,
-        selectedAccounts: selectedAccounts,
+        currentIndex:
+          currentIndex,
 
-        limitMode: limitMode,
-        contentLimit: contentLimit,
-        timeLimitMinutes: timeLimitMinutes,
+        selectedSources:
+          selectedSources,
 
-        startedAt: startedAt
+        selectedMode:
+          selectedMode,
+
+        selectedAccounts:
+          selectedAccounts,
+
+        limitMode:
+          limitMode,
+
+        contentLimit:
+          contentLimit,
+
+        timeLimitMinutes:
+          timeLimitMinutes,
+
+        startedAt:
+          startedAt,
+
+        editionFinished:
+          editionFinished
 
       };
+
 
       localStorage.setItem(
         STORAGE_KEY,
@@ -724,25 +909,36 @@
     function loadDailyState() {
 
       const saved =
-        localStorage.getItem(STORAGE_KEY);
+        localStorage.getItem(
+          STORAGE_KEY
+        );
+
 
       if (!saved) {
+
         return false;
+
       }
+
 
       try {
 
         const state =
           JSON.parse(saved);
 
+
         /*
-          Wichtig:
-          Nur die Ausgabe von HEUTE laden.
+          Nur heutige Ausgabe laden.
         */
 
-        if (state.date !== getTodayKey()) {
+        if (
+          state.date !==
+          getTodayKey()
+        ) {
 
-          localStorage.removeItem(STORAGE_KEY);
+          localStorage.removeItem(
+            STORAGE_KEY
+          );
 
           return false;
 
@@ -752,32 +948,46 @@
         dailyEdition =
           state.dailyEdition || [];
 
+
         currentIndex =
           state.currentIndex || 0;
+
 
         selectedSources =
           state.selectedSources || [];
 
+
         selectedMode =
           state.selectedMode || "";
+
 
         selectedAccounts =
           state.selectedAccounts || [];
 
+
         limitMode =
           state.limitMode || "";
+
 
         contentLimit =
           state.contentLimit || 0;
 
+
         timeLimitMinutes =
           state.timeLimitMinutes || 0;
+
 
         startedAt =
           state.startedAt || null;
 
 
-        return dailyEdition.length > 0;
+        editionFinished =
+          state.editionFinished || false;
+
+
+        return (
+          dailyEdition.length > 0
+        );
 
       }
 
@@ -802,37 +1012,61 @@
     function renderAccounts() {
 
       const accountList =
-        document.getElementById("accountList");
+        document.getElementById(
+          "accountList"
+        );
 
-      accountList.innerHTML = "";
+
+      accountList.innerHTML =
+        "";
 
 
       accounts
-        .filter(account =>
-          selectedSources.includes(account.platform)
+        .filter(
+          account =>
+            selectedSources.includes(
+              account.platform
+            )
         )
-        .forEach(account => {
+        .forEach(
+          account => {
 
-          const wrapper =
-            document.createElement("div");
+            const wrapper =
+              document.createElement(
+                "div"
+              );
 
-          wrapper.className = "account";
 
-          wrapper.innerHTML = `
-            <label>
-              <input
-                type="checkbox"
-                class="account-checkbox"
-                data-platform="${account.platform}"
-                data-account="${account.username}"
-              >
-              ${account.platform} · ${account.username}
-            </label>
-          `;
+            wrapper.className =
+              "account";
 
-          accountList.appendChild(wrapper);
 
-        });
+            wrapper.innerHTML = `
+
+              <label>
+
+                <input
+                  type="checkbox"
+                  class="account-checkbox"
+                  data-platform="${account.platform}"
+                  data-account="${account.username}"
+                >
+
+                ${account.platform}
+                ·
+                ${account.username}
+
+              </label>
+
+            `;
+
+
+            accountList.appendChild(
+              wrapper
+            );
+
+          }
+        );
 
     }
 
@@ -842,80 +1076,92 @@
        ===================================================== */
 
     document
-      .querySelectorAll(".source-checkbox")
-      .forEach(checkbox => {
+      .querySelectorAll(
+        ".source-checkbox"
+      )
+      .forEach(
+        checkbox => {
 
-        checkbox.addEventListener(
-          "change",
-          () => {
+          checkbox.addEventListener(
+            "change",
+            () => {
 
-            selectedSources =
-              Array.from(
-                document.querySelectorAll(
-                  ".source-checkbox:checked"
-                )
-              ).map(
-                checkbox => checkbox.value
-              );
+              selectedSources =
+                Array.from(
+                  document.querySelectorAll(
+                    ".source-checkbox:checked"
+                  )
+                ).map(
+                  checkbox =>
+                    checkbox.value
+                );
 
 
-            renderAccounts();
+              renderAccounts();
 
-          }
-        );
+            }
+          );
 
-      });
+        }
+      );
 
 
     /* =====================================================
-       MODUS
+       AUSWAHLMODUS
        ===================================================== */
 
     document
       .querySelectorAll(
         'input[name="selectionMode"]'
       )
-      .forEach(radio => {
+      .forEach(
+        radio => {
 
-        radio.addEventListener(
-          "change",
-          () => {
+          radio.addEventListener(
+            "change",
+            () => {
 
-            selectedMode = radio.value;
-
-            document
-              .getElementById(
-                "accountsSection"
-              )
-              .classList.toggle(
-                "hidden",
-                selectedMode !== "accounts"
-              );
+              selectedMode =
+                radio.value;
 
 
-            document
-              .getElementById(
-                "accountsModeCard"
-              )
-              .classList.toggle(
-                "selected",
-                selectedMode === "accounts"
-              );
+              document
+                .getElementById(
+                  "accountsSection"
+                )
+                .classList.toggle(
+                  "hidden",
+                  selectedMode !==
+                  "accounts"
+                );
 
 
-            document
-              .getElementById(
-                "feedModeCard"
-              )
-              .classList.toggle(
-                "selected",
-                selectedMode === "feed"
-              );
+              document
+                .getElementById(
+                  "accountsModeCard"
+                )
+                .classList.toggle(
+                  "selected",
+                  selectedMode ===
+                  "accounts"
+                );
 
-          }
-        );
 
-      });
+              document
+                .getElementById(
+                  "feedModeCard"
+                )
+                .classList.toggle(
+                  "selected",
+                  selectedMode ===
+                  "feed"
+                );
+
+            }
+          );
+
+        }
+      );
 
 
     /* =====================================================
@@ -926,68 +1172,76 @@
       .querySelectorAll(
         'input[name="limitMode"]'
       )
-      .forEach(radio => {
+      .forEach(
+        radio => {
 
-        radio.addEventListener(
-          "change",
-          () => {
+          radio.addEventListener(
+            "change",
+            () => {
 
-            limitMode = radio.value;
-
-
-            document
-              .getElementById("countInput")
-              .classList.toggle(
-                "hidden",
-                limitMode !== "count"
-              );
+              limitMode =
+                radio.value;
 
 
-            document
-              .getElementById("timeInput")
-              .classList.toggle(
-                "hidden",
-                limitMode !== "time"
-              );
+              document
+                .getElementById(
+                  "countInput"
+                )
+                .classList.toggle(
+                  "hidden",
+                  limitMode !==
+                  "count"
+                );
 
 
-            document
-              .getElementById("bothInput")
-              .classList.toggle(
-                "hidden",
-                limitMode !== "both"
-              );
+              document
+                .getElementById(
+                  "timeInput"
+                )
+                .classList.toggle(
+                  "hidden",
+                  limitMode !==
+                  "time"
+                );
 
-          }
-        );
 
-      });
+              document
+                .getElementById(
+                  "bothInput"
+                )
+                .classList.toggle(
+                  "hidden",
+                  limitMode !==
+                  "both"
+                );
+
+            }
+          );
+
+        }
+      );
 
 
     /* =====================================================
-       AUSGABE ERSTELLEN
+       NEUE TAGESAUSGABE ERSTELLEN
        ===================================================== */
 
     function buildEdition() {
 
       /*
-        WICHTIG:
+        Ganz wichtig:
 
-        Falls heute bereits eine Ausgabe existiert,
+        Wenn heute bereits eine Ausgabe existiert,
         darf KEINE neue erstellt werden.
       */
 
-      if (loadDailyState()) {
+      if (
+        loadDailyState()
+      ) {
 
         showEditionScreen();
-        showContent();
 
-        if (
-          limitMode === "time" ||
-          limitMode === "both"
-        ) {
-          startTimer();
-        }
+        showContent();
 
         return;
 
@@ -995,10 +1249,12 @@
 
 
       /*
-        Quellen überprüfen
+        Plattform prüfen
       */
 
-      if (selectedSources.length === 0) {
+      if (
+        selectedSources.length === 0
+      ) {
 
         alert(
           "Bitte wähle mindestens eine Plattform aus."
@@ -1010,29 +1266,35 @@
 
 
       /*
-        Bei "Meine Accounts":
-        ausgewählte Accounts holen
+        Account-Auswahl
       */
 
-      if (selectedMode === "accounts") {
+      if (
+        selectedMode ===
+        "accounts"
+      ) {
 
         selectedAccounts =
           Array.from(
             document.querySelectorAll(
               ".account-checkbox:checked"
             )
-          ).map(checkbox => ({
+          ).map(
+            checkbox => ({
 
-            platform:
-              checkbox.dataset.platform,
+              platform:
+                checkbox.dataset.platform,
 
-            username:
-              checkbox.dataset.account
+              username:
+                checkbox.dataset.account
 
-          }));
+            })
+          );
 
 
-        if (selectedAccounts.length === 0) {
+        if (
+          selectedAccounts.length === 0
+        ) {
 
           alert(
             "Bitte wähle mindestens einen Account aus."
@@ -1046,10 +1308,13 @@
 
 
       /*
-        Limit bestimmen
+        Limit
       */
 
-      if (limitMode === "count") {
+      if (
+        limitMode ===
+        "count"
+      ) {
 
         contentLimit =
           Math.max(
@@ -1064,7 +1329,10 @@
       }
 
 
-      if (limitMode === "time") {
+      if (
+        limitMode ===
+        "time"
+      ) {
 
         timeLimitMinutes =
           Math.max(
@@ -1079,7 +1347,10 @@
       }
 
 
-      if (limitMode === "both") {
+      if (
+        limitMode ===
+        "both"
+      ) {
 
         contentLimit =
           Math.max(
@@ -1106,54 +1377,60 @@
 
 
       /*
-        Inhalte nach Plattform filtern
+        Inhalte nach Plattform
       */
 
       let availableContent =
-        content.filter(item =>
-          selectedSources.includes(
-            item.platform
-          )
+        content.filter(
+          item =>
+            selectedSources.includes(
+              item.platform
+            )
         );
 
 
       /*
-        Bei "Meine Accounts":
-        Nur die ausgewählten Accounts
+        Meine Accounts
       */
 
-      if (selectedMode === "accounts") {
+      if (
+        selectedMode ===
+        "accounts"
+      ) {
 
         availableContent =
-          availableContent.filter(item =>
+          availableContent.filter(
+            item =>
 
-            selectedAccounts.some(account =>
+              selectedAccounts.some(
+                account =>
 
-              account.platform === item.platform &&
-              account.username === item.account
+                  account.platform ===
+                    item.platform &&
 
-            )
+                  account.username ===
+                    item.account
 
+              )
           );
 
       }
 
 
       /*
-        Einfache Durchmischung,
-        damit die Reihenfolge nicht immer gleich ist.
+        Inhalte mischen
       */
 
       availableContent =
         [...availableContent]
           .sort(
-            () => Math.random() - 0.5
+            () =>
+              Math.random() - 0.5
           );
 
 
       /*
-        Bei Anzahl:
-        auf gewünschte Anzahl begrenzen
+        Anzahl begrenzen
       */
 
       if (
@@ -1170,11 +1447,9 @@
       }
 
 
-      dailyEdition =
-        availableContent;
-
-
-      if (dailyEdition.length === 0) {
+      if (
+        availableContent.length === 0
+      ) {
 
         alert(
           "Für diese Auswahl wurden keine Inhalte gefunden."
@@ -1185,20 +1460,31 @@
       }
 
 
+      /*
+        Tagesausgabe einfrieren
+      */
+
+      dailyEdition =
+        availableContent;
+
+
       currentIndex = 0;
 
       startedAt =
         Date.now();
 
+      editionFinished = false;
+
 
       /*
-        Ganze Tagesausgabe speichern.
+        SOFORT speichern.
       */
 
       saveDailyState();
 
 
       showEditionScreen();
+
       showContent();
 
 
@@ -1215,22 +1501,36 @@
 
 
     /* =====================================================
-       AUSGABE ANZEIGEN
+       AUSGABE ZEIGEN
        ===================================================== */
 
     function showEditionScreen() {
 
       document
-        .getElementById("setupScreen")
-        .classList.add("hidden");
+        .getElementById(
+          "setupScreen"
+        )
+        .classList.add(
+          "hidden"
+        );
+
 
       document
-        .getElementById("endScreen")
-        .classList.add("hidden");
+        .getElementById(
+          "endScreen"
+        )
+        .classList.add(
+          "hidden"
+        );
+
 
       document
-        .getElementById("editionScreen")
-        .classList.remove("hidden");
+        .getElementById(
+          "editionScreen"
+        )
+        .classList.remove(
+          "hidden"
+        );
 
     }
 
@@ -1241,6 +1541,30 @@
 
     function showContent() {
 
+      /*
+        Wenn wir hinter dem letzten Inhalt sind,
+        zeigen wir die Endansicht.
+      */
+
+      if (
+        currentIndex >=
+        dailyEdition.length
+      ) {
+
+        currentIndex =
+          dailyEdition.length - 1;
+
+        editionFinished = true;
+
+        saveDailyState();
+
+        showEndScreen();
+
+        return;
+
+      }
+
+
       if (
         currentIndex < 0
       ) {
@@ -1250,19 +1574,10 @@
       }
 
 
-      if (
-        currentIndex >= dailyEdition.length
-      ) {
-
-        showEndScreen();
-
-        return;
-
-      }
-
-
       const item =
-        dailyEdition[currentIndex];
+        dailyEdition[
+          currentIndex
+        ];
 
 
       const contentCard =
@@ -1297,7 +1612,9 @@
       */
 
       document
-        .getElementById("counter")
+        .getElementById(
+          "counter"
+        )
         .textContent =
           `${currentIndex + 1} / ${dailyEdition.length}`;
 
@@ -1314,7 +1631,9 @@
 
 
       document
-        .getElementById("progress")
+        .getElementById(
+          "progress"
+        )
         .style.width =
           `${progress}%`;
 
@@ -1332,8 +1651,7 @@
 
 
       /*
-        Wenn letzter Inhalt:
-        Button entsprechend ändern
+        Weiter-Button
       */
 
       document
@@ -1341,7 +1659,8 @@
           "nextButton"
         )
         .textContent =
-          currentIndex === dailyEdition.length - 1
+          currentIndex ===
+          dailyEdition.length - 1
             ? "Fertig"
             : "Weiter →";
 
@@ -1361,23 +1680,34 @@
 
     function nextContent() {
 
+      /*
+        Wenn wir am letzten Inhalt sind:
+        Ausgabe ist abgeschlossen.
+
+        Aber die Tagesausgabe bleibt erhalten.
+      */
+
       if (
-        currentIndex <
+        currentIndex >=
         dailyEdition.length - 1
       ) {
 
-        currentIndex++;
+        editionFinished = true;
 
         saveDailyState();
 
-        showContent();
-
-      }
-      else {
-
         showEndScreen();
 
+        return;
+
       }
+
+
+      currentIndex++;
+
+      saveDailyState();
+
+      showContent();
 
     }
 
@@ -1388,13 +1718,22 @@
 
     function previousContent() {
 
+      /*
+        Auch nach Abschluss darf man
+        wieder zurück.
+      */
+
       if (
         currentIndex > 0
       ) {
 
         currentIndex--;
 
+        editionFinished = false;
+
         saveDailyState();
+
+        showEditionScreen();
 
         showContent();
 
@@ -1409,21 +1748,70 @@
 
     function showEndScreen() {
 
-      clearInterval(timerInterval);
+      clearInterval(
+        timerInterval
+      );
+
 
       document
         .getElementById(
           "editionScreen"
         )
-        .classList.add("hidden");
+        .classList.add(
+          "hidden"
+        );
+
+
+      document
+        .getElementById(
+          "setupScreen"
+        )
+        .classList.add(
+          "hidden"
+        );
+
 
       document
         .getElementById(
           "endScreen"
         )
-        .classList.remove("hidden");
+        .classList.remove(
+          "hidden"
+        );
 
     }
+
+
+    /* =====================================================
+       AUSGABE NOCH EINMAL ANSEHEN
+       ===================================================== */
+
+    document
+      .getElementById(
+        "reviewButton"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          /*
+            Wir gehen zum Anfang zurück.
+
+            Es wird KEINE neue Ausgabe erstellt.
+          */
+
+          currentIndex = 0;
+
+          editionFinished = false;
+
+          saveDailyState();
+
+          showEditionScreen();
+
+          showContent();
+
+        }
+      );
 
 
     /* =====================================================
@@ -1432,7 +1820,9 @@
 
     function startTimer() {
 
-      clearInterval(timerInterval);
+      clearInterval(
+        timerInterval
+      );
 
 
       if (!startedAt) {
@@ -1504,18 +1894,36 @@
 
 
       document
-        .getElementById("timer")
+        .getElementById(
+          "timer"
+        )
         .textContent =
           `Noch ${minutes}:${String(
             remainingSeconds
-          ).padStart(2, "0")} Minuten`;
+          ).padStart(
+            2,
+            "0"
+          )} Minuten`;
 
+
+      /*
+        Zeit ist abgelaufen.
+
+        Die Ausgabe wird beendet,
+        aber NICHT gelöscht.
+      */
 
       if (
         remaining <= 0
       ) {
 
-        clearInterval(timerInterval);
+        clearInterval(
+          timerInterval
+        );
+
+        editionFinished = true;
+
+        saveDailyState();
 
         showEndScreen();
 
@@ -1525,7 +1933,7 @@
 
 
     /* =====================================================
-       BUTTONS
+       START BUTTON
        ===================================================== */
 
     document
@@ -1538,6 +1946,10 @@
       );
 
 
+    /* =====================================================
+       WEITER
+       ===================================================== */
+
     document
       .getElementById(
         "nextButton"
@@ -1547,6 +1959,10 @@
         nextContent
       );
 
+
+    /* =====================================================
+       ZURÜCK
+       ===================================================== */
 
     document
       .getElementById(
@@ -1558,44 +1974,13 @@
       );
 
 
-    /*
-      Nach Ende zurück zu den Einstellungen.
-
-      Die Tagesausgabe bleibt gespeichert.
-      Dadurch kann man sie nicht versehentlich
-      durch einen neuen Start überschreiben.
-    */
-
-    document
-      .getElementById(
-        "backToStartButton"
-      )
-      .addEventListener(
-        "click",
-        () => {
-
-          document
-            .getElementById(
-              "endScreen"
-            )
-            .classList.add("hidden");
-
-          document
-            .getElementById(
-              "setupScreen"
-            )
-            .classList.remove("hidden");
-
-        }
-      );
-
-
     /* =====================================================
-       SWIPE
+       VERTIKALES WISCHEN
        ===================================================== */
 
-    let touchStartX = 0;
-    let touchEndX = 0;
+    let touchStartY = 0;
+
+    let touchEndY = 0;
 
 
     const contentArea =
@@ -1608,11 +1993,14 @@
       "touchstart",
       event => {
 
-        touchStartX =
-          event.changedTouches[0].screenX;
+        touchStartY =
+          event.changedTouches[0]
+            .screenY;
 
       },
-      { passive: true }
+      {
+        passive: true
+      }
     );
 
 
@@ -1620,21 +2008,23 @@
       "touchend",
       event => {
 
-        touchEndX =
-          event.changedTouches[0].screenX;
+        touchEndY =
+          event.changedTouches[0]
+            .screenY;
 
 
         const difference =
-          touchStartX -
-          touchEndX;
+          touchStartY -
+          touchEndY;
 
 
         /*
-          Nur deutliche Wischbewegungen
+          Kleine Bewegungen ignorieren.
         */
 
         if (
-          Math.abs(difference) < 50
+          Math.abs(difference) <
+          50
         ) {
 
           return;
@@ -1642,11 +2032,25 @@
         }
 
 
-        if (difference > 0) {
+        /*
+          Nach oben:
+          nächster Inhalt
+        */
+
+        if (
+          difference > 0
+        ) {
 
           nextContent();
 
         }
+
+
+        /*
+          Nach unten:
+          vorheriger Inhalt
+        */
+
         else {
 
           previousContent();
@@ -1654,7 +2058,9 @@
         }
 
       },
-      { passive: true }
+      {
+        passive: true
+      }
     );
 
 
@@ -1667,22 +2073,45 @@
       () => {
 
         /*
-          Gibt es bereits eine heutige Ausgabe?
+          Prüfen, ob heute bereits
+          eine Tagesausgabe existiert.
         */
 
-        if (loadDailyState()) {
+        if (
+          loadDailyState()
+        ) {
 
-          showEditionScreen();
+          /*
+            Ausgabe ist abgeschlossen:
+            Endansicht anzeigen.
 
-          showContent();
-
+            Die Ausgabe bleibt aber vollständig
+            gespeichert.
+          */
 
           if (
-            limitMode === "time" ||
-            limitMode === "both"
+            editionFinished
           ) {
 
-            startTimer();
+            showEndScreen();
+
+          }
+
+          else {
+
+            showEditionScreen();
+
+            showContent();
+
+
+            if (
+              limitMode === "time" ||
+              limitMode === "both"
+            ) {
+
+              startTimer();
+
+            }
 
           }
 
