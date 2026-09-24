@@ -1,1310 +1,774 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
-  <title>daily feed</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-      background: #f3f3f3;
-      color: #111;
-    }
-
-    body {
-      min-height: 100vh;
-    }
-
-    button,
-    input {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 760px;
-      min-height: 100vh;
-      margin: 0 auto;
-      background: #fff;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    /* =========================
-       SETUP
-    ========================= */
-
-    #setupScreen {
-      padding: 28px 18px 50px;
-    }
-
-    .setup-header {
-      margin-bottom: 30px;
-    }
-
-    .logo {
-      font-size: 30px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    .tagline {
-      margin-top: 6px;
-      color: #777;
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    section {
-      margin-bottom: 28px;
-    }
-
-    h2 {
-      margin: 0 0 9px;
-      font-size: 20px;
-      letter-spacing: -0.3px;
-    }
-
-    .subtitle {
-      margin: 0 0 15px;
-      color: #777;
-      font-size: 14px;
-      line-height: 1.45;
-    }
-
-    .platform-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .platform-button,
-    .mode-button,
-    .limit-button {
-      border: 1px solid #ddd;
-      background: #fff;
-      border-radius: 14px;
-      padding: 14px 12px;
-      font-weight: 650;
-      color: #222;
-    }
-
-    .platform-button.selected,
-    .mode-button.selected,
-    .limit-button.selected {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-    }
-
-    .connected-box,
-    .accounts-box,
-    .limits-box {
-      border: 1px solid #e4e4e4;
-      border-radius: 16px;
-      padding: 12px;
-      background: #fafafa;
-    }
-
-    .connected-account-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 12px 2px;
-      border-bottom: 1px solid #e8e8e8;
-    }
-
-    .connected-account-row:last-child {
-      border-bottom: 0;
-    }
-
-    .connected-account-info {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      min-width: 0;
-    }
-
-    .platform-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: #eee;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .connected-account-name {
-      font-weight: 700;
-      font-size: 14px;
-    }
-
-    .connected-account-status {
-      margin-top: 3px;
-      color: #888;
-      font-size: 12px;
-    }
-
-    .connect-button {
-      border: 0;
-      border-radius: 10px;
-      background: #111;
-      color: #fff;
-      padding: 9px 11px;
-      font-size: 12px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .mode-grid,
-    .limit-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .mode-button {
-      text-align: left;
-      min-height: 90px;
-    }
-
-    .mode-title {
-      font-size: 15px;
-      font-weight: 750;
-      margin-bottom: 5px;
-    }
-
-    .mode-description {
-      font-size: 12px;
-      line-height: 1.35;
-      opacity: .7;
-      font-weight: 400;
-    }
-
-    .selected .mode-description {
-      opacity: .8;
-    }
-
-    .account-platform-group {
-      margin-bottom: 20px;
-    }
-
-    .account-platform-group:last-child {
-      margin-bottom: 0;
-    }
-
-    .account-platform-title {
-      font-weight: 750;
-      margin-bottom: 9px;
-    }
-
-    .account-list {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .account-row {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 11px;
-      background: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 11px;
-    }
-
-    .account-row input {
-      width: 18px;
-      height: 18px;
-      accent-color: #111;
-    }
-
-    .account-row span {
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    .account-add-box {
-      display: flex;
-      gap: 8px;
-      margin-top: 4px;
-    }
-
-    .account-input {
-      min-width: 0;
-      flex: 1;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      padding: 11px;
-      background: #fff;
-      outline: none;
-    }
-
-    .account-input:focus {
-      border-color: #111;
-    }
-
-    .limit-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-
-    .limit-button {
-      padding: 13px 8px;
-      font-size: 13px;
-    }
-
-    .limit-inputs {
-      margin-top: 12px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .limit-input-group {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #fff;
-      border: 1px solid #e4e4e4;
-      border-radius: 12px;
-      padding: 10px 12px;
-    }
-
-    .limit-input-group label {
-      flex: 1;
-      font-size: 14px;
-      font-weight: 650;
-    }
-
-    .limit-input-group input {
-      width: 90px;
-      border: 0;
-      background: #f4f4f4;
-      border-radius: 8px;
-      padding: 8px;
-      text-align: center;
-      outline: none;
-    }
-
-    .start-button {
-      width: 100%;
-      border: 0;
-      border-radius: 16px;
-      background: #111;
-      color: #fff;
-      padding: 16px;
-      font-size: 16px;
-      font-weight: 800;
-      margin-top: 5px;
-    }
-
-    .start-button:disabled {
-      background: #ddd;
-      color: #999;
-      cursor: default;
-    }
-
-    /* =========================
-       FEED
-    ========================= */
-
-    #editionScreen {
-      min-height: 100vh;
-      background: #fff;
-    }
-
-    .feed-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      height: 54px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 14px;
-      background: rgba(255,255,255,.96);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid #eee;
-    }
-
-    .feed-logo {
-      font-size: 19px;
-      font-weight: 800;
-      letter-spacing: -.5px;
-    }
-
-    .feed-counter {
-      font-size: 12px;
-      color: #777;
-      font-weight: 700;
-    }
-
-    .feed-back-button {
-      border: 0;
-      background: transparent;
-      padding: 4px 10px 4px 0;
-      font-size: 20px;
-    }
-
-    .feed-header-left {
-      display: flex;
-      align-items: center;
-    }
-
-    .feed-scroll {
-      width: 100%;
-    }
-
-    .feed-post {
-      width: 100%;
-      background: #fff;
-      border-bottom: 8px solid #f3f3f3;
-    }
-
-    .post-header {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      padding: 13px 14px;
-    }
-
-    .post-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: #111;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px;
-      font-weight: 750;
-      flex-shrink: 0;
-    }
-
-    .post-user-info {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .post-username {
-      font-size: 14px;
-      font-weight: 750;
-    }
-
-    .post-platform {
-      font-size: 11px;
-      color: #888;
-      margin-top: 3px;
-    }
-
-    .post-more {
-      font-size: 19px;
-      color: #555;
-    }
-
-    .post-image-wrapper {
-      width: 100%;
-      background: #eee;
-    }
-
-    .post-image {
-      display: block;
-      width: 100%;
-      aspect-ratio: 1 / 1;
-      object-fit: cover;
-    }
-
-    .post-actions {
-      display: flex;
-      align-items: center;
-      gap: 17px;
-      padding: 12px 14px 6px;
-    }
-
-    .post-action {
-      border: 0;
-      background: transparent;
-      padding: 0;
-      font-size: 23px;
-      line-height: 1;
-    }
-
-    .post-caption {
-      padding: 0 14px 18px;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    /* =========================
-       ENDE
-    ========================= */
-
-    #endScreen {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 25px;
-      background: #f5f5f5;
-    }
-
-    .end-card {
-      width: 100%;
-      max-width: 430px;
-      background: #fff;
-      border-radius: 22px;
-      padding: 30px 22px;
-      text-align: center;
-    }
-
-    .end-icon {
-      width: 58px;
-      height: 58px;
-      margin: 0 auto 16px;
-      border-radius: 50%;
-      background: #111;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 25px;
-    }
-
-    .end-card h1 {
-      font-size: 25px;
-      margin: 0 0 10px;
-    }
-
-    .end-card p {
-      color: #777;
-      line-height: 1.5;
-      font-size: 14px;
-      margin-bottom: 22px;
-    }
-
-    .review-button {
-      width: 100%;
-      border: 0;
-      border-radius: 14px;
-      background: #111;
-      color: #fff;
-      padding: 14px;
-      font-weight: 750;
-    }
-
-    @media (max-width: 500px) {
-      #setupScreen {
-        padding: 24px 14px 40px;
-      }
-
-      .mode-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .account-add-box {
-        flex-direction: column;
-      }
-
-      .account-add-box .connect-button {
-        width: 100%;
-        padding: 12px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>daily feed</title>
+
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f3f3f3;color:#111}
+button,input{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.app{max-width:760px;margin:auto;min-height:100vh;background:#fff}
+
+#setupScreen{padding:28px 16px 50px}
+.logo{font-size:30px;font-weight:800}
+.tagline{color:#777;font-size:14px;line-height:1.5;margin:6px 0 30px}
+
+section{margin-bottom:28px}
+h2{font-size:20px;margin:0 0 8px}
+.subtitle{font-size:14px;color:#777;line-height:1.45;margin:0 0 14px}
+
+.platform-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+.platform-button,.mode-button,.limit-button{
+  border:1px solid #ddd;
+  background:#fff;
+  border-radius:14px;
+  padding:14px 12px;
+  color:#222;
+  font-weight:700;
+}
+.platform-button.selected,
+.mode-button.selected,
+.limit-button.selected{
+  background:#111;
+  color:#fff;
+  border-color:#111;
+}
+
+.connected-box,.accounts-box,.limits-box{
+  border:1px solid #e5e5e5;
+  border-radius:16px;
+  padding:12px;
+  background:#fafafa;
+}
+
+.connected-account-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 2px;
+  border-bottom:1px solid #e8e8e8;
+}
+.connected-account-row:last-child{border-bottom:0}
+
+.connected-account-info{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.platform-icon{
+  width:38px;height:38px;border-radius:50%;
+  background:#eee;
+  display:flex;align-items:center;justify-content:center;
+}
+.connected-account-name{font-weight:700;font-size:14px}
+.connected-account-status{font-size:12px;color:#888;margin-top:3px}
+
+.connect-button{
+  border:0;
+  border-radius:10px;
+  background:#111;
+  color:#fff;
+  padding:9px 11px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.mode-button{text-align:left;min-height:90px}
+.mode-title{font-size:15px;margin-bottom:5px}
+.mode-description{font-size:12px;line-height:1.4;opacity:.7;font-weight:400}
+
+.account-platform-group{margin-bottom:22px}
+.account-platform-title{font-weight:750;margin-bottom:9px}
+.account-list{display:flex;flex-direction:column;gap:8px}
+
+.account-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:11px;
+  background:#fff;
+  border:1px solid #e5e5e5;
+  border-radius:11px;
+}
+.account-row input{width:18px;height:18px;accent-color:#111}
+.account-row span{font-size:14px;font-weight:600;flex:1}
+
+.account-remove{
+  border:0;
+  background:transparent;
+  color:#999;
+  font-size:20px;
+  padding:2px 5px;
+}
+
+.account-add-box{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+}
+.account-input{
+  flex:1;
+  min-width:0;
+  border:1px solid #ddd;
+  border-radius:10px;
+  padding:11px;
+  outline:none;
+  background:#fff;
+}
+.account-input:focus{border-color:#111}
+
+.limit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.limit-button{padding:13px 8px;font-size:13px}
+
+.limit-inputs{margin-top:12px;display:grid;gap:10px}
+.limit-input-group{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border:1px solid #e4e4e4;
+  border-radius:12px;
+  padding:10px 12px;
+  background:#fff;
+}
+.limit-input-group label{flex:1;font-size:14px;font-weight:650}
+.limit-input-group input{
+  width:90px;
+  border:0;
+  background:#f4f4f4;
+  border-radius:8px;
+  padding:8px;
+  text-align:center;
+}
+
+.start-button{
+  width:100%;
+  border:0;
+  border-radius:16px;
+  background:#111;
+  color:#fff;
+  padding:16px;
+  font-size:16px;
+  font-weight:800;
+}
+.start-button:disabled{
+  background:#ddd;
+  color:#999;
+}
+
+/* FEED */
+
+#editionScreen{min-height:100vh;background:#fff}
+
+.feed-header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  height:54px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 14px;
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid #eee;
+}
+
+.feed-logo{font-size:19px;font-weight:800}
+.feed-counter{font-size:12px;color:#777;font-weight:700}
+
+.feed-scroll{width:100%}
+
+.feed-post{
+  width:100%;
+  background:#fff;
+  border-bottom:8px solid #f3f3f3;
+}
+
+.post-header{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  padding:13px 14px;
+}
+.post-avatar{
+  width:38px;height:38px;
+  border-radius:50%;
+  background:#111;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:750;
+}
+.post-user-info{flex:1}
+.post-username{font-size:14px;font-weight:750}
+.post-platform{font-size:11px;color:#888;margin-top:3px}
+
+.post-image{
+  display:block;
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+
+.post-actions{
+  display:flex;
+  gap:17px;
+  padding:12px 14px 6px;
+}
+.post-action{
+  border:0;
+  background:transparent;
+  padding:0;
+  font-size:23px;
+}
+.post-caption{
+  padding:0 14px 18px;
+  font-size:14px;
+  line-height:1.4;
+}
+
+/* ENDE */
+
+#endScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+  background:#f5f5f5;
+}
+.end-card{
+  width:100%;
+  max-width:430px;
+  background:#fff;
+  border-radius:22px;
+  padding:30px 22px;
+  text-align:center;
+}
+.end-icon{
+  width:58px;height:58px;
+  margin:0 auto 16px;
+  border-radius:50%;
+  background:#111;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:25px;
+}
+.end-card h1{font-size:25px;margin:0 0 10px}
+.end-card p{color:#777;line-height:1.5;font-size:14px;margin-bottom:22px}
+.review-button{
+  width:100%;
+  border:0;
+  border-radius:14px;
+  background:#111;
+  color:#fff;
+  padding:14px;
+  font-weight:750;
+}
+
+@media(max-width:500px){
+  #setupScreen{padding:24px 14px 40px}
+  .mode-grid{grid-template-columns:1fr}
+  .account-add-box{flex-direction:column}
+  .account-add-box button{width:100%;padding:12px}
+}
+</style>
 </head>
 
 <body>
 
 <div class="app">
 
-  <!-- =========================
-       EINSTELLUNGEN
-  ========================== -->
+<!-- STARTSEITE -->
 
-  <div id="setupScreen">
+<div id="setupScreen">
 
-    <div class="setup-header">
-      <div class="logo">daily feed</div>
-      <div class="tagline">
-        Der Algorithmus entscheidet, <b>was</b> du siehst.<br>
-        Du entscheidest, <b>wie viel</b> du davon siehst.
-      </div>
+  <div>
+    <div class="logo">daily feed</div>
+    <div class="tagline">
+      Der Algorithmus entscheidet, <b>was</b> du siehst.<br>
+      Du entscheidest, <b>wie viel</b> du davon siehst.
     </div>
+  </div>
 
-    <!-- 1 -->
-    <section>
-      <h2>Woher sollen die Inhalte kommen?</h2>
-      <p class="subtitle">
-        Wähle die Plattformen, aus denen deine Ausgabe zusammengestellt werden soll.
-      </p>
+  <section>
+    <h2>Woher sollen die Inhalte kommen?</h2>
+    <p class="subtitle">
+      Wähle die Plattformen, aus denen deine Ausgabe zusammengestellt werden soll.
+    </p>
+    <div id="platformGrid" class="platform-grid"></div>
+  </section>
 
-      <div id="platformGrid" class="platform-grid"></div>
-    </section>
+  <section id="connectedSection" class="hidden">
+    <h2>Konto verbinden</h2>
+    <p class="subtitle">
+      Hier verbindest du später dein eigenes Konto.
+    </p>
+    <div class="connected-box" id="connectedList"></div>
+  </section>
 
-    <!-- 2 -->
-    <section id="connectedAccountsSection" class="hidden">
-      <h2>Konto verbinden</h2>
-      <p class="subtitle">
-        Verbinde dein eigenes Konto. Der echte offizielle Login wird später über die jeweilige Plattform eingebaut.
-      </p>
+  <section id="modeSection" class="hidden">
+    <h2>Wie sollen die Inhalte ausgewählt werden?</h2>
 
-      <div class="connected-box">
-        <div id="connectedAccountsList"></div>
-      </div>
-    </section>
+    <div class="mode-grid">
 
-    <!-- 3 -->
-    <section id="modeSection" class="hidden">
-      <h2>Wie sollen die Inhalte ausgewählt werden?</h2>
+      <button
+        id="myAccountsButton"
+        class="mode-button"
+        type="button"
+        onclick="selectMode('Meine Accounts')"
+      >
+        <div class="mode-title">🧑 Meine Accounts</div>
+        <div class="mode-description">
+          Du bestimmst, von welchen Accounts Inhalte erscheinen.
+        </div>
+      </button>
 
-      <div class="mode-grid">
+      <button
+        id="myFeedButton"
+        class="mode-button"
+        type="button"
+        onclick="selectMode('Mein Feed')"
+      >
+        <div class="mode-title">✨ Mein Feed</div>
+        <div class="mode-description">
+          daily feed stellt die Inhalte algorithmisch zusammen.
+        </div>
+      </button>
+
+    </div>
+  </section>
+
+  <section id="accountsSection" class="hidden">
+    <h2>Meine Accounts</h2>
+
+    <p class="subtitle">
+      Wähle die Accounts aus, deren Inhalte du sehen möchtest.
+      Du kannst auch selbst einen Account hinzufügen.
+    </p>
+
+    <div class="accounts-box" id="accountsList"></div>
+  </section>
+
+  <section id="limitSection" class="hidden">
+
+    <h2>Wie viel möchtest du sehen?</h2>
+
+    <div class="limits-box">
+
+      <div class="limit-grid">
 
         <button
-          id="myAccountsModeButton"
-          class="mode-button"
+          id="contentMode"
+          class="limit-button"
           type="button"
-          onclick="selectMode('Meine Accounts')"
+          onclick="selectLimit('content')"
         >
-          <div class="mode-title">🧑 Meine Accounts</div>
-          <div class="mode-description">
-            Du bestimmst, von welchen Accounts Inhalte erscheinen.
-          </div>
+          Anzahl
         </button>
 
         <button
-          id="myFeedModeButton"
-          class="mode-button"
+          id="timeMode"
+          class="limit-button"
           type="button"
-          onclick="selectMode('Mein Feed')"
+          onclick="selectLimit('time')"
         >
-          <div class="mode-title">✨ Mein Feed</div>
-          <div class="mode-description">
-            daily feed stellt die Inhalte algorithmisch für dich zusammen.
-          </div>
+          Zeit
+        </button>
+
+        <button
+          id="bothMode"
+          class="limit-button"
+          type="button"
+          onclick="selectLimit('both')"
+        >
+          Beides
         </button>
 
       </div>
-    </section>
 
-    <!-- 4 -->
-    <section id="myAccountsSection" class="hidden">
-      <h2>Meine Accounts</h2>
+      <div class="limit-inputs">
 
-      <p class="subtitle">
-        Wähle die Accounts aus, deren Inhalte du sehen möchtest.
-        Du kannst jederzeit einen weiteren Account hinzufügen.
-      </p>
-
-      <div class="accounts-box">
-        <div id="myAccountsList"></div>
-      </div>
-    </section>
-
-    <!-- 5 -->
-    <section id="limitSection" class="hidden">
-
-      <h2>Wie viel möchtest du sehen?</h2>
-
-      <div class="limits-box">
-
-        <div class="limit-grid">
-
-          <button
-            id="limitContentButton"
-            class="limit-button"
-            type="button"
-            onclick="selectLimitMode('content')"
-          >
-            Anzahl
-          </button>
-
-          <button
-            id="limitTimeButton"
-            class="limit-button"
-            type="button"
-            onclick="selectLimitMode('time')"
-          >
-            Zeit
-          </button>
-
-          <button
-            id="limitBothButton"
-            class="limit-button"
-            type="button"
-            onclick="selectLimitMode('both')"
-          >
-            Beides
-          </button>
-
+        <div id="contentInputBox" class="limit-input-group hidden">
+          <label>Beiträge</label>
+          <input id="contentLimit" type="number" min="1" value="10">
         </div>
 
-        <div class="limit-inputs">
-
-          <div
-            id="contentLimitBox"
-            class="limit-input-group hidden"
-          >
-            <label for="contentLimit">
-              Beiträge
-            </label>
-
-            <input
-              id="contentLimit"
-              type="number"
-              min="1"
-              value="10"
-              oninput="updateStartButton()"
-            >
-          </div>
-
-          <div
-            id="timeLimitBox"
-            class="limit-input-group hidden"
-          >
-            <label for="timeLimit">
-              Minuten
-            </label>
-
-            <input
-              id="timeLimit"
-              type="number"
-              min="1"
-              value="10"
-              oninput="updateStartButton()"
-            >
-          </div>
-
+        <div id="timeInputBox" class="limit-input-group hidden">
+          <label>Minuten</label>
+          <input id="timeLimit" type="number" min="1" value="10">
         </div>
 
       </div>
 
-    </section>
+    </div>
+  </section>
 
-    <!-- 6 -->
+  <button
+    id="startButton"
+    class="start-button"
+    type="button"
+    onclick="startEdition()"
+    disabled
+  >
+    Ausgabe starten
+  </button>
+
+</div>
+
+
+<!-- FEED -->
+
+<div id="editionScreen" class="hidden">
+
+  <header class="feed-header">
+    <div class="feed-logo">daily feed</div>
+    <div id="feedCounter" class="feed-counter">0 / 0</div>
+  </header>
+
+  <main id="feedScroll" class="feed-scroll"></main>
+
+</div>
+
+
+<!-- ENDE -->
+
+<div id="endScreen" class="hidden">
+
+  <div class="end-card">
+
+    <div class="end-icon">✓</div>
+
+    <h1>Das war's für heute.</h1>
+
+    <p>
+      Deine Ausgabe ist vorbei.
+      Du kannst sie noch einmal ansehen.
+      Eine neue Ausgabe gibt es morgen.
+    </p>
+
     <button
-      id="startButton"
-      class="start-button"
+      class="review-button"
       type="button"
-      onclick="startEdition()"
-      disabled
+      onclick="reviewEdition()"
     >
-      Ausgabe starten
+      Ausgabe noch einmal ansehen
     </button>
 
   </div>
 
-
-  <!-- =========================
-       FEED
-  ========================== -->
-
-  <div id="editionScreen" class="hidden">
-
-    <header class="feed-header">
-
-      <div class="feed-header-left">
-
-        <button
-          class="feed-back-button"
-          type="button"
-          onclick="backToTopOfFeed()"
-          aria-label="Nach oben"
-        >
-          ↑
-        </button>
-
-        <div class="feed-logo">
-          daily feed
-        </div>
-
-      </div>
-
-      <div id="feedCounter" class="feed-counter">
-        0 / 0
-      </div>
-
-    </header>
-
-    <main
-      id="feedScroll"
-      class="feed-scroll"
-    ></main>
-
-  </div>
-
-
-  <!-- =========================
-       ENDE
-  ========================== -->
-
-  <div id="endScreen" class="hidden">
-
-    <div class="end-card">
-
-      <div class="end-icon">
-        ✓
-      </div>
-
-      <h1>
-        Das war's für heute.
-      </h1>
-
-      <p>
-        Deine Ausgabe ist vorbei.
-        Du kannst sie jederzeit noch einmal ansehen.
-        Eine neue Ausgabe gibt es morgen.
-      </p>
-
-      <button
-        class="review-button"
-        type="button"
-        onclick="reviewEdition()"
-      >
-        Ausgabe noch einmal ansehen
-      </button>
-
-    </div>
-
-  </div>
+</div>
 
 </div>
 
 
 <script>
 
-  /* =========================
-     PLATTFORMEN
-  ========================== */
+/* =========================
+   PLATTFORMEN
+========================= */
 
-  const platforms = [
-    "Instagram",
-    "TikTok",
-    "YouTube",
-    "Reddit",
-    "Pinterest",
-    "LinkedIn",
-    "Snapchat",
-    "Facebook"
-  ];
+const platforms = [
+  "Instagram",
+  "TikTok",
+  "YouTube",
+  "Reddit",
+  "Pinterest",
+  "LinkedIn",
+  "Snapchat",
+  "Facebook"
+];
 
-  const platformIcons = {
-    Instagram: "📸",
-    TikTok: "🎵",
-    YouTube: "▶️",
-    Reddit: "👽",
-    Pinterest: "📌",
-    LinkedIn: "💼",
-    Snapchat: "👻",
-    Facebook: "f"
-  };
+const icons = {
+  Instagram:"📸",
+  TikTok:"🎵",
+  YouTube:"▶️",
+  Reddit:"👽",
+  Pinterest:"📌",
+  LinkedIn:"💼",
+  Snapchat:"👻",
+  Facebook:"f"
+};
 
 
-  /* =========================
-     DEMO ACCOUNTS
-  ========================== */
+/* =========================
+   DEMO ACCOUNTS
+========================= */
 
-  let accounts = [
+let accounts = [
 
-    { platform: "Instagram", username: "@natgeo" },
-    { platform: "Instagram", username: "@design.daily" },
+  {platform:"Instagram",username:"@natgeo",demo:true},
+  {platform:"Instagram",username:"@design.daily",demo:true},
 
-    { platform: "TikTok", username: "@creativeideas" },
-    { platform: "TikTok", username: "@science" },
+  {platform:"TikTok",username:"@creativeideas",demo:true},
+  {platform:"TikTok",username:"@science",demo:true},
 
-    { platform: "YouTube", username: "@veritasium" },
-    { platform: "YouTube", username: "@kurzgesagt" },
+  {platform:"YouTube",username:"@veritasium",demo:true},
+  {platform:"YouTube",username:"@kurzgesagt",demo:true},
 
-    { platform: "Reddit", username: "r/technology" },
-    { platform: "Reddit", username: "r/design" },
+  {platform:"Reddit",username:"r/technology",demo:true},
+  {platform:"Reddit",username:"r/design",demo:true},
 
-    { platform: "Pinterest", username: "@designinspiration" },
-    { platform: "Pinterest", username: "@homeideas" },
+  {platform:"Pinterest",username:"@designinspiration",demo:true},
+  {platform:"Pinterest",username:"@homeideas",demo:true},
 
-    { platform: "LinkedIn", username: "@business" },
-    { platform: "LinkedIn", username: "@technology" },
+  {platform:"LinkedIn",username:"@business",demo:true},
+  {platform:"LinkedIn",username:"@technology",demo:true},
 
-    { platform: "Snapchat", username: "@news" },
-    { platform: "Snapchat", username: "@trending" },
+  {platform:"Snapchat",username:"@news",demo:true},
+  {platform:"Snapchat",username:"@trending",demo:true},
 
-    { platform: "Facebook", username: "@nature" },
-    { platform: "Facebook", username: "@design" }
+  {platform:"Facebook",username:"@nature",demo:true},
+  {platform:"Facebook",username:"@design",demo:true}
 
-  ];
+];
 
 
-  /* =========================
-     STATE
-  ========================== */
+/* =========================
+   STATE
+========================= */
 
-  let selectedSources = [];
-  let selectedMode = "";
-  let selectedAccounts = [];
+let selectedSources = [];
+let selectedMode = "";
+let selectedAccounts = [];
 
-  let limitMode = "";
-  let contentLimit = 0;
-  let timeLimitMinutes = 0;
+let limitMode = "";
 
-  let dailyEdition = [];
-  let currentIndex = 0;
+let dailyEdition = [];
+let currentIndex = 0;
 
-  let startedAt = null;
-  let timerInterval = null;
-  let editionFinished = false;
+let startedAt = null;
+let timer = null;
+let editionFinished = false;
 
 
-  /* =========================
-     STORAGE
-  ========================== */
+/* =========================
+   STORAGE
+========================= */
 
-  const DAILY_STATE_KEY = "dailyFeedDailyState";
-  const MY_ACCOUNTS_KEY = "dailyFeedMyAccounts";
-  const USER_ACCOUNTS_KEY = "dailyFeedUserAccounts";
+const DAILY_KEY = "dailyFeedDailyState";
+const ACCOUNTS_KEY = "dailyFeedMyAccounts";
+const USER_ACCOUNTS_KEY = "dailyFeedUserAccounts";
 
 
-  /* =========================
-     ELEMENTE
-  ========================== */
+/* =========================
+   ELEMENTE
+========================= */
 
-  const setupScreen =
-    document.getElementById("setupScreen");
+const setup = document.getElementById("setupScreen");
+const edition = document.getElementById("editionScreen");
+const end = document.getElementById("endScreen");
 
-  const editionScreen =
-    document.getElementById("editionScreen");
+const platformGrid = document.getElementById("platformGrid");
+const connectedSection = document.getElementById("connectedSection");
+const connectedList = document.getElementById("connectedList");
 
-  const endScreen =
-    document.getElementById("endScreen");
+const modeSection = document.getElementById("modeSection");
+const accountsSection = document.getElementById("accountsSection");
+const accountsList = document.getElementById("accountsList");
 
-  const platformGrid =
-    document.getElementById("platformGrid");
+const limitSection = document.getElementById("limitSection");
+const startButton = document.getElementById("startButton");
 
-  const connectedAccountsSection =
-    document.getElementById("connectedAccountsSection");
+const feedScroll = document.getElementById("feedScroll");
+const feedCounter = document.getElementById("feedCounter");
 
-  const connectedAccountsList =
-    document.getElementById("connectedAccountsList");
 
-  const modeSection =
-    document.getElementById("modeSection");
+/* =========================
+   DATUM
+========================= */
 
-  const myAccountsSection =
-    document.getElementById("myAccountsSection");
+function today(){
 
-  const myAccountsList =
-    document.getElementById("myAccountsList");
+  const d = new Date();
 
-  const limitSection =
-    document.getElementById("limitSection");
+  return (
+    d.getFullYear() +
+    "-" +
+    String(d.getMonth()+1).padStart(2,"0") +
+    "-" +
+    String(d.getDate()).padStart(2,"0")
+  );
 
-  const startButton =
-    document.getElementById("startButton");
+}
 
-  const feedScroll =
-    document.getElementById("feedScroll");
 
+/* =========================
+   PLATTFORMEN
+========================= */
 
-  /* =========================
-     DATUM
-  ========================== */
+function renderPlatforms(){
 
-  function getTodayKey() {
+  platformGrid.innerHTML = "";
 
-    const now = new Date();
+  platforms.forEach(platform=>{
 
-    return (
-      now.getFullYear() +
-      "-" +
-      String(now.getMonth() + 1).padStart(2, "0") +
-      "-" +
-      String(now.getDate()).padStart(2, "0")
-    );
+    const button = document.createElement("button");
 
-  }
+    button.type = "button";
+    button.className = "platform-button";
 
-
-  /* =========================
-     STATE SPEICHERN
-  ========================== */
-
-  function saveDailyState() {
-
-    localStorage.setItem(
-      DAILY_STATE_KEY,
-      JSON.stringify({
-        date: getTodayKey(),
-        dailyEdition,
-        currentIndex,
-        selectedSources,
-        selectedMode,
-        selectedAccounts,
-        limitMode,
-        contentLimit,
-        timeLimitMinutes,
-        startedAt,
-        editionFinished
-      })
-    );
-
-  }
-
-
-  /* =========================
-     STATE LADEN
-  ========================== */
-
-  function loadDailyState() {
-
-    const saved =
-      localStorage.getItem(DAILY_STATE_KEY);
-
-    if (!saved) return false;
-
-    try {
-
-      const state = JSON.parse(saved);
-
-      if (state.date !== getTodayKey()) {
-
-        localStorage.removeItem(DAILY_STATE_KEY);
-        return false;
-
-      }
-
-      dailyEdition =
-        Array.isArray(state.dailyEdition)
-          ? state.dailyEdition
-          : [];
-
-      currentIndex =
-        Number.isInteger(state.currentIndex)
-          ? state.currentIndex
-          : 0;
-
-      selectedSources =
-        Array.isArray(state.selectedSources)
-          ? state.selectedSources
-          : [];
-
-      selectedMode =
-        state.selectedMode || "";
-
-      selectedAccounts =
-        Array.isArray(state.selectedAccounts)
-          ? state.selectedAccounts
-          : [];
-
-      limitMode =
-        state.limitMode || "";
-
-      contentLimit =
-        Number(state.contentLimit) || 0;
-
-      timeLimitMinutes =
-        Number(state.timeLimitMinutes) || 0;
-
-      startedAt =
-        state.startedAt || null;
-
-      editionFinished =
-        Boolean(state.editionFinished);
-
-      return dailyEdition.length > 0;
-
-    } catch {
-
-      localStorage.removeItem(DAILY_STATE_KEY);
-      return false;
-
+    if(selectedSources.includes(platform)){
+      button.classList.add("selected");
     }
 
-  }
+    button.textContent =
+      `${icons[platform]} ${platform}`;
 
+    button.addEventListener("click",()=>{
 
-  /* =========================
-     USER ACCOUNTS
-  ========================== */
+      if(selectedSources.includes(platform)){
 
-  function loadUserAccounts() {
+        selectedSources =
+          selectedSources.filter(x=>x!==platform);
 
-    const saved =
-      localStorage.getItem(USER_ACCOUNTS_KEY);
-
-    if (!saved) return;
-
-    try {
-
-      const savedAccounts =
-        JSON.parse(saved);
-
-      if (!Array.isArray(savedAccounts)) return;
-
-      savedAccounts.forEach(account => {
-
-        const exists =
-          accounts.some(
-            existing =>
-              existing.platform === account.platform &&
-              existing.username === account.username
+        selectedAccounts =
+          selectedAccounts.filter(
+            x=>x.platform!==platform
           );
 
-        if (!exists) {
-          accounts.push(account);
-        }
+      }else{
 
-      });
+        selectedSources.push(platform);
 
-    } catch {}
-
-  }
-
-
-  function loadMyAccounts() {
-
-    const saved =
-      localStorage.getItem(MY_ACCOUNTS_KEY);
-
-    if (!saved) return;
-
-    try {
-
-      const loaded =
-        JSON.parse(saved);
-
-      if (Array.isArray(loaded)) {
-        selectedAccounts = loaded;
       }
 
-    } catch {}
-
-  }
-
-
-  /* =========================
-     PLATTFORMEN
-  ========================== */
-
-  function renderPlatforms() {
-
-    platformGrid.innerHTML = "";
-
-    platforms.forEach(platform => {
-
-      const button =
-        document.createElement("button");
-
-      button.type = "button";
-      button.className = "platform-button";
-      button.textContent =
-        `${platformIcons[platform] || ""} ${platform}`;
-
-      if (selectedSources.includes(platform)) {
-        button.classList.add("selected");
-      }
-
-      button.addEventListener(
-        "click",
-        () => togglePlatform(platform)
-      );
-
-      platformGrid.appendChild(button);
+      renderAll();
 
     });
 
-  }
+    platformGrid.appendChild(button);
+
+  });
+
+}
 
 
-  function togglePlatform(platform) {
+/* =========================
+   KONTO VERBINDEN
+========================= */
 
-    if (selectedSources.includes(platform)) {
+function renderConnected(){
 
-      selectedSources =
-        selectedSources.filter(
-          item => item !== platform
-        );
+  connectedList.innerHTML = "";
 
-      selectedAccounts =
-        selectedAccounts.filter(
-          item => item.platform !== platform
-        );
+  selectedSources.forEach(platform=>{
 
-    } else {
+    const row = document.createElement("div");
+    row.className = "connected-account-row";
 
-      selectedSources.push(platform);
-
-    }
-
-    renderPlatforms();
-    renderConnectedAccounts();
-    renderMyAccounts();
-    updateSections();
-    updateStartButton();
-
-  }
-
-
-  /* =========================
-     KONTO VERBINDEN
-  ========================== */
-
-  function renderConnectedAccounts() {
-
-    connectedAccountsList.innerHTML = "";
-
-    selectedSources.forEach(platform => {
-
-      const row =
-        document.createElement("div");
-
-      row.className =
-        "connected-account-row";
-
-      row.innerHTML = `
-        <div class="connected-account-info">
-
-          <div class="platform-icon">
-            ${platformIcons[platform] || "•"}
+    row.innerHTML = `
+      <div class="connected-account-info">
+        <div class="platform-icon">${icons[platform]}</div>
+        <div>
+          <div class="connected-account-name">${platform}</div>
+          <div class="connected-account-status">
+            Noch nicht verbunden
           </div>
-
-          <div>
-            <div class="connected-account-name">
-              ${platform}
-            </div>
-
-            <div class="connected-account-status">
-              Noch nicht verbunden
-            </div>
-          </div>
-
         </div>
-      `;
+      </div>
+    `;
 
-      const button =
-        document.createElement("button");
+    const button = document.createElement("button");
 
-      button.type = "button";
-      button.className = "connect-button";
-      button.textContent = "Konto verbinden";
+    button.type = "button";
+    button.className = "connect-button";
+    button.textContent = "Konto verbinden";
 
-      button.addEventListener(
-        "click",
-        () => connectPlatform(platform)
+    button.onclick = ()=>{
+
+      alert(
+        `${platform}-Login kommt später.\n\n`+
+        `Hier wird später der offizielle Login `+
+        `von ${platform} eingebaut.`
       );
 
-      row.appendChild(button);
-      connectedAccountsList.appendChild(row);
+    };
 
-    });
+    row.appendChild(button);
+    connectedList.appendChild(row);
 
-  }
+  });
+
+}
 
 
-  function connectPlatform(platform) {
+/* =========================
+   MODUS
+========================= */
 
-    alert(
-      `${platform}-Login kommt später.\n\n` +
-      `Das ist dein eigenes ${platform}-Konto.\n` +
-      `Der echte offizielle Login wird später ` +
-      `über die Plattform eingebaut.`
+function selectMode(mode){
+
+  selectedMode = mode;
+
+  document
+    .getElementById("myAccountsButton")
+    .classList.toggle(
+      "selected",
+      mode==="Meine Accounts"
     );
 
+  document
+    .getElementById("myFeedButton")
+    .classList.toggle(
+      "selected",
+      mode==="Mein Feed"
+    );
+
+  renderAccounts();
+  updateSections();
+  updateStartButton();
+
+}
+
+
+/* =========================
+   MEINE ACCOUNTS
+========================= */
+
+function renderAccounts(){
+
+  accountsList.innerHTML = "";
+
+  if(selectedMode!=="Meine Accounts"){
+    return;
   }
 
+  selectedSources.forEach(platform=>{
 
-  /* =========================
-     MODUS
-  ========================== */
+    const group =
+      document.createElement("div");
 
-  function selectMode(mode) {
+    group.className =
+      "account-platform-group";
 
-    selectedMode = mode;
+    const title =
+      document.createElement("div");
 
-    document
-      .getElementById("myAccountsModeButton")
-      .classList.toggle(
-        "selected",
-        mode === "Meine Accounts"
-      );
+    title.className =
+      "account-platform-title";
 
-    document
-      .getElementById("myFeedModeButton")
-      .classList.toggle(
-        "selected",
-        mode === "Mein Feed"
-      );
+    title.textContent =
+      `${icons[platform]} ${platform}`;
 
-    renderMyAccounts();
-    updateSections();
-    updateStartButton();
+    group.appendChild(title);
 
-  }
+    const list =
+      document.createElement("div");
+
+    list.className = "account-list";
 
 
-  /* =========================
-     MEINE ACCOUNTS
-  ========================== */
+    /* VORHANDENE ACCOUNTS */
 
-  function renderMyAccounts() {
-
-    myAccountsList.innerHTML = "";
-
-    if (
-      selectedSources.length === 0 ||
-      selectedMode !== "Meine Accounts"
-    ) {
-      return;
-    }
-
-    selectedSources.forEach(platform => {
-
-      const group =
-        document.createElement("div");
-
-      group.className =
-        "account-platform-group";
-
-      const title =
-        document.createElement("div");
-
-      title.className =
-        "account-platform-title";
-
-      title.textContent =
-        `${platformIcons[platform] || "•"} ${platform}`;
-
-      group.appendChild(title);
-
-      const list =
-        document.createElement("div");
-
-      list.className = "account-list";
-
-      const platformAccounts =
-        accounts.filter(
-          account =>
-            account.platform === platform
-        );
-
-      platformAccounts.forEach(account => {
+    accounts
+      .filter(account=>account.platform===platform)
+      .forEach(account=>{
 
         const row =
           document.createElement("label");
@@ -1318,54 +782,48 @@
 
         checkbox.checked =
           selectedAccounts.some(
-            item =>
-              item.platform === platform &&
-              item.username === account.username
+            x =>
+              x.platform===account.platform &&
+              x.username===account.username
           );
 
-        checkbox.addEventListener(
-          "change",
-          () => {
+        checkbox.onchange = ()=>{
 
-            if (checkbox.checked) {
+          if(checkbox.checked){
 
-              if (
-                !selectedAccounts.some(
-                  item =>
-                    item.platform === platform &&
-                    item.username === account.username
-                )
-              ) {
+            if(
+              !selectedAccounts.some(
+                x =>
+                  x.platform===account.platform &&
+                  x.username===account.username
+              )
+            ){
 
-                selectedAccounts.push({
-                  platform,
-                  username: account.username
-                });
-
-              }
-
-            } else {
-
-              selectedAccounts =
-                selectedAccounts.filter(
-                  item =>
-                    !(
-                      item.platform === platform &&
-                      item.username === account.username
-                    )
-                );
+              selectedAccounts.push({
+                platform:account.platform,
+                username:account.username
+              });
 
             }
 
-            localStorage.setItem(
-              MY_ACCOUNTS_KEY,
-              JSON.stringify(selectedAccounts)
-            );
+          }else{
 
-            updateStartButton();
+            selectedAccounts =
+              selectedAccounts.filter(
+                x =>
+                  !(
+                    x.platform===account.platform &&
+                    x.username===account.username
+                  )
+              );
 
           }
-        );
+
+          saveAccounts();
+          updateStartButton();
+
+        };
+
 
         const name =
           document.createElement("span");
@@ -1376,989 +834,1066 @@
         row.appendChild(checkbox);
         row.appendChild(name);
 
+
+        /* EIGENE ACCOUNTS KÖNNEN GELÖSCHT WERDEN */
+
+        if(!account.demo){
+
+          const remove =
+            document.createElement("button");
+
+          remove.type = "button";
+          remove.className = "account-remove";
+          remove.textContent = "×";
+
+          remove.onclick = event=>{
+
+            event.preventDefault();
+            event.stopPropagation();
+
+            accounts =
+              accounts.filter(
+                x =>
+                  !(
+                    x.platform===platform &&
+                    x.username===account.username
+                  )
+              );
+
+            selectedAccounts =
+              selectedAccounts.filter(
+                x =>
+                  !(
+                    x.platform===platform &&
+                    x.username===account.username
+                  )
+              );
+
+            saveAccounts();
+
+            localStorage.setItem(
+              USER_ACCOUNTS_KEY,
+              JSON.stringify(
+                accounts.filter(x=>!x.demo)
+              )
+            );
+
+            renderAccounts();
+            updateStartButton();
+
+          };
+
+          row.appendChild(remove);
+
+        }
+
         list.appendChild(row);
 
       });
 
 
-      /* MANUELLER ACCOUNT */
-      const addBox =
-        document.createElement("div");
+    /* ACCOUNT HINZUFÜGEN */
 
-      addBox.className =
-        "account-add-box";
+    const addBox =
+      document.createElement("div");
 
-      const input =
-        document.createElement("input");
+    addBox.className =
+      "account-add-box";
 
-      input.type = "text";
-      input.className = "account-input";
+    const input =
+      document.createElement("input");
 
-      input.placeholder =
-        platform === "Pinterest"
-          ? "@meinPinterest"
-          : "z. B. @meinAccount";
+    input.className = "account-input";
+    input.type = "text";
 
-
-      const addButton =
-        document.createElement("button");
-
-      addButton.type = "button";
-      addButton.className = "connect-button";
-      addButton.textContent =
-        "Account hinzufügen";
+    input.placeholder =
+      platform==="Pinterest"
+        ? "@meinPinterest"
+        : "@meinAccount";
 
 
-      addButton.addEventListener(
-        "click",
-        () => {
+    const add =
+      document.createElement("button");
 
-          const username =
-            input.value.trim();
-
-          if (!username) {
-            input.focus();
-            return;
-          }
-
-          const exists =
-            accounts.some(
-              account =>
-                account.platform === platform &&
-                account.username.toLowerCase() ===
-                  username.toLowerCase()
-            );
-
-          if (exists) {
-
-            input.value = "";
-            return;
-
-          }
-
-          const account = {
-            platform,
-            username
-          };
-
-          accounts.push(account);
-          selectedAccounts.push(account);
-
-          localStorage.setItem(
-            USER_ACCOUNTS_KEY,
-            JSON.stringify(
-              accounts.filter(
-                account =>
-                  !account.demo
-              )
-            )
-          );
-
-          localStorage.setItem(
-            MY_ACCOUNTS_KEY,
-            JSON.stringify(selectedAccounts)
-          );
-
-          input.value = "";
-
-          renderMyAccounts();
-          updateStartButton();
-
-        }
-      );
+    add.type = "button";
+    add.className = "connect-button";
+    add.textContent = "Account hinzufügen";
 
 
-      input.addEventListener(
-        "keydown",
-        event => {
+    function addAccount(){
 
-          if (event.key === "Enter") {
-            addButton.click();
-          }
+      let username =
+        input.value.trim();
 
-        }
-      );
+      if(!username){
+        input.focus();
+        return;
+      }
+
+      if(
+        !username.startsWith("@") &&
+        platform!=="Reddit"
+      ){
+        username = "@"+username;
+      }
+
+      if(
+        platform==="Reddit" &&
+        !username.startsWith("r/")
+      ){
+        username = "r/"+username;
+      }
 
 
-      addBox.appendChild(input);
-      addBox.appendChild(addButton);
+      const exists =
+        accounts.some(
+          x =>
+            x.platform===platform &&
+            x.username.toLowerCase()===
+            username.toLowerCase()
+        );
 
-      list.appendChild(addBox);
+      if(exists){
 
-      group.appendChild(list);
-      myAccountsList.appendChild(group);
+        alert("Diesen Account gibt es bereits.");
+        return;
 
-    });
-
-  }
+      }
 
 
-  /* =========================
-     BEREICHE
-  ========================== */
+      const account = {
+        platform:platform,
+        username:username,
+        demo:false
+      };
 
-  function updateSections() {
+      accounts.push(account);
 
-    const hasPlatform =
-      selectedSources.length > 0;
+      selectedAccounts.push({
+        platform:platform,
+        username:username
+      });
 
-    connectedAccountsSection
-      .classList.toggle(
-        "hidden",
-        !hasPlatform
-      );
+      saveAccounts();
 
-    modeSection
-      .classList.toggle(
-        "hidden",
-        !hasPlatform
-      );
-
-    myAccountsSection
-      .classList.toggle(
-        "hidden",
-        !(
-          hasPlatform &&
-          selectedMode === "Meine Accounts"
+      localStorage.setItem(
+        USER_ACCOUNTS_KEY,
+        JSON.stringify(
+          accounts.filter(x=>!x.demo)
         )
       );
 
-    limitSection
-      .classList.toggle(
-        "hidden",
-        !(
-          hasPlatform &&
-          selectedMode
-        )
-      );
+      input.value = "";
 
-  }
-
-
-  /* =========================
-     LIMIT
-  ========================== */
-
-  function selectLimitMode(mode) {
-
-    limitMode = mode;
-
-    document
-      .getElementById("limitContentButton")
-      .classList.toggle(
-        "selected",
-        mode === "content"
-      );
-
-    document
-      .getElementById("limitTimeButton")
-      .classList.toggle(
-        "selected",
-        mode === "time"
-      );
-
-    document
-      .getElementById("limitBothButton")
-      .classList.toggle(
-        "selected",
-        mode === "both"
-      );
-
-    document
-      .getElementById("contentLimitBox")
-      .classList.toggle(
-        "hidden",
-        !(mode === "content" || mode === "both")
-      );
-
-    document
-      .getElementById("timeLimitBox")
-      .classList.toggle(
-        "hidden",
-        !(mode === "time" || mode === "both")
-      );
-
-    updateStartButton();
-
-  }
-
-
-  function updateStartButton() {
-
-    let valid =
-      selectedSources.length > 0 &&
-      !!selectedMode &&
-      !!limitMode;
-
-
-    if (selectedMode === "Meine Accounts") {
-
-      valid =
-        valid &&
-        selectedAccounts.length > 0;
+      renderAccounts();
+      updateStartButton();
 
     }
 
 
-    if (
-      limitMode === "content" ||
-      limitMode === "both"
-    ) {
+    add.onclick = addAccount;
 
-      contentLimit =
-        Number(
-          document.getElementById("contentLimit").value
-        ) || 0;
+    input.onkeydown = event=>{
 
-      valid =
-        valid &&
-        contentLimit > 0;
-
-    }
-
-
-    if (
-      limitMode === "time" ||
-      limitMode === "both"
-    ) {
-
-      timeLimitMinutes =
-        Number(
-          document.getElementById("timeLimit").value
-        ) || 0;
-
-      valid =
-        valid &&
-        timeLimitMinutes > 0;
-
-    }
-
-
-    startButton.disabled = !valid;
-
-  }
-
-
-  /* =========================
-     TEST-CONTENT
-  ========================== */
-
-  function makeTestContent(account, index) {
-
-    const safeName =
-      account.username
-        .replace(/[^a-z0-9]/gi, "");
-
-    const seed =
-      `${account.platform}-${safeName}-${index}`;
-
-    return {
-
-      id: seed,
-
-      platform:
-        account.platform,
-
-      username:
-        account.username,
-
-      image:
-        `https://picsum.photos/seed/${encodeURIComponent(seed)}/900/900`,
-
-      caption:
-        `Inhalt von ${account.username} · ${account.platform}`
+      if(event.key==="Enter"){
+        addAccount();
+      }
 
     };
 
-  }
+
+    addBox.appendChild(input);
+    addBox.appendChild(add);
+
+    list.appendChild(addBox);
+
+    group.appendChild(list);
+    accountsList.appendChild(group);
+
+  });
+
+}
 
 
-  /* =========================
-     AUSGABE STARTEN
-  ========================== */
+/* =========================
+   ACCOUNTS SPEICHERN
+========================= */
 
-  function startEdition() {
+function saveAccounts(){
 
-    /*
-      Wenn bereits eine Ausgabe für heute existiert,
-      darf keine zweite erzeugt werden.
-    */
+  localStorage.setItem(
+    ACCOUNTS_KEY,
+    JSON.stringify(selectedAccounts)
+  );
 
-    if (loadDailyState()) {
-
-      showEdition();
-      return;
-
-    }
+}
 
 
-    if (
-      limitMode === "content" ||
-      limitMode === "both"
-    ) {
+/* =========================
+   USER ACCOUNTS LADEN
+========================= */
 
-      contentLimit =
-        Number(
-          document.getElementById("contentLimit").value
-        ) || 0;
+function loadUserAccounts(){
 
-    }
+  try{
 
+    const saved =
+      JSON.parse(
+        localStorage.getItem(USER_ACCOUNTS_KEY)
+      );
 
-    if (
-      limitMode === "time" ||
-      limitMode === "both"
-    ) {
+    if(!Array.isArray(saved)) return;
 
-      timeLimitMinutes =
-        Number(
-          document.getElementById("timeLimit").value
-        ) || 0;
+    saved.forEach(account=>{
 
-    }
+      if(
+        !accounts.some(
+          x =>
+            x.platform===account.platform &&
+            x.username===account.username
+        )
+      ){
 
-
-    let sourceAccounts;
-
-
-    if (selectedMode === "Meine Accounts") {
-
-      sourceAccounts =
-        selectedAccounts.filter(
-          account =>
-            selectedSources.includes(
-              account.platform
-            )
-        );
-
-    } else {
-
-      sourceAccounts =
-        accounts.filter(
-          account =>
-            selectedSources.includes(
-              account.platform
-            )
-        );
-
-    }
-
-
-    dailyEdition = [];
-
-
-    sourceAccounts.forEach(account => {
-
-      for (let i = 0; i < 3; i++) {
-
-        dailyEdition.push(
-          makeTestContent(account, i)
-        );
+        accounts.push({
+          ...account,
+          demo:false
+        });
 
       }
 
     });
 
+  }catch{}
 
-    if (dailyEdition.length === 0) {
-      return;
+}
+
+
+/* =========================
+   AUSWAHL LADEN
+========================= */
+
+function loadAccounts(){
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(ACCOUNTS_KEY)
+      );
+
+    if(Array.isArray(saved)){
+      selectedAccounts = saved;
     }
 
+  }catch{}
 
-    /*
-      Die Ausgabe wird jetzt eingefroren.
-    */
-
-    if (
-      limitMode === "content" ||
-      limitMode === "both"
-    ) {
-
-      dailyEdition =
-        dailyEdition.slice(
-          0,
-          contentLimit
-        );
-
-    }
+}
 
 
-    currentIndex = 0;
-    startedAt = Date.now();
-    editionFinished = false;
+/* =========================
+   BEREICHE
+========================= */
 
-    saveDailyState();
+function updateSections(){
 
-    showEdition();
+  const hasPlatforms =
+    selectedSources.length>0;
 
-    if (timeLimitMinutes > 0) {
-      startTimer();
-    }
+  connectedSection.classList.toggle(
+    "hidden",
+    !hasPlatforms
+  );
 
-  }
+  modeSection.classList.toggle(
+    "hidden",
+    !hasPlatforms
+  );
 
+  accountsSection.classList.toggle(
+    "hidden",
+    !(
+      hasPlatforms &&
+      selectedMode==="Meine Accounts"
+    )
+  );
 
-  /* =========================
-     FEED RENDERN
-  ========================== */
+  limitSection.classList.toggle(
+    "hidden",
+    !(
+      hasPlatforms &&
+      selectedMode
+    )
+  );
 
-  function renderFeed() {
-
-    feedScroll.innerHTML = "";
-
-    dailyEdition.forEach(
-      (item, index) => {
-
-        const post =
-          document.createElement("article");
-
-        post.className =
-          "feed-post";
-
-        post.dataset.index =
-          index;
-
-
-        const avatar =
-          (item.username || "?")
-            .replace(/^@/, "")
-            .charAt(0)
-            .toUpperCase();
+}
 
 
-        post.innerHTML = `
+/* =========================
+   LIMIT
+========================= */
 
-          <div class="post-header">
+function selectLimit(mode){
 
-            <div class="post-avatar">
-              ${avatar}
-            </div>
+  limitMode = mode;
 
-            <div class="post-user-info">
-
-              <div class="post-username">
-                ${item.username}
-              </div>
-
-              <div class="post-platform">
-                ${platformIcons[item.platform] || "•"}
-                ${item.platform}
-              </div>
-
-            </div>
-
-            <div class="post-more">
-              •••
-            </div>
-
-          </div>
-
-
-          <div class="post-image-wrapper">
-
-            <img
-              class="post-image"
-              src="${item.image}"
-              alt=""
-              loading="lazy"
-            >
-
-          </div>
-
-
-          <div class="post-actions">
-
-            <button
-              class="post-action"
-              type="button"
-            >
-              ♡
-            </button>
-
-            <button
-              class="post-action"
-              type="button"
-            >
-              ◯
-            </button>
-
-            <button
-              class="post-action"
-              type="button"
-            >
-              ↗
-            </button>
-
-          </div>
-
-
-          <div class="post-caption">
-
-            <strong>
-              ${item.username}
-            </strong>
-
-            ${item.caption}
-
-          </div>
-
-        `;
-
-
-        feedScroll.appendChild(post);
-
-      }
+  document
+    .getElementById("contentMode")
+    .classList.toggle(
+      "selected",
+      mode==="content"
     );
 
+  document
+    .getElementById("timeMode")
+    .classList.toggle(
+      "selected",
+      mode==="time"
+    );
 
-    updateFeedCounter();
+  document
+    .getElementById("bothMode")
+    .classList.toggle(
+      "selected",
+      mode==="both"
+    );
+
+  document
+    .getElementById("contentInputBox")
+    .classList.toggle(
+      "hidden",
+      !(mode==="content"||mode==="both")
+    );
+
+  document
+    .getElementById("timeInputBox")
+    .classList.toggle(
+      "hidden",
+      !(mode==="time"||mode==="both")
+    );
+
+  updateStartButton();
+
+}
+
+
+/* =========================
+   START BUTTON
+========================= */
+
+function updateStartButton(){
+
+  let valid =
+    selectedSources.length>0 &&
+    selectedMode!=="" &&
+    limitMode!=="";
+
+
+  if(selectedMode==="Meine Accounts"){
+
+    valid =
+      valid &&
+      selectedAccounts.length>0;
 
   }
 
 
-  /* =========================
-     AKTUELLER BEITRAG
-  ========================== */
+  if(
+    limitMode==="content"||
+    limitMode==="both"
+  ){
 
-  function updateCurrentIndex() {
+    valid =
+      valid &&
+      Number(
+        document.getElementById("contentLimit").value
+      )>0;
+
+  }
+
+
+  if(
+    limitMode==="time"||
+    limitMode==="both"
+  ){
+
+    valid =
+      valid &&
+      Number(
+        document.getElementById("timeLimit").value
+      )>0;
+
+  }
+
+
+  startButton.disabled = !valid;
+
+}
+
+
+/* =========================
+   TEST-INHALTE
+========================= */
+
+function createPost(account,index){
+
+  const seed =
+    `${account.platform}-${account.username}-${index}`;
+
+  return {
+
+    platform:account.platform,
+    username:account.username,
+
+    image:
+      `https://picsum.photos/seed/`+
+      `${encodeURIComponent(seed)}/900/900`,
+
+    caption:
+      `Inhalt von ${account.username}`
+
+  };
+
+}
+
+
+/* =========================
+   DAILY STATE
+========================= */
+
+function saveDaily(){
+
+  localStorage.setItem(
+    DAILY_KEY,
+    JSON.stringify({
+
+      date:today(),
+
+      dailyEdition,
+      currentIndex,
+
+      selectedSources,
+      selectedMode,
+      selectedAccounts,
+
+      limitMode,
+
+      contentLimit:
+        Number(
+          document.getElementById("contentLimit").value
+        )||0,
+
+      timeLimitMinutes:
+        Number(
+          document.getElementById("timeLimit").value
+        )||0,
+
+      startedAt,
+      editionFinished
+
+    })
+  );
+
+}
+
+
+function loadDaily(){
+
+  try{
+
+    const saved =
+      JSON.parse(
+        localStorage.getItem(DAILY_KEY)
+      );
+
+    if(!saved) return false;
+
+    if(saved.date!==today()){
+
+      localStorage.removeItem(DAILY_KEY);
+      return false;
+
+    }
+
+    dailyEdition =
+      Array.isArray(saved.dailyEdition)
+        ? saved.dailyEdition
+        : [];
+
+    currentIndex =
+      Number(saved.currentIndex)||0;
+
+    selectedSources =
+      Array.isArray(saved.selectedSources)
+        ? saved.selectedSources
+        : [];
+
+    selectedMode =
+      saved.selectedMode||"";
+
+    selectedAccounts =
+      Array.isArray(saved.selectedAccounts)
+        ? saved.selectedAccounts
+        : [];
+
+    limitMode =
+      saved.limitMode||"";
+
+    document.getElementById("contentLimit").value =
+      saved.contentLimit||10;
+
+    document.getElementById("timeLimit").value =
+      saved.timeLimitMinutes||10;
+
+    startedAt =
+      saved.startedAt||null;
+
+    editionFinished =
+      Boolean(saved.editionFinished);
+
+    return dailyEdition.length>0;
+
+  }catch{
+
+    localStorage.removeItem(DAILY_KEY);
+    return false;
+
+  }
+
+}
+
+
+/* =========================
+   AUSGABE STARTEN
+========================= */
+
+function startEdition(){
+
+  /* Wenn heute schon eine Ausgabe existiert:
+     nicht neu erzeugen */
+
+  if(loadDaily()){
+
+    if(editionFinished){
+      showEnd();
+    }else{
+      showEdition();
+    }
+
+    return;
+
+  }
+
+
+  const contentLimit =
+    Number(
+      document.getElementById("contentLimit").value
+    )||0;
+
+  const timeLimit =
+    Number(
+      document.getElementById("timeLimit").value
+    )||0;
+
+
+  let sourceAccounts;
+
+
+  if(selectedMode==="Meine Accounts"){
+
+    sourceAccounts =
+      selectedAccounts.filter(
+        account =>
+          selectedSources.includes(
+            account.platform
+          )
+      );
+
+  }else{
+
+    sourceAccounts =
+      accounts.filter(
+        account =>
+          selectedSources.includes(
+            account.platform
+          )
+      );
+
+  }
+
+
+  dailyEdition = [];
+
+
+  sourceAccounts.forEach(account=>{
+
+    for(let i=0;i<3;i++){
+
+      dailyEdition.push(
+        createPost(account,i)
+      );
+
+    }
+
+  });
+
+
+  if(limitMode==="content"||limitMode==="both"){
+
+    dailyEdition =
+      dailyEdition.slice(
+        0,
+        contentLimit
+      );
+
+  }
+
+
+  if(!dailyEdition.length) return;
+
+
+  currentIndex = 0;
+  startedAt = Date.now();
+  editionFinished = false;
+
+  saveDaily();
+
+  showEdition();
+
+
+  if(
+    limitMode==="time"||
+    limitMode==="both"
+  ){
+
+    startTimer(timeLimit);
+
+  }
+
+}
+
+
+/* =========================
+   FEED
+========================= */
+
+function renderFeed(){
+
+  feedScroll.innerHTML = "";
+
+  dailyEdition.forEach((item,index)=>{
+
+    const post =
+      document.createElement("article");
+
+    post.className = "feed-post";
+
+    const avatar =
+      item.username
+        .replace("@","")
+        .charAt(0)
+        .toUpperCase();
+
+
+    post.innerHTML = `
+
+      <div class="post-header">
+
+        <div class="post-avatar">
+          ${avatar}
+        </div>
+
+        <div class="post-user-info">
+
+          <div class="post-username">
+            ${item.username}
+          </div>
+
+          <div class="post-platform">
+            ${icons[item.platform]} ${item.platform}
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <img
+        class="post-image"
+        src="${item.image}"
+        alt=""
+      >
+
+
+      <div class="post-actions">
+
+        <button class="post-action" type="button">
+          ♡
+        </button>
+
+        <button class="post-action" type="button">
+          ◯
+        </button>
+
+        <button class="post-action" type="button">
+          ↗
+        </button>
+
+      </div>
+
+
+      <div class="post-caption">
+
+        <strong>${item.username}</strong>
+        ${item.caption}
+
+      </div>
+
+    `;
+
+    feedScroll.appendChild(post);
+
+  });
+
+
+  updateCounter();
+
+}
+
+
+/* =========================
+   SCROLL
+========================= */
+
+feedScroll.addEventListener(
+  "scroll",
+  ()=>{
 
     const posts =
-      [
-        ...feedScroll.querySelectorAll(".feed-post")
-      ];
+      [...feedScroll.querySelectorAll(".feed-post")];
 
-    if (!posts.length) return;
+    if(!posts.length) return;
 
 
     const center =
-      window.innerHeight / 2;
+      window.innerHeight/2;
 
     let best = 0;
-    let bestDistance = Infinity;
+    let distance = Infinity;
 
 
-    posts.forEach(
-      (post, index) => {
+    posts.forEach((post,index)=>{
 
-        const rect =
-          post.getBoundingClientRect();
+      const rect =
+        post.getBoundingClientRect();
 
-        const postCenter =
-          (rect.top + rect.bottom) / 2;
+      const middle =
+        (rect.top+rect.bottom)/2;
 
-        const distance =
-          Math.abs(
-            postCenter - center
-          );
+      const d =
+        Math.abs(middle-center);
 
-        if (distance < bestDistance) {
+      if(d<distance){
 
-          bestDistance = distance;
-          best = index;
-
-        }
+        distance=d;
+        best=index;
 
       }
-    );
 
-
-    currentIndex = best;
-
-    updateFeedCounter();
-
-    saveDailyState();
-
-  }
-
-
-  function updateFeedCounter() {
-
-    const counter =
-      document.getElementById(
-        "feedCounter"
-      );
-
-    if (!counter) return;
-
-    counter.textContent =
-      `${Math.min(
-        currentIndex + 1,
-        dailyEdition.length
-      )} / ${dailyEdition.length}`;
-
-  }
-
-
-  /* =========================
-     SCROLL
-  ========================== */
-
-  let scrollTimeout = null;
-
-  function handleFeedScroll() {
-
-    if (editionFinished) return;
-
-    updateCurrentIndex();
-
-
-    clearTimeout(scrollTimeout);
-
-    scrollTimeout =
-      setTimeout(
-        () => {
-
-          const posts =
-            [
-              ...feedScroll.querySelectorAll(".feed-post")
-            ];
-
-          if (!posts.length) return;
-
-
-          const lastPost =
-            posts[posts.length - 1];
-
-          const rect =
-            lastPost.getBoundingClientRect();
-
-
-          /*
-            Erst wenn der letzte Beitrag wirklich
-            komplett sichtbar war, endet die Ausgabe.
-          */
-
-          if (
-            rect.bottom <=
-            window.innerHeight + 5
-          ) {
-
-            finishEdition();
-
-          }
-
-        },
-        150
-      );
-
-  }
-
-
-  /* =========================
-     FEED ÖFFNEN
-  ========================== */
-
-  function showEdition() {
-
-    setupScreen.classList.add("hidden");
-    endScreen.classList.add("hidden");
-    editionScreen.classList.remove("hidden");
-
-    renderFeed();
-
-
-    setTimeout(
-      () => {
-
-        const posts =
-          feedScroll.querySelectorAll(
-            ".feed-post"
-          );
-
-        if (posts[currentIndex]) {
-
-          posts[currentIndex]
-            .scrollIntoView({
-              block: "start",
-              behavior: "auto"
-            });
-
-        }
-
-        updateFeedCounter();
-
-      },
-      0
-    );
-
-  }
-
-
-  /* =========================
-     AUSGABE BEENDEN
-  ========================== */
-
-  function finishEdition() {
-
-    if (editionFinished) return;
-
-    editionFinished = true;
-
-    stopTimer();
-
-    saveDailyState();
-
-    showEndScreen();
-
-  }
-
-
-  function showEndScreen() {
-
-    editionScreen.classList.add("hidden");
-    setupScreen.classList.add("hidden");
-
-    endScreen.classList.remove("hidden");
-
-  }
-
-
-  /* =========================
-     AUSGABE NOCH EINMAL
-  ========================== */
-
-  function reviewEdition() {
-
-    editionFinished = false;
-    currentIndex = 0;
-
-    saveDailyState();
-
-    endScreen.classList.add("hidden");
-    editionScreen.classList.remove("hidden");
-
-    renderFeed();
-
-
-    setTimeout(
-      () => {
-
-        feedScroll.scrollTo({
-          top: 0,
-          behavior: "auto"
-        });
-
-        updateFeedCounter();
-
-      },
-      0
-    );
-
-
-    if (
-      timeLimitMinutes > 0 &&
-      startedAt
-    ) {
-
-      const elapsed =
-        Date.now() - startedAt;
-
-      if (
-        elapsed <
-        timeLimitMinutes * 60000
-      ) {
-
-        startTimer();
-
-      }
-
-    }
-
-  }
-
-
-  /* =========================
-     NACH OBEN
-  ========================== */
-
-  function backToTopOfFeed() {
-
-    feedScroll.scrollTo({
-      top: 0,
-      behavior: "smooth"
     });
 
-    currentIndex = 0;
 
-    saveDailyState();
+    currentIndex=best;
 
-    updateFeedCounter();
-
-  }
+    updateCounter();
+    saveDaily();
 
 
-  /* =========================
-     TIMER
-  ========================== */
+    const last =
+      posts[posts.length-1];
 
-  function startTimer() {
-
-    stopTimer();
-
-    if (
-      !timeLimitMinutes ||
-      editionFinished
-    ) {
-      return;
-    }
+    const rect =
+      last.getBoundingClientRect();
 
 
-    timerInterval =
-      setInterval(
-        () => {
+    if(rect.bottom<=window.innerHeight+5){
 
-          if (
-            Date.now() - startedAt >=
-            timeLimitMinutes * 60000
-          ) {
-
-            finishEdition();
-
-          }
-
-        },
-        1000
-      );
-
-  }
-
-
-  function stopTimer() {
-
-    if (timerInterval) {
-
-      clearInterval(timerInterval);
-
-      timerInterval = null;
+      finishEdition();
 
     }
 
-  }
+  },
+  {passive:true}
+);
 
 
-  /* =========================
-     ALLES RENDERN
-  ========================== */
+/* =========================
+   COUNTER
+========================= */
 
-  function renderAllSections() {
+function updateCounter(){
 
-    renderPlatforms();
-    renderConnectedAccounts();
-    renderMyAccounts();
+  feedCounter.textContent =
+    `${Math.min(
+      currentIndex+1,
+      dailyEdition.length
+    )} / ${dailyEdition.length}`;
 
-    updateSections();
-    updateStartButton();
-
-  }
+}
 
 
-  /* =========================
-     ENTWICKLER-RESET
-  ========================== */
+/* =========================
+   FEED ÖFFNEN
+========================= */
 
-  /*
-    Dieser Reset erscheint NICHT als Button.
+function showEdition(){
 
-    Für unsere Tests:
-    https://johannaulbrich-cell.github.io/daily-feed/?reset=1
+  setup.classList.add("hidden");
+  end.classList.add("hidden");
+  edition.classList.remove("hidden");
 
-    Danach wird die URL automatisch wieder normal.
-  */
+  renderFeed();
 
-  (function devReset() {
+  setTimeout(()=>{
 
-    const params =
-      new URLSearchParams(
-        window.location.search
-      );
+    const posts =
+      feedScroll.querySelectorAll(".feed-post");
 
-    if (
-      params.get("reset") !== "1"
-    ) {
-      return;
+    if(posts[currentIndex]){
+
+      posts[currentIndex].scrollIntoView({
+        block:"start",
+        behavior:"auto"
+      });
+
     }
 
+    updateCounter();
 
-    localStorage.removeItem(
-      DAILY_STATE_KEY
-    );
+  },0);
 
-    localStorage.removeItem(
-      MY_ACCOUNTS_KEY
-    );
-
-    localStorage.removeItem(
-      USER_ACCOUNTS_KEY
-    );
+}
 
 
-    Object.keys(localStorage)
-      .filter(
-        key =>
-          /dailyFeed/i.test(key)
-      )
-      .forEach(
-        key =>
-          localStorage.removeItem(key)
-      );
+/* =========================
+   ENDE
+========================= */
+
+function finishEdition(){
+
+  if(editionFinished) return;
+
+  editionFinished=true;
+
+  stopTimer();
+  saveDaily();
+
+  showEnd();
+
+}
 
 
-    history.replaceState(
-      {},
-      document.title,
-      window.location.pathname
-    );
+function showEnd(){
+
+  setup.classList.add("hidden");
+  edition.classList.add("hidden");
+  end.classList.remove("hidden");
+
+}
 
 
-    window.location.reload();
+/* =========================
+   NOCH EINMAL ANSEHEN
+========================= */
 
-  })();
+function reviewEdition(){
+
+  editionFinished=false;
+  currentIndex=0;
+
+  saveDaily();
+
+  end.classList.add("hidden");
+  edition.classList.remove("hidden");
+
+  renderFeed();
+
+  feedScroll.scrollTo({
+    top:0,
+    behavior:"auto"
+  });
+
+  updateCounter();
 
 
-  /* =========================
-     START
-  ========================== */
+  if(
+    startedAt &&
+    limitMode!=="content"
+  ){
 
-  feedScroll.addEventListener(
-    "scroll",
-    handleFeedScroll,
-    {
-      passive: true
+    const minutes =
+      Number(
+        document.getElementById("timeLimit").value
+      )||0;
+
+    if(
+      minutes>0 &&
+      Date.now()-startedAt<
+      minutes*60000
+    ){
+
+      startTimer(minutes);
+
     }
+
+  }
+
+}
+
+
+/* =========================
+   TIMER
+========================= */
+
+function startTimer(minutes){
+
+  stopTimer();
+
+  if(!minutes) return;
+
+  timer =
+    setInterval(()=>{
+
+      if(
+        Date.now()-startedAt >=
+        minutes*60000
+      ){
+
+        finishEdition();
+
+      }
+
+    },1000);
+
+}
+
+
+function stopTimer(){
+
+  if(timer){
+
+    clearInterval(timer);
+    timer=null;
+
+  }
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function renderAll(){
+
+  renderPlatforms();
+  renderConnected();
+  renderAccounts();
+
+  updateSections();
+  updateStartButton();
+
+}
+
+
+/* =========================
+   TEST-RESET
+========================= */
+
+(function(){
+
+  const params =
+    new URLSearchParams(
+      window.location.search
+    );
+
+  if(params.get("reset")!=="1") return;
+
+
+  Object.keys(localStorage)
+    .filter(key=>key.startsWith("dailyFeed"))
+    .forEach(key=>{
+      localStorage.removeItem(key);
+    });
+
+
+  history.replaceState(
+    {},
+    document.title,
+    window.location.pathname
   );
 
 
-  function init() {
+  window.location.reload();
 
-    loadUserAccounts();
-    loadMyAccounts();
-
-    renderAllSections();
+})();
 
 
-    /*
-      Gibt es heute bereits eine Ausgabe?
-      Dann NICHT wieder die Einstellungen zeigen.
-    */
+/* =========================
+   INPUTS
+========================= */
 
-    if (loadDailyState()) {
+document
+  .getElementById("contentLimit")
+  .addEventListener(
+    "input",
+    updateStartButton
+  );
 
-      if (editionFinished) {
+document
+  .getElementById("timeLimit")
+  .addEventListener(
+    "input",
+    updateStartButton
+  );
 
-        showEndScreen();
 
-      } else {
+/* =========================
+   START
+========================= */
 
-        showEdition();
+function init(){
 
-        if (
-          timeLimitMinutes > 0 &&
-          startedAt
-        ) {
+  loadUserAccounts();
+  loadAccounts();
 
-          startTimer();
+  renderAll();
 
-        }
+
+  if(loadDaily()){
+
+    if(editionFinished){
+
+      showEnd();
+
+    }else{
+
+      showEdition();
+
+      const minutes =
+        Number(
+          document.getElementById("timeLimit").value
+        )||0;
+
+      if(
+        minutes>0 &&
+        startedAt &&
+        (
+          limitMode==="time"||
+          limitMode==="both"
+        )
+      ){
+
+        startTimer(minutes);
 
       }
 
@@ -2366,8 +1901,9 @@
 
   }
 
+}
 
-  init();
+init();
 
 </script>
 
