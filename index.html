@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>daily feed</title>
 
   <style>
@@ -12,13 +13,13 @@
 
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Arial, sans-serif;
       background: #f5f5f5;
       color: #111;
     }
 
     .app {
-      max-width: 430px;
+      max-width: 500px;
       margin: 0 auto;
       min-height: 100vh;
       background: white;
@@ -27,81 +28,63 @@
     }
 
     header {
-      padding: 18px 20px 12px;
+      padding: 20px;
+      text-align: center;
       border-bottom: 1px solid #ddd;
-      background: white;
-      position: sticky;
-      top: 0;
-      z-index: 10;
     }
 
     header h1 {
       margin: 0;
-      font-size: 22px;
+      font-size: 24px;
     }
 
     header p {
-      margin: 4px 0 0;
-      color: #777;
-      font-size: 13px;
-    }
-
-    main {
-      padding: 20px;
-      padding-bottom: 90px;
-    }
-
-    h2 {
-      font-size: 26px;
-      margin: 10px 0 8px;
-    }
-
-    .intro {
+      margin: 6px 0 0;
       color: #666;
-      line-height: 1.5;
-      margin-bottom: 25px;
+      font-size: 14px;
     }
 
-    .section {
-      margin-bottom: 25px;
+    .screen {
+      padding: 20px;
     }
 
-    .section-title {
-      font-weight: 700;
-      margin-bottom: 10px;
+    .hidden {
+      display: none;
     }
 
-    .option {
+    .limit-option {
       border: 2px solid #ddd;
-      border-radius: 14px;
-      padding: 15px;
-      margin-bottom: 10px;
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
       cursor: pointer;
-      background: white;
     }
 
-    .option.active {
+    .limit-option.active {
       border-color: #111;
       background: #f0f0f0;
     }
 
-    .option-title {
-      font-weight: 700;
-      margin-bottom: 4px;
+    .limit-option strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 5px;
     }
 
-    .option-description {
-      font-size: 13px;
+    .limit-option span {
       color: #666;
+      font-size: 14px;
     }
 
-    .input-area {
-      display: none;
+    .input-box {
       margin-top: 10px;
     }
 
-    .input-area.visible {
+    .input-box label {
       display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #555;
     }
 
     input {
@@ -110,144 +93,118 @@
       border: 1px solid #ccc;
       border-radius: 10px;
       font-size: 16px;
-      margin-top: 6px;
     }
 
     button {
+      width: 100%;
+      padding: 15px;
       border: none;
+      border-radius: 12px;
       background: #111;
       color: white;
-      padding: 15px 20px;
-      border-radius: 12px;
-      font-size: 16px;
-      width: 100%;
+      font-size: 17px;
       cursor: pointer;
+      margin-top: 15px;
     }
 
-    .edition {
-      display: none;
-      min-height: calc(100vh - 80px);
-      position: relative;
+    button:active {
+      transform: scale(0.98);
     }
 
-    .edition.active {
-      display: block;
-    }
-
-    .content-card {
-      min-height: calc(100vh - 150px);
-      padding: 35px 25px;
+    .edition-card {
+      min-height: 430px;
+      padding: 25px 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      text-align: left;
       touch-action: pan-y;
-      user-select: none;
     }
 
     .category {
       font-size: 13px;
-      text-transform: uppercase;
       color: #777;
+      margin-bottom: 10px;
+      text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 15px;
     }
 
-    .content-card h2 {
-      font-size: 30px;
+    .edition-card h2 {
+      font-size: 28px;
       line-height: 1.15;
       margin: 0 0 18px;
     }
 
-    .content-card p {
+    .edition-card p {
       font-size: 18px;
-      line-height: 1.55;
-      color: #444;
+      line-height: 1.5;
+      color: #333;
+    }
+
+    .source {
+      margin-top: 20px;
+      color: #777;
+      font-size: 13px;
     }
 
     .progress {
-      position: fixed;
-      bottom: 65px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(390px, 90%);
       height: 5px;
-      background: #ddd;
+      background: #eee;
+      margin: 0 20px;
       border-radius: 5px;
       overflow: hidden;
-      z-index: 20;
     }
 
     .progress-bar {
       height: 100%;
-      background: #111;
       width: 0%;
-      transition: width 0.2s ease;
+      background: #111;
+      transition: width 0.2s;
     }
 
     .navigation {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(430px, 100%);
-      height: 60px;
-      background: white;
-      border-top: 1px solid #ddd;
       display: flex;
-      align-items: center;
-      justify-content: space-around;
-      z-index: 30;
+      gap: 10px;
+      padding: 15px 20px;
     }
 
     .navigation button {
-      width: auto;
-      background: transparent;
+      margin: 0;
+      background: #eee;
       color: #111;
-      padding: 10px 30px;
-      font-size: 25px;
     }
 
-    .counter {
-      text-align: center;
-      font-size: 13px;
-      color: #777;
-      margin-top: 10px;
+    .navigation button:last-child {
+      background: #111;
+      color: white;
     }
 
-    .time-display {
+    .timer {
       text-align: center;
-      font-size: 13px;
+      font-size: 14px;
       color: #777;
-      margin-top: 5px;
+      margin: 10px 0;
     }
 
     .end-screen {
-      display: none;
-      padding: 50px 25px;
       text-align: center;
-    }
-
-    .end-screen.active {
-      display: block;
+      padding: 60px 25px;
     }
 
     .end-screen h2 {
-      font-size: 32px;
+      font-size: 30px;
       margin-bottom: 15px;
     }
 
     .end-screen p {
       color: #666;
       line-height: 1.5;
-      margin-bottom: 30px;
     }
 
-    .small-note {
-      font-size: 12px;
-      color: #999;
-      margin-top: 10px;
-      line-height: 1.4;
+    .small-info {
+      text-align: center;
+      color: #777;
+      font-size: 13px;
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -262,112 +219,96 @@
   </header>
 
 
-  <!-- STARTSEITE -->
+  <!-- STARTSCREEN -->
 
-  <main id="start">
+  <div id="startScreen" class="screen">
 
-    <h2>Deine Ausgabe</h2>
+    <h2>Wie möchtest du deine Ausgabe begrenzen?</h2>
 
-    <p class="intro">
-      Du entscheidest, wie viel du heute sehen möchtest.
-      Wenn die Ausgabe vorbei ist, ist sie vorbei.
-    </p>
+    <div
+      class="limit-option active"
+      id="optionCount"
+      onclick="selectMode('count')"
+    >
+      <strong>30 Inhalte</strong>
+      <span>Eine feste Anzahl von Inhalten</span>
+    </div>
 
+    <div
+      class="limit-option"
+      id="optionTime"
+      onclick="selectMode('time')"
+    >
+      <strong>60 Minuten</strong>
+      <span>Die Ausgabe endet nach der gewählten Zeit</span>
+    </div>
 
-    <div class="section">
-
-      <div class="section-title">
-        Wie möchtest du deine Ausgabe begrenzen?
-      </div>
-
-
-      <div
-        class="option active"
-        id="option-count"
-        onclick="selectMode('count')"
-      >
-
-        <div class="option-title">
-          30 Inhalte
-        </div>
-
-        <div class="option-description">
-          Deine Ausgabe endet nach der gewählten Anzahl an Inhalten.
-        </div>
-
-      </div>
-
-
-      <div
-        class="option"
-        id="option-time"
-        onclick="selectMode('time')"
-      >
-
-        <div class="option-title">
-          60 Minuten
-        </div>
-
-        <div class="option-description">
-          Deine Ausgabe endet nach der gewählten Zeit.
-        </div>
-
-      </div>
-
-
-      <div
-        class="option"
-        id="option-both"
-        onclick="selectMode('both')"
-      >
-
-        <div class="option-title">
-          30 Inhalte oder 60 Minuten
-        </div>
-
-        <div class="option-description">
-          Was zuerst erreicht wird, beendet die Ausgabe.
-        </div>
-
-      </div>
-
+    <div
+      class="limit-option"
+      id="optionBoth"
+      onclick="selectMode('both')"
+    >
+      <strong>30 Inhalte oder 60 Minuten</strong>
+      <span>Was zuerst erreicht wird, beendet die Ausgabe</span>
     </div>
 
 
-    <!-- EINSTELLUNG INHALTE -->
-
-    <div
-      id="count-settings"
-      class="input-area visible"
-    >
-
-      <label>
+    <div id="countInputBox" class="input-box">
+      <label for="countInput">
         Anzahl der Inhalte
       </label>
 
       <input
-        id="count-input"
+        id="countInput"
+        type="number"
+        min="1"
+        value="30"
+      >
+    </div>
+
+
+    <div
+      id="timeInputBox"
+      class="input-box hidden"
+    >
+      <label for="timeInput">
+        Minuten
+      </label>
+
+      <input
+        id="timeInput"
+        type="number"
+        min="1"
+        value="60"
+      >
+    </div>
+
+
+    <div
+      id="bothInputBox"
+      class="input-box hidden"
+    >
+
+      <label for="bothCountInput">
+        Maximale Anzahl Inhalte
+      </label>
+
+      <input
+        id="bothCountInput"
         type="number"
         min="1"
         value="30"
       >
 
-    </div>
-
-
-    <!-- EINSTELLUNG ZEIT -->
-
-    <div
-      id="time-settings"
-      class="input-area"
-    >
-
-      <label>
-        Minuten
+      <label
+        for="bothTimeInput"
+        style="margin-top: 12px;"
+      >
+        Maximale Minuten
       </label>
 
       <input
-        id="time-input"
+        id="bothTimeInput"
         type="number"
         min="1"
         value="60"
@@ -376,45 +317,69 @@
     </div>
 
 
-    <br>
-
     <button onclick="startEdition()">
       Ausgabe starten
     </button>
 
-  </main>
+    <div class="small-info">
+      Du kannst später jederzeit zurückgehen.
+    </div>
+
+  </div>
 
 
   <!-- AUSGABE -->
 
   <div
-    id="edition"
-    class="edition"
+    id="editionScreen"
+    class="hidden"
   >
 
+    <div class="timer" id="timer">
+      Zeit
+    </div>
+
+    <div class="progress">
+      <div
+        class="progress-bar"
+        id="progressBar"
+      ></div>
+    </div>
+
+
     <div
-      id="content-card"
-      class="content-card"
+      class="edition-card"
+      id="contentCard"
     >
 
-      <div
-        id="category"
-        class="category"
-      ></div>
+      <div class="category" id="contentCategory">
+        Kategorie
+      </div>
 
-      <h2 id="content-title"></h2>
+      <h2 id="contentTitle">
+        Titel
+      </h2>
 
-      <p id="content-text"></p>
+      <p id="contentText">
+        Text
+      </p>
 
-      <div
-        id="counter"
-        class="counter"
-      ></div>
+      <div class="source" id="contentSource">
+        Quelle
+      </div>
 
-      <div
-        id="time-display"
-        class="time-display"
-      ></div>
+    </div>
+
+
+    <div class="navigation">
+
+      <button onclick="previousCard()">
+        ↑ Zurück
+      </button>
+
+      <button onclick="nextCard()">
+        Weiter ↓
+      </button>
 
     </div>
 
@@ -424,55 +389,20 @@
   <!-- ENDE -->
 
   <div
-    id="end-screen"
-    class="end-screen"
+    id="endScreen"
+    class="screen hidden end-screen"
   >
 
     <h2>Das war's für heute.</h2>
 
     <p>
       Deine Ausgabe ist beendet.
-      Du musst nicht weiterscrollen.
+      Morgen wartet eine neue Ausgabe auf dich.
     </p>
 
-    <button onclick="showStart()">
+    <button onclick="restartEdition()">
       Neue Ausgabe starten
     </button>
-
-  </div>
-
-
-  <!-- NAVIGATION -->
-
-  <div
-    id="navigation"
-    class="navigation"
-    style="display:none;"
-  >
-
-    <button onclick="previousCard()">
-      ↓
-    </button>
-
-    <button onclick="nextCard()">
-      ↑
-    </button>
-
-  </div>
-
-
-  <!-- FORTSCHRITT -->
-
-  <div
-    id="progress"
-    class="progress"
-    style="display:none;"
-  >
-
-    <div
-      id="progress-bar"
-      class="progress-bar"
-    ></div>
 
   </div>
 
@@ -481,904 +411,944 @@
 
 <script>
 
-
-/*
-==========================================
-FESTE TAGESAUSGABE
-==========================================
-
-Diese Inhalte gehören zu EINER Ausgabe.
-
-Wenn man zurückgeht, wird derselbe
-Inhalt wieder angezeigt.
-*/
-
-const dailyEdition = [
-
-  {
-    category: "Wissen",
-    title: "Warum der Himmel blau ist",
-    text: "Das Sonnenlicht besteht aus vielen verschiedenen Farben. Die Atmosphäre streut blaues Licht besonders stark – deshalb erscheint uns der Himmel blau."
-  },
-
-  {
-    category: "Technologie",
-    title: "Was künstliche Intelligenz eigentlich macht",
-    text: "KI-Systeme erkennen Muster in großen Mengen von Daten. Sie können daraus Vorhersagen, Texte, Bilder oder andere Ergebnisse erzeugen."
-  },
-
-  {
-    category: "Wissenschaft",
-    title: "Warum Schlaf wichtig ist",
-    text: "Während des Schlafs verarbeitet unser Gehirn Informationen und der Körper nutzt die Zeit zur Regeneration."
-  },
-
-  {
-    category: "Geschichte",
-    title: "Eine Stadt verändert die Welt",
-    text: "Städte waren schon immer Orte, an denen Handel, Wissen und unterschiedliche Kulturen zusammenkamen."
-  },
-
-  {
-    category: "Gesellschaft",
-    title: "Warum wir Nachrichten unterschiedlich wahrnehmen",
-    text: "Menschen achten häufig besonders auf Informationen, die zu ihrem bisherigen Wissen und ihren Erwartungen passen."
-  },
-
-  {
-    category: "Natur",
-    title: "Bäume kommunizieren",
-    text: "Bäume können über Pilznetzwerke im Boden Stoffe und Signale austauschen. Die Forschung untersucht noch, wie komplex diese Beziehungen tatsächlich sind."
-  },
-
-  {
-    category: "Wirtschaft",
-    title: "Was Inflation bedeutet",
-    text: "Inflation beschreibt einen allgemeinen Anstieg des Preisniveaus. Dadurch kann man sich für denselben Geldbetrag weniger leisten."
-  },
-
-  {
-    category: "Psychologie",
-    title: "Warum Gewohnheiten so stark sind",
-    text: "Viele alltägliche Handlungen laufen automatisch ab. Wiederholung kann dazu führen, dass bestimmte Abläufe immer weniger bewusste Aufmerksamkeit benötigen."
-  },
-
-  {
-    category: "Kultur",
-    title: "Warum Musik Emotionen auslösen kann",
-    text: "Rhythmus, Melodie und persönliche Erinnerungen können beeinflussen, welche Gefühle wir mit Musik verbinden."
-  },
-
-  {
-    category: "Digital",
-    title: "Was ein Algorithmus ist",
-    text: "Ein Algorithmus ist vereinfacht gesagt eine festgelegte Folge von Schritten, mit denen ein Problem gelöst oder eine Aufgabe ausgeführt wird."
-  },
-
-  {
-    category: "Wissen",
-    title: "Warum Wasser gefriert",
-    text: "Wenn Wasser ausreichend abgekühlt wird, bewegen sich seine Moleküle weniger stark und ordnen sich in einer festen Struktur an."
-  },
-
-  {
-    category: "Umwelt",
-    title: "Warum Böden wichtig sind",
-    text: "Böden speichern Wasser, bieten Lebensraum für zahlreiche Organismen und sind eine wichtige Grundlage für unsere Landwirtschaft."
-  },
-
-  {
-    category: "Technologie",
-    title: "Was das Internet eigentlich ist",
-    text: "Das Internet ist ein weltweites Netzwerk miteinander verbundener Computer und Geräte, die Daten miteinander austauschen."
-  },
-
-  {
-    category: "Wissenschaft",
-    title: "Wie Erinnerungen entstehen",
-    text: "Erinnerungen sind keine perfekten Aufnahmen. Unser Gehirn verarbeitet und rekonstruiert Informationen jedes Mal, wenn wir uns an etwas erinnern."
-  },
-
-  {
-    category: "Gesellschaft",
-    title: "Warum Städte wachsen",
-    text: "Menschen ziehen aus unterschiedlichen Gründen in Städte – etwa wegen Arbeit, Bildung, Infrastruktur oder sozialen Möglichkeiten."
-  },
-
-  {
-    category: "Natur",
-    title: "Wie Vögel navigieren",
-    text: "Viele Vogelarten nutzen mehrere Orientierungssysteme. Dazu gehören beispielsweise Landschaften, Sonnenstand und vermutlich auch das Erdmagnetfeld."
-  },
-
-  {
-    category: "Wirtschaft",
-    title: "Was Angebot und Nachfrage bedeuten",
-    text: "Preis und verfügbare Menge eines Produkts werden unter anderem davon beeinflusst, wie viel davon angeboten und wie stark es nachgefragt wird."
-  },
-
-  {
-    category: "Kultur",
-    title: "Warum Museen wichtig sind",
-    text: "Museen sammeln, bewahren und vermitteln kulturelle und wissenschaftliche Objekte und machen sie für die Öffentlichkeit zugänglich."
-  },
-
-  {
-    category: "Technologie",
-    title: "Was ein Smartphone alles kann",
-    text: "Ein modernes Smartphone vereint Kamera, Computer, Kommunikationsgerät, Navigationssystem und viele weitere Funktionen in einem kleinen Gerät."
-  },
-
-  {
-    category: "Wissen",
-    title: "Warum wir gähnen",
-    text: "Gähnen ist ein weit verbreitetes Verhalten. Die Forschung untersucht weiterhin genau, welche Funktionen es beim Menschen erfüllt."
-  },
-
-  {
-    category: "Geschichte",
-    title: "Warum Schrift so wichtig war",
-    text: "Schrift ermöglichte es Menschen, Informationen über größere Entfernungen und längere Zeiträume hinweg festzuhalten."
-  },
-
-  {
-    category: "Natur",
-    title: "Wie Wolken entstehen",
-    text: "Wasserdampf steigt auf, kühlt ab und kann an winzigen Partikeln kondensieren. So entstehen kleine Wassertröpfchen oder Eiskristalle."
-  },
-
-  {
-    category: "Psychologie",
-    title: "Warum Pausen helfen können",
-    text: "Regelmäßige Pausen können dabei helfen, Aufmerksamkeit und geistige Leistungsfähigkeit über längere Zeit aufrechtzuerhalten."
-  },
-
-  {
-    category: "Digital",
-    title: "Was Daten sind",
-    text: "Daten sind Informationen, die gespeichert, verarbeitet oder übertragen werden können."
-  },
-
-  {
-    category: "Wissenschaft",
-    title: "Wie Pflanzen Licht nutzen",
-    text: "Bei der Photosynthese nutzen Pflanzen Lichtenergie, um aus Wasser und Kohlenstoffdioxid energiereiche Stoffe aufzubauen."
-  },
-
-  {
-    category: "Gesellschaft",
-    title: "Warum Sprache sich verändert",
-    text: "Sprache verändert sich ständig durch neue Technologien, gesellschaftliche Entwicklungen, Migration und den Austausch zwischen Menschen."
-  },
-
-  {
-    category: "Umwelt",
-    title: "Warum Bienen wichtig sind",
-    text: "Bienen und andere Bestäuber spielen eine wichtige Rolle bei der Fortpflanzung vieler Pflanzenarten und damit auch für zahlreiche Nutzpflanzen."
-  },
-
-  {
-    category: "Technologie",
-    title: "Was ein QR-Code macht",
-    text: "Ein QR-Code kann Informationen so speichern, dass sie von einer Kamera schnell erkannt und ausgelesen werden können."
-  },
-
-  {
-    category: "Kultur",
-    title: "Warum Geschichten uns interessieren",
-    text: "Geschichten helfen Menschen dabei, Erfahrungen, Ideen und Gefühle zu vermitteln. Sie sind in praktisch allen Kulturen zu finden."
-  },
-
-  {
-    category: "Wissen",
-    title: "Warum der Mond seine Form zu verändern scheint",
-    text: "Der Mond verändert seine tatsächliche Form nicht. Je nachdem, wie Sonne, Erde und Mond zueinander stehen, sehen wir unterschiedliche beleuchtete Bereiche."
-  },
-
-  {
-    category: "Natur",
-    title: "Warum das Meer salzig ist",
-    text: "Flüsse transportieren über lange Zeit gelöste Mineralien ins Meer. Wasser verdunstet, die Salze bleiben zurück."
-  }
-
-];
-
-
-/*
-==========================================
-APP-ZUSTAND
-==========================================
-*/
-
-let mode = "count";
-
-let contentLimit = 30;
-
-let timeLimitMinutes = 60;
-
-let currentIndex = 0;
-
-let startedAt = null;
-
-let editionStarted = false;
-
-let timerInterval = null;
-
-
-/*
-==========================================
-MODUS AUSWÄHLEN
-==========================================
-*/
-
-function selectMode(selectedMode) {
-
-  mode = selectedMode;
-
-
-  document
-    .getElementById("option-count")
-    .classList.remove("active");
-
-  document
-    .getElementById("option-time")
-    .classList.remove("active");
-
-  document
-    .getElementById("option-both")
-    .classList.remove("active");
-
-
-  if (selectedMode === "count") {
-
-    document
-      .getElementById("option-count")
-      .classList.add("active");
-
-  }
-
-
-  if (selectedMode === "time") {
-
-    document
-      .getElementById("option-time")
-      .classList.add("active");
-
-  }
-
-
-  if (selectedMode === "both") {
-
-    document
-      .getElementById("option-both")
-      .classList.add("active");
-
-  }
-
-
-  updateSettingsVisibility();
-
-}
-
-
-/*
-==========================================
-EINSTELLUNGEN ANZEIGEN
-==========================================
-*/
-
-function updateSettingsVisibility() {
-
-  const countSettings =
-    document.getElementById("count-settings");
-
-  const timeSettings =
-    document.getElementById("time-settings");
-
-
-  countSettings.classList.remove("visible");
-
-  timeSettings.classList.remove("visible");
-
-
-  if (mode === "count") {
-
-    countSettings.classList.add("visible");
-
-  }
-
-
-  if (mode === "time") {
-
-    timeSettings.classList.add("visible");
-
-  }
-
-
-  if (mode === "both") {
-
-    countSettings.classList.add("visible");
-
-    timeSettings.classList.add("visible");
-
-  }
-
-}
-
-
-/*
-==========================================
-AUSGABE STARTEN
-==========================================
-*/
-
-function startEdition() {
-
-  const countInput =
-    document.getElementById("count-input");
-
-  const timeInput =
-    document.getElementById("time-input");
-
-
-  const enteredCount =
-    parseInt(countInput.value, 10);
-
-  const enteredTime =
-    parseInt(timeInput.value, 10);
-
-
-  if (mode === "count") {
-
-    contentLimit =
-      Math.max(
-        1,
-        enteredCount || 30
-      );
-
-  }
-
-
-  if (mode === "time") {
-
-    timeLimitMinutes =
-      Math.max(
-        1,
-        enteredTime || 60
-      );
-
-  }
-
-
-  if (mode === "both") {
-
-    contentLimit =
-      Math.max(
-        1,
-        enteredCount || 30
-      );
-
-    timeLimitMinutes =
-      Math.max(
-        1,
-        enteredTime || 60
-      );
-
-  }
-
-
-  currentIndex = 0;
-
-  startedAt = Date.now();
-
-  editionStarted = true;
-
-
-  document
-    .getElementById("start")
-    .style.display = "none";
-
-
-  document
-    .getElementById("end-screen")
-    .classList.remove("active");
-
-
-  document
-    .getElementById("edition")
-    .classList.add("active");
-
-
-  document
-    .getElementById("navigation")
-    .style.display = "flex";
-
-
-  document
-    .getElementById("progress")
-    .style.display = "block";
-
-
-  showCard();
-
-
-  startTimer();
-
-}
-
-
-/*
-==========================================
-INHALT ANZEIGEN
-==========================================
-*/
-
-function showCard() {
-
-  const content =
-    dailyEdition[currentIndex];
+  /*
+   * ==========================================
+   * TÄGLICHE AUSGABE
+   * ==========================================
+   *
+   * Diese Inhalte sind fest.
+   *
+   * Wenn du zurückgehst, bekommst du
+   * genau denselben Inhalt wieder.
+   *
+   */
+
+  const dailyEdition = [
+
+    {
+      category: "Wissen",
+      title: "Warum ist der Himmel blau?",
+      text: "Das Sonnenlicht wird in der Atmosphäre gestreut. Blaues Licht wird dabei stärker gestreut als andere Farben.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Technologie",
+      title: "Was ist künstliche Intelligenz?",
+      text: "Künstliche Intelligenz beschreibt Computersysteme, die Aufgaben ausführen können, für die normalerweise menschliche Fähigkeiten wie Erkennen, Lernen oder Entscheiden nötig sind.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Gesellschaft",
+      title: "Warum sind Pausen wichtig?",
+      text: "Regelmäßige Pausen können dabei helfen, Aufmerksamkeit und Konzentration über längere Zeit aufrechtzuerhalten.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissen",
+      title: "Wie entstehen Wolken?",
+      text: "Wenn feuchte Luft aufsteigt und abkühlt, kann Wasserdampf kondensieren. Dabei entstehen winzige Wassertröpfchen oder Eiskristalle.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Natur",
+      title: "Warum verändern sich die Jahreszeiten?",
+      text: "Die Jahreszeiten entstehen vor allem durch die Neigung der Erdachse und den jährlichen Umlauf der Erde um die Sonne.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Technologie",
+      title: "Was macht ein Betriebssystem?",
+      text: "Ein Betriebssystem verwaltet die grundlegenden Funktionen eines Computers oder Smartphones und stellt Anwendungen wichtige Schnittstellen zur Verfügung.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissen",
+      title: "Warum schlafen Menschen?",
+      text: "Schlaf unterstützt unter anderem Erholung, Gedächtnisverarbeitung und verschiedene körperliche Prozesse.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Kultur",
+      title: "Warum erzählen Menschen Geschichten?",
+      text: "Geschichten können Erfahrungen vermitteln, Wissen weitergeben und Menschen miteinander verbinden.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissenschaft",
+      title: "Was ist DNA?",
+      text: "DNA enthält genetische Informationen. Sie dient als eine Art Bauplan für viele biologische Prozesse eines Organismus.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissen",
+      title: "Warum ist Wasser für das Leben wichtig?",
+      text: "Wasser ist an zahlreichen biologischen und chemischen Vorgängen beteiligt und für bekannte Lebensformen unverzichtbar.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Natur",
+      title: "Wie entstehen Regenbögen?",
+      text: "Ein Regenbogen entsteht, wenn Sonnenlicht in Wassertropfen gebrochen, reflektiert und in seine verschiedenen Farben aufgeteilt wird.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Technologie",
+      title: "Was ist das Internet?",
+      text: "Das Internet ist ein weltweites Netzwerk miteinander verbundener Computersysteme, über das Daten ausgetauscht werden.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissen",
+      title: "Warum haben Menschen unterschiedliche Augenfarben?",
+      text: "Die Augenfarbe hängt unter anderem von der Menge und Verteilung des Pigments Melanin in der Iris ab.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Gesellschaft",
+      title: "Warum arbeiten Menschen zusammen?",
+      text: "Zusammenarbeit ermöglicht es Menschen, Wissen, Fähigkeiten und Ressourcen zu kombinieren und gemeinsame Ziele zu erreichen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissenschaft",
+      title: "Was ist Gravitation?",
+      text: "Gravitation ist die Wechselwirkung, durch die Körper mit Masse einander anziehen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Natur",
+      title: "Warum gibt es Ebbe und Flut?",
+      text: "Die Gezeiten werden hauptsächlich durch die Anziehungskraft des Mondes und der Sonne sowie die Bewegung der Erde beeinflusst.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Technologie",
+      title: "Was ist ein Algorithmus?",
+      text: "Ein Algorithmus ist eine genau beschriebene Folge von Schritten, mit denen ein Problem gelöst oder eine Aufgabe ausgeführt werden kann.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissen",
+      title: "Warum können wir Musik hören?",
+      text: "Schallwellen gelangen über das Ohr ins Innenohr und werden dort in Signale umgewandelt, die das Gehirn verarbeitet.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Gesellschaft",
+      title: "Warum gibt es Sprachen?",
+      text: "Sprachen ermöglichen Menschen, Informationen, Gedanken und Gefühle miteinander auszutauschen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissenschaft",
+      title: "Was ist eine Zelle?",
+      text: "Die Zelle ist die grundlegende strukturelle und funktionelle Einheit aller bekannten Lebewesen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Natur",
+      title: "Warum sind Bäume wichtig?",
+      text: "Bäume bieten Lebensräume, speichern Kohlenstoff, beeinflussen Wasserkreisläufe und produzieren Sauerstoff durch Photosynthese.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Technologie",
+      title: "Was ist ein Smartphone?",
+      text: "Ein Smartphone kombiniert Funktionen eines Mobiltelefons mit Computerfunktionen wie Internetzugang, Apps und Kamera.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissen",
+      title: "Wie funktioniert unser Gedächtnis?",
+      text: "Das Gedächtnis ermöglicht es dem Gehirn, Informationen aufzunehmen, zu speichern und später wieder abzurufen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Kultur",
+      title: "Warum gibt es Museen?",
+      text: "Museen sammeln, bewahren und vermitteln kulturelle, historische oder wissenschaftliche Objekte und Informationen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissenschaft",
+      title: "Was ist Photosynthese?",
+      text: "Bei der Photosynthese nutzen Pflanzen Lichtenergie, um aus Wasser und Kohlendioxid energiereiche organische Stoffe aufzubauen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Natur",
+      title: "Warum weht Wind?",
+      text: "Wind entsteht durch Luftbewegungen, die unter anderem durch Unterschiede im Luftdruck verursacht werden.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Technologie",
+      title: "Was ist Cloud Computing?",
+      text: "Beim Cloud Computing werden Rechenleistung, Speicher oder andere Dienste über Netzwerke bereitgestellt.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissen",
+      title: "Warum brauchen Menschen Sauerstoff?",
+      text: "Sauerstoff wird bei der menschlichen Zellatmung benötigt, durch die Energie aus Nährstoffen gewonnen wird.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Gesellschaft",
+      title: "Warum gibt es Städte?",
+      text: "Städte ermöglichen vielen Menschen, dicht zusammenzuleben und Infrastruktur, Arbeit, Bildung und Dienstleistungen zu teilen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Wissenschaft",
+      title: "Was ist ein Planet?",
+      text: "Ein Planet ist ein Himmelskörper, der einen Stern umkreist und genügend Masse besitzt, um annähernd eine kugelförmige Gestalt anzunehmen.",
+      source: "daily feed"
+    },
+
+    {
+      category: "Natur",
+      title: "Warum ändern sich die Blätter im Herbst?",
+      text: "Wenn die Tage kürzer werden, bauen viele Laubbäume Chlorophyll ab. Dadurch werden andere Farbstoffe sichtbar.",
+      source: "daily feed"
+    }
+
+  ];
 
 
   /*
-   * Falls wir am Ende der vorhandenen
-   * Beispiel-Inhalte angekommen sind.
+   * ==========================================
+   * VARIABLEN
+   * ==========================================
    */
 
-  if (!content) {
+  let mode = "count";
 
-    finishEdition();
+  let contentLimit = 30;
 
-    return;
+  let timeLimitMinutes = 60;
 
-  }
+  let currentIndex = 0;
 
+  let startedAt = null;
 
-  document
-    .getElementById("category")
-    .textContent =
-      content.category;
+  let timerInterval = null;
 
-
-  document
-    .getElementById("content-title")
-    .textContent =
-      content.title;
-
-
-  document
-    .getElementById("content-text")
-    .textContent =
-      content.text;
+  let editionFinished = false;
 
 
   /*
-   * Bei Zeitmodus gibt es keine feste
-   * Anzahl von Inhalten.
+   * ==========================================
+   * MODUS AUSWÄHLEN
+   * ==========================================
    */
 
-  if (mode === "time") {
+  function selectMode(selectedMode) {
+
+    mode = selectedMode;
 
     document
-      .getElementById("counter")
-      .textContent =
-        "Inhalt " + (currentIndex + 1);
-
-  }
-
-  else {
+      .getElementById("optionCount")
+      .classList.remove("active");
 
     document
-      .getElementById("counter")
-      .textContent =
-        (currentIndex + 1) +
-        " von " +
-        contentLimit;
+      .getElementById("optionTime")
+      .classList.remove("active");
+
+    document
+      .getElementById("optionBoth")
+      .classList.remove("active");
+
+
+    document
+      .getElementById("countInputBox")
+      .classList.add("hidden");
+
+    document
+      .getElementById("timeInputBox")
+      .classList.add("hidden");
+
+    document
+      .getElementById("bothInputBox")
+      .classList.add("hidden");
+
+
+    if (mode === "count") {
+
+      document
+        .getElementById("optionCount")
+        .classList.add("active");
+
+      document
+        .getElementById("countInputBox")
+        .classList.remove("hidden");
+
+    }
+
+
+    if (mode === "time") {
+
+      document
+        .getElementById("optionTime")
+        .classList.add("active");
+
+      document
+        .getElementById("timeInputBox")
+        .classList.remove("hidden");
+
+    }
+
+
+    if (mode === "both") {
+
+      document
+        .getElementById("optionBoth")
+        .classList.add("active");
+
+      document
+        .getElementById("bothInputBox")
+        .classList.remove("hidden");
+
+    }
 
   }
 
 
-  updateProgress();
+  /*
+   * ==========================================
+   * AUSGABE STARTEN
+   * ==========================================
+   */
 
-}
+  function startEdition() {
 
+    editionFinished = false;
 
-/*
-==========================================
-FORTSCHRITT
-==========================================
-*/
+    currentIndex = 0;
 
-function updateProgress() {
-
-  const progressBar =
-    document.getElementById("progress-bar");
+    startedAt = Date.now();
 
 
-  if (mode === "time") {
+    if (mode === "count") {
 
-    const elapsed =
-      (Date.now() - startedAt) / 1000 / 60;
+      contentLimit =
+        Math.max(
+          1,
+          Number(
+            document.getElementById("countInput").value
+          ) || 30
+        );
+
+    }
 
 
-    const percentage =
-      Math.min(
-        (elapsed / timeLimitMinutes) * 100,
-        100
-      );
+    if (mode === "time") {
+
+      timeLimitMinutes =
+        Math.max(
+          1,
+          Number(
+            document.getElementById("timeInput").value
+          ) || 60
+        );
+
+    }
 
 
-    progressBar.style.width =
-      percentage + "%";
+    if (mode === "both") {
+
+      contentLimit =
+        Math.max(
+          1,
+          Number(
+            document.getElementById("bothCountInput").value
+          ) || 30
+        );
+
+
+      timeLimitMinutes =
+        Math.max(
+          1,
+          Number(
+            document.getElementById("bothTimeInput").value
+          ) || 60
+        );
+
+    }
+
+
+    document
+      .getElementById("startScreen")
+      .classList.add("hidden");
+
+    document
+      .getElementById("endScreen")
+      .classList.add("hidden");
+
+    document
+      .getElementById("editionScreen")
+      .classList.remove("hidden");
+
+
+    showCard();
+
+
+    clearInterval(timerInterval);
+
+
+    timerInterval =
+      setInterval(updateTimer, 1000);
+
+
+    updateTimer();
 
   }
 
-  else {
 
-    const percentage =
-      ((currentIndex + 1) / contentLimit) * 100;
+  /*
+   * ==========================================
+   * INHALT ANZEIGEN
+   * ==========================================
+   */
+
+  function showCard() {
+
+    if (editionFinished) {
+      return;
+    }
 
 
-    progressBar.style.width =
-      Math.min(
-        percentage,
-        100
-      ) + "%";
+    /*
+     * Ganz wichtig:
+     *
+     * Im Zeit-Modus gibt es KEINE
+     * künstliche Begrenzung auf 30 Inhalte.
+     *
+     * Wir zeigen einfach den aktuellen
+     * Inhalt aus der festen Ausgabe.
+     */
+
+
+    if (
+      currentIndex < 0 ||
+      currentIndex >= dailyEdition.length
+    ) {
+
+      finishEdition();
+
+      return;
+
+    }
+
+
+    const content =
+      dailyEdition[currentIndex];
+
+
+    document
+      .getElementById("contentCategory")
+      .textContent = content.category;
+
+
+    document
+      .getElementById("contentTitle")
+      .textContent = content.title;
+
+
+    document
+      .getElementById("contentText")
+      .textContent = content.text;
+
+
+    document
+      .getElementById("contentSource")
+      .textContent = "Quelle: " + content.source;
+
+
+    /*
+     * Fortschritt
+     */
+
+    let progress = 0;
+
+
+    if (mode === "count") {
+
+      progress =
+        ((currentIndex + 1) / contentLimit) * 100;
+
+    }
+
+
+    if (mode === "time") {
+
+      /*
+       * Im Zeitmodus zeigt der Balken den
+       * zeitlichen Fortschritt.
+       */
+
+      const elapsed =
+        (Date.now() - startedAt) / 1000 / 60;
+
+      progress =
+        (elapsed / timeLimitMinutes) * 100;
+
+    }
+
+
+    if (mode === "both") {
+
+      const countProgress =
+        ((currentIndex + 1) / contentLimit) * 100;
+
+      const elapsed =
+        (Date.now() - startedAt) / 1000 / 60;
+
+      const timeProgress =
+        (elapsed / timeLimitMinutes) * 100;
+
+      progress =
+        Math.max(
+          countProgress,
+          timeProgress
+        );
+
+    }
+
+
+    progress =
+      Math.min(100, Math.max(0, progress));
+
+
+    document
+      .getElementById("progressBar")
+      .style.width = progress + "%";
 
   }
 
-}
+
+  /*
+   * ==========================================
+   * WEITER
+   * ==========================================
+   */
+
+  function nextCard() {
+
+    if (editionFinished) {
+      return;
+    }
 
 
-/*
-==========================================
-TIMER
-==========================================
-*/
+    /*
+     * Zuerst prüfen wir die Zeit.
+     */
 
-function startTimer() {
-
-  clearInterval(timerInterval);
-
-
-  timerInterval =
-    setInterval(function() {
-
-      if (!editionStarted) {
-        return;
-      }
-
+    if (
+      mode === "time" ||
+      mode === "both"
+    ) {
 
       const elapsed =
         (Date.now() - startedAt) / 1000 / 60;
 
 
-      const remaining =
-        Math.max(
-          0,
-          timeLimitMinutes - elapsed
-        );
+      if (elapsed >= timeLimitMinutes) {
 
+        finishEdition();
 
-      /*
-       * Zeit anzeigen, wenn ein Zeitlimit
-       * aktiv ist.
-       */
-
-      if (
-        mode === "time" ||
-        mode === "both"
-      ) {
-
-        const minutes =
-          Math.floor(remaining);
-
-        const seconds =
-          Math.floor(
-            (remaining - minutes) * 60
-          );
-
-
-        document
-          .getElementById("time-display")
-          .textContent =
-            "Noch " +
-            minutes +
-            ":" +
-            String(seconds).padStart(2, "0") +
-            " Minuten";
-
-
-        updateProgress();
-
-
-        if (remaining <= 0) {
-
-          finishEdition();
-
-        }
+        return;
 
       }
 
-    }, 1000);
-
-}
-
-
-/*
-==========================================
-NÄCHSTER INHALT
-==========================================
-*/
-
-function nextCard() {
-
-  if (!editionStarted) {
-    return;
-  }
-
-
-  /*
-   * Zeit prüfen.
-   */
-
-  if (
-    mode === "time" ||
-    mode === "both"
-  ) {
-
-    const elapsed =
-      (Date.now() - startedAt) / 1000 / 60;
-
-
-    if (
-      elapsed >= timeLimitMinutes
-    ) {
-
-      finishEdition();
-
-      return;
-
     }
 
-  }
-
-
-  /*
-   * Inhaltslimit prüfen.
-   *
-   * Nur bei "30 Inhalte" oder
-   * "30 Inhalte oder 60 Minuten".
-   */
-
-  if (
-    mode === "count" ||
-    mode === "both"
-  ) {
-
-    if (
-      currentIndex >= contentLimit - 1
-    ) {
-
-      finishEdition();
-
-      return;
-
-    }
-
-  }
-
-
-  /*
-   * Bei reinem Zeitmodus gibt es KEIN
-   * künstliches Inhaltslimit.
-   */
-
-  if (
-    currentIndex >= dailyEdition.length - 1
-  ) {
 
     /*
-     * Aktuell sind nur Beispiel-Inhalte
-     * vorhanden.
+     * Danach prüfen wir die Anzahl.
      *
-     * Sobald echte Inhalte vorhanden sind,
-     * wird diese Grenze verschwinden.
+     * Nur count und both haben
+     * eine Inhaltsbegrenzung.
      */
 
-    finishEdition();
+    if (
+      mode === "count" ||
+      mode === "both"
+    ) {
 
-    return;
+      if (
+        currentIndex + 1 >= contentLimit
+      ) {
 
-  }
+        finishEdition();
 
+        return;
 
-  currentIndex++;
+      }
 
-  showCard();
+    }
 
-}
 
+    /*
+     * Nächster Inhalt.
+     */
 
-/*
-==========================================
-VORHERIGER INHALT
-==========================================
-*/
+    if (
+      currentIndex + 1 <
+      dailyEdition.length
+    ) {
 
-function previousCard() {
+      currentIndex++;
 
-  if (!editionStarted) {
-    return;
-  }
+      showCard();
 
+    } else {
 
-  if (currentIndex > 0) {
+      /*
+       * Hier sind einfach alle momentan
+       * vorhandenen Beispielinhalte
+       * aufgebraucht.
+       */
 
-    currentIndex--;
+      finishEdition();
 
-    showCard();
-
-  }
-
-}
-
-
-/*
-==========================================
-AUSGABE BEENDEN
-==========================================
-*/
-
-function finishEdition() {
-
-  editionStarted = false;
-
-
-  clearInterval(timerInterval);
-
-
-  document
-    .getElementById("edition")
-    .classList.remove("active");
-
-
-  document
-    .getElementById("navigation")
-    .style.display = "none";
-
-
-  document
-    .getElementById("progress")
-    .style.display = "none";
-
-
-  document
-    .getElementById("end-screen")
-    .classList.add("active");
-
-}
-
-
-/*
-==========================================
-ZURÜCK ZUM START
-==========================================
-*/
-
-function showStart() {
-
-  clearInterval(timerInterval);
-
-
-  document
-    .getElementById("end-screen")
-    .classList.remove("active");
-
-
-  document
-    .getElementById("edition")
-    .classList.remove("active");
-
-
-  document
-    .getElementById("navigation")
-    .style.display = "none";
-
-
-  document
-    .getElementById("progress")
-    .style.display = "none";
-
-
-  document
-    .getElementById("start")
-    .style.display = "block";
-
-
-  editionStarted = false;
-
-}
-
-
-/*
-==========================================
-WISCHGESTEN
-==========================================
-*/
-
-let touchStartY = 0;
-
-let touchEndY = 0;
-
-
-const card =
-  document.getElementById("content-card");
-
-
-card.addEventListener(
-  "touchstart",
-  function(event) {
-
-    touchStartY =
-      event.changedTouches[0].screenY;
-
-  },
-  { passive: true }
-);
-
-
-card.addEventListener(
-  "touchend",
-  function(event) {
-
-    touchEndY =
-      event.changedTouches[0].screenY;
-
-
-    handleSwipe();
-
-  },
-  { passive: true }
-);
-
-
-function handleSwipe() {
-
-  const difference =
-    touchStartY - touchEndY;
-
-
-  /*
-   * Nach oben = nächster Inhalt
-   */
-
-  if (difference > 50) {
-
-    nextCard();
+    }
 
   }
 
 
   /*
-   * Nach unten = vorheriger Inhalt
+   * ==========================================
+   * ZURÜCK
+   * ==========================================
    */
 
-  if (difference < -50) {
+  function previousCard() {
 
-    previousCard();
+    if (editionFinished) {
+      return;
+    }
+
+
+    if (currentIndex > 0) {
+
+      currentIndex--;
+
+      showCard();
+
+    }
 
   }
 
-}
+
+  /*
+   * ==========================================
+   * TIMER
+   * ==========================================
+   */
+
+  function updateTimer() {
+
+    if (
+      !startedAt ||
+      editionFinished
+    ) {
+
+      return;
+
+    }
 
 
-/*
-==========================================
-START
-==========================================
-*/
+    const elapsedSeconds =
+      Math.floor(
+        (Date.now() - startedAt) / 1000
+      );
 
-updateSettingsVisibility();
+
+    const elapsedMinutes =
+      Math.floor(
+        elapsedSeconds / 60
+      );
+
+
+    const remainingSeconds =
+      elapsedSeconds % 60;
+
+
+    /*
+     * Zeitmodus
+     */
+
+    if (
+      mode === "time" ||
+      mode === "both"
+    ) {
+
+      const totalSeconds =
+        timeLimitMinutes * 60;
+
+
+      const remaining =
+        Math.max(
+          0,
+          totalSeconds - elapsedSeconds
+        );
+
+
+      const minutes =
+        Math.floor(remaining / 60);
+
+
+      const seconds =
+        remaining % 60;
+
+
+      document
+        .getElementById("timer")
+        .textContent =
+          "Noch " +
+          minutes +
+          ":" +
+          String(seconds).padStart(2, "0");
+
+
+      /*
+       * Zeit ist vorbei
+       */
+
+      if (remaining <= 0) {
+
+        finishEdition();
+
+        return;
+
+      }
+
+
+      /*
+       * Zeitfortschritt aktualisieren
+       */
+
+      const progress =
+        Math.min(
+          100,
+          (elapsedSeconds / totalSeconds) * 100
+        );
+
+
+      if (mode === "time") {
+
+        document
+          .getElementById("progressBar")
+          .style.width =
+            progress + "%";
+
+      }
+
+    }
+
+
+    /*
+     * Inhaltsmodus
+     */
+
+    if (mode === "count") {
+
+      document
+        .getElementById("timer")
+        .textContent =
+          "Inhalt " +
+          (currentIndex + 1) +
+          " von " +
+          contentLimit;
+
+
+      const progress =
+        Math.min(
+          100,
+          ((currentIndex + 1) / contentLimit) * 100
+        );
+
+
+      document
+        .getElementById("progressBar")
+        .style.width =
+          progress + "%";
+
+    }
+
+
+    /*
+     * Beide Begrenzungen
+     */
+
+    if (mode === "both") {
+
+      document
+        .getElementById("timer")
+        .textContent =
+          "Inhalt " +
+          (currentIndex + 1) +
+          " von " +
+          contentLimit;
+
+    }
+
+  }
+
+
+  /*
+   * ==========================================
+   * AUSGABE BEENDEN
+   * ==========================================
+   */
+
+  function finishEdition() {
+
+    if (editionFinished) {
+      return;
+    }
+
+
+    editionFinished = true;
+
+
+    clearInterval(timerInterval);
+
+
+    document
+      .getElementById("editionScreen")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("endScreen")
+      .classList.remove("hidden");
+
+  }
+
+
+  /*
+   * ==========================================
+   * NEU STARTEN
+   * ==========================================
+   */
+
+  function restartEdition() {
+
+    clearInterval(timerInterval);
+
+    currentIndex = 0;
+
+    startedAt = null;
+
+    editionFinished = false;
+
+
+    document
+      .getElementById("endScreen")
+      .classList.add("hidden");
+
+
+    document
+      .getElementById("startScreen")
+      .classList.remove("hidden");
+
+  }
+
+
+  /*
+   * ==========================================
+   * WISCHGESTEN
+   * ==========================================
+   */
+
+  let touchStartY = 0;
+
+  let touchEndY = 0;
+
+
+  const card =
+    document.getElementById("contentCard");
+
+
+  card.addEventListener(
+    "touchstart",
+    function(event) {
+
+      touchStartY =
+        event.changedTouches[0].screenY;
+
+    }
+  );
+
+
+  card.addEventListener(
+    "touchend",
+    function(event) {
+
+      touchEndY =
+        event.changedTouches[0].screenY;
+
+
+      const difference =
+        touchStartY - touchEndY;
+
+
+      /*
+       * Nach oben wischen
+       * = nächster Inhalt
+       */
+
+      if (difference > 50) {
+
+        nextCard();
+
+      }
+
+
+      /*
+       * Nach unten wischen
+       * = vorheriger Inhalt
+       */
+
+      if (difference < -50) {
+
+        previousCard();
+
+      }
+
+    }
+  );
 
 </script>
 
