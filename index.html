@@ -2,8 +2,7 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>daily feed</title>
 
   <style>
@@ -13,258 +12,178 @@
 
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       background: #f5f5f5;
       color: #111;
     }
 
     .app {
-      max-width: 500px;
+      max-width: 600px;
       margin: 0 auto;
       min-height: 100vh;
       background: white;
-      overflow: hidden;
     }
 
     header {
-      padding: 20px;
-      text-align: center;
-      border-bottom: 1px solid #ddd;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-
-    header p {
-      margin: 6px 0 0;
-      color: #666;
-      font-size: 14px;
+      padding: 24px 20px 12px;
+      font-size: 28px;
+      font-weight: 700;
     }
 
     .screen {
       padding: 20px;
+      padding-bottom: 40px;
     }
 
-    .hidden {
-      display: none;
+    h1 {
+      font-size: 30px;
+      margin: 10px 0 12px;
     }
 
     h2 {
-      margin-top: 0;
-      line-height: 1.2;
+      font-size: 21px;
+      margin-top: 28px;
     }
 
-    .intro {
-      color: #666;
+    p {
       line-height: 1.5;
-      margin-bottom: 25px;
+      color: #555;
     }
 
-    .choice {
-      border: 2px solid #ddd;
-      border-radius: 16px;
+    .card {
+      border: 1px solid #ddd;
+      border-radius: 18px;
       padding: 18px;
-      margin-bottom: 12px;
+      margin: 12px 0;
+      background: white;
+    }
+
+    .platform {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .platform-name {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    button {
+      border: none;
+      border-radius: 14px;
+      padding: 13px 18px;
+      font-size: 16px;
+      font-weight: 600;
       cursor: pointer;
     }
 
-    .choice.active {
+    .primary {
+      width: 100%;
+      background: #111;
+      color: white;
+      margin-top: 18px;
+    }
+
+    .secondary {
+      background: #eee;
+      color: #111;
+    }
+
+    .connected {
+      background: #e7f7ea;
+      color: #16752b;
+    }
+
+    .option {
+      border: 2px solid #ddd;
+      border-radius: 18px;
+      padding: 18px;
+      margin: 12px 0;
+      cursor: pointer;
+    }
+
+    .option.selected {
       border-color: #111;
-      background: #f0f0f0;
+      background: #f1f1f1;
     }
 
-    .choice strong {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 6px;
+    .option-title {
+      font-size: 19px;
+      font-weight: 700;
     }
 
-    .choice span {
+    .option-description {
+      margin-top: 6px;
       color: #666;
-      font-size: 14px;
       line-height: 1.4;
     }
 
     .account {
-      border: 1px solid #ddd;
-      border-radius: 15px;
-      padding: 16px;
-      margin-bottom: 12px;
-    }
-
-    .account-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .account-name {
-      font-size: 17px;
-      font-weight: bold;
-    }
-
-    .account-status {
-      font-size: 13px;
-      color: #777;
-      margin-top: 5px;
-    }
-
-    .connect-button {
-      width: auto;
-      margin: 0;
-      padding: 10px 14px;
-      font-size: 14px;
-    }
-
-    .connected {
-      background: #eee;
-      color: #111;
-    }
-
-    .source-option {
       display: flex;
       align-items: center;
       gap: 12px;
-      border: 1px solid #ddd;
-      border-radius: 14px;
-      padding: 15px;
-      margin-bottom: 10px;
-      cursor: pointer;
+      padding: 13px 0;
+      border-bottom: 1px solid #eee;
     }
 
-    .source-option input {
+    .account:last-child {
+      border-bottom: none;
+    }
+
+    .account input {
       width: 20px;
       height: 20px;
     }
 
-    .source-name {
-      font-size: 17px;
-      font-weight: bold;
+    .account-info {
+      flex: 1;
     }
 
-    .source-status {
-      display: block;
-      font-size: 12px;
+    .account-name {
+      font-weight: 600;
+    }
+
+    .account-platform {
+      font-size: 13px;
       color: #777;
       margin-top: 3px;
     }
 
-    .limit-option {
-      border: 2px solid #ddd;
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
-      cursor: pointer;
+    .source-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 17px;
     }
 
-    .limit-option.active {
-      border-color: #111;
-      background: #f0f0f0;
-    }
-
-    .limit-option strong {
-      display: block;
-      font-size: 18px;
-      margin-bottom: 5px;
-    }
-
-    .limit-option span {
-      color: #666;
-      font-size: 14px;
-    }
-
-    .input-box {
-      margin-top: 10px;
-      margin-bottom: 15px;
-    }
-
-    .input-box label {
-      display: block;
-      font-size: 14px;
-      margin-bottom: 6px;
-      color: #555;
+    .source-checkbox input {
+      width: 20px;
+      height: 20px;
     }
 
     input[type="number"] {
       width: 100%;
-      padding: 13px;
+      padding: 14px;
       border: 1px solid #ccc;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    button {
-      width: 100%;
-      padding: 15px;
-      border: none;
       border-radius: 12px;
-      background: #111;
-      color: white;
       font-size: 17px;
-      cursor: pointer;
-      margin-top: 15px;
+      margin-top: 8px;
     }
 
-    button:active {
-      transform: scale(0.98);
-    }
-
-    .secondary-button {
-      background: #eee;
-      color: #111;
-    }
-
-    .back-button {
-      background: transparent;
-      color: #555;
-      padding: 10px 0;
-      text-align: left;
-      margin-bottom: 10px;
-    }
-
-    .edition-card {
-      min-height: 430px;
-      padding: 25px 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .category {
-      font-size: 13px;
-      color: #777;
-      margin-bottom: 10px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .edition-card h2 {
-      font-size: 28px;
-      line-height: 1.15;
-      margin: 0 0 18px;
-    }
-
-    .edition-card p {
-      font-size: 18px;
-      line-height: 1.5;
-      color: #333;
-    }
-
-    .source {
-      margin-top: 20px;
-      color: #777;
-      font-size: 13px;
+    .edition-header {
+      padding: 20px;
+      border-bottom: 1px solid #eee;
     }
 
     .progress {
-      height: 5px;
+      height: 6px;
       background: #eee;
-      margin: 0 20px;
-      border-radius: 5px;
+      border-radius: 10px;
       overflow: hidden;
+      margin-top: 12px;
     }
 
     .progress-bar {
@@ -274,56 +193,80 @@
       transition: width 0.2s;
     }
 
+    .content-card {
+      margin: 20px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: #f4f4f4;
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .content-top {
+      padding: 20px;
+    }
+
+    .content-platform {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 12px;
+    }
+
+    .content-title {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .content-text {
+      font-size: 17px;
+      line-height: 1.5;
+      color: #555;
+      margin-top: 16px;
+    }
+
+    .content-account {
+      padding: 20px;
+      font-weight: 600;
+    }
+
     .navigation {
       display: flex;
       gap: 10px;
-      padding: 15px 20px;
+      padding: 20px;
     }
 
     .navigation button {
-      margin: 0;
-      background: #eee;
-      color: #111;
-    }
-
-    .navigation button:last-child {
-      background: #111;
-      color: white;
+      flex: 1;
     }
 
     .timer {
       text-align: center;
       font-size: 14px;
-      color: #777;
-      margin: 10px 0;
-    }
-
-    .end-screen {
-      text-align: center;
-      padding: 60px 25px;
-    }
-
-    .end-screen h2 {
-      font-size: 30px;
-    }
-
-    .end-screen p {
       color: #666;
-      line-height: 1.5;
+      margin-top: 8px;
     }
 
-    .small-info {
-      text-align: center;
-      color: #777;
-      font-size: 13px;
-      margin-top: 15px;
-      line-height: 1.4;
+    .hidden {
+      display: none;
     }
 
-    .step {
-      color: #777;
-      font-size: 13px;
-      margin-bottom: 10px;
+    .status {
+      font-size: 14px;
+      color: #16752b;
+      margin-top: 8px;
+    }
+
+    .note {
+      background: #f7f7f7;
+      border-radius: 14px;
+      padding: 14px;
+      font-size: 14px;
+      color: #666;
+      line-height: 1.45;
+      margin-top: 14px;
     }
   </style>
 </head>
@@ -332,555 +275,260 @@
 
 <div class="app">
 
-  <header>
-    <h1>daily feed</h1>
-    <p>Deine Ausgabe. Mit einem Ende.</p>
-  </header>
+  <header>daily feed</header>
 
+  <!-- SETUP -->
+  <div id="setupScreen" class="screen">
 
-  <!-- ======================================
-       SCHRITT 1: KONTEN VERBINDEN
-       ====================================== -->
+    <h1>Deine tägliche Ausgabe</h1>
 
-  <div id="accountsScreen" class="screen">
-
-    <div class="step">Schritt 1 von 3</div>
-
-    <h2>Verbinde deine Konten</h2>
-
-    <p class="intro">
-      Verbinde die Plattformen, aus denen daily feed
-      später deine Inhalte beziehen darf.
+    <p>
+      Du entscheidest, woher deine Inhalte kommen und wie deine Ausgabe
+      zusammengestellt wird.
     </p>
 
+    <!-- ACCOUNTS -->
+    <h2>1. Verbinde deine Konten</h2>
 
-    <div class="account">
-
-      <div class="account-top">
-
-        <div>
-          <div class="account-name">
-            📷 Instagram
-          </div>
-
-          <div
-            class="account-status"
-            id="instagramStatus"
-          >
-            Nicht verbunden
-          </div>
-        </div>
-
-        <button
-          id="instagramButton"
-          class="connect-button"
-          onclick="connectAccount('instagram')"
-        >
+    <div class="card">
+      <div class="platform">
+        <div class="platform-name">Instagram</div>
+        <button class="secondary" onclick="connectAccount('Instagram')">
           Verbinden
         </button>
-
       </div>
+      <div id="InstagramStatus"></div>
+    </div>
+
+    <div class="card">
+      <div class="platform">
+        <div class="platform-name">TikTok</div>
+        <button class="secondary" onclick="connectAccount('TikTok')">
+          Verbinden
+        </button>
+      </div>
+      <div id="TikTokStatus"></div>
+    </div>
+
+    <div class="card">
+      <div class="platform">
+        <div class="platform-name">YouTube</div>
+        <button class="secondary" onclick="connectAccount('YouTube')">
+          Verbinden
+        </button>
+      </div>
+      <div id="YouTubeStatus"></div>
+    </div>
+
+    <div class="card">
+      <div class="platform">
+        <div class="platform-name">Reddit</div>
+        <button class="secondary" onclick="connectAccount('Reddit')">
+          Verbinden
+        </button>
+      </div>
+      <div id="RedditStatus"></div>
+    </div>
+
+    <div class="note">
+      Im aktuellen Prototyp wird die Verbindung simuliert.
+      Die echte Anmeldung über die jeweiligen Plattformen kommt später.
+    </div>
+
+    <!-- SOURCES -->
+    <h2>2. Woher sollen deine Inhalte kommen?</h2>
+
+    <div class="card">
+
+      <label class="source-checkbox">
+        <input type="checkbox" value="Instagram" class="source">
+        Instagram
+      </label>
+
+      <label class="source-checkbox">
+        <input type="checkbox" value="TikTok" class="source">
+        TikTok
+      </label>
+
+      <label class="source-checkbox">
+        <input type="checkbox" value="YouTube" class="source">
+        YouTube
+      </label>
+
+      <label class="source-checkbox">
+        <input type="checkbox" value="Reddit" class="source">
+        Reddit
+      </label>
 
     </div>
 
-
-    <div class="account">
-
-      <div class="account-top">
-
-        <div>
-          <div class="account-name">
-            🎵 TikTok
-          </div>
-
-          <div
-            class="account-status"
-            id="tiktokStatus"
-          >
-            Nicht verbunden
-          </div>
-        </div>
-
-        <button
-          id="tiktokButton"
-          class="connect-button"
-          onclick="connectAccount('tiktok')"
-        >
-          Verbinden
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="account">
-
-      <div class="account-top">
-
-        <div>
-          <div class="account-name">
-            ▶️ YouTube
-          </div>
-
-          <div
-            class="account-status"
-            id="youtubeStatus"
-          >
-            Nicht verbunden
-          </div>
-        </div>
-
-        <button
-          id="youtubeButton"
-          class="connect-button"
-          onclick="connectAccount('youtube')"
-        >
-          Verbinden
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <div class="account">
-
-      <div class="account-top">
-
-        <div>
-          <div class="account-name">
-            👽 Reddit
-          </div>
-
-          <div
-            class="account-status"
-            id="redditStatus"
-          >
-            Nicht verbunden
-          </div>
-        </div>
-
-        <button
-          id="redditButton"
-          class="connect-button"
-          onclick="connectAccount('reddit')"
-        >
-          Verbinden
-        </button>
-
-      </div>
-
-    </div>
-
-
-    <p class="small-info">
-      Im aktuellen Prototyp wird die Verbindung nur simuliert.
-      Die echte Anmeldung über die jeweiligen Plattformen
-      kommt später.
-    </p>
-
-
-    <button onclick="goToSources()">
-      Weiter
-    </button>
-
-  </div>
-
-
-  <!-- ======================================
-       SCHRITT 2: QUELLEN
-       ====================================== -->
-
-  <div
-    id="sourcesScreen"
-    class="screen hidden"
-  >
-
-    <div class="step">Schritt 2 von 3</div>
-
-    <h2>Woher sollen deine Inhalte kommen?</h2>
-
-    <p class="intro">
-      Du entscheidest selbst, welche verbundenen
-      Plattformen daily feed verwenden darf.
-    </p>
-
-
-    <label class="source-option">
-
-      <input
-        type="checkbox"
-        id="instagramSource"
-      >
-
-      <div>
-        <div class="source-name">
-          📷 Instagram
-        </div>
-
-        <span class="source-status">
-          Inhalte und ausgewählte Accounts
-        </span>
-      </div>
-
-    </label>
-
-
-    <label class="source-option">
-
-      <input
-        type="checkbox"
-        id="tiktokSource"
-      >
-
-      <div>
-        <div class="source-name">
-          🎵 TikTok
-        </div>
-
-        <span class="source-status">
-          Videos und ausgewählte Accounts
-        </span>
-      </div>
-
-    </label>
-
-
-    <label class="source-option">
-
-      <input
-        type="checkbox"
-        id="youtubeSource"
-      >
-
-      <div>
-        <div class="source-name">
-          ▶️ YouTube
-        </div>
-
-        <span class="source-status">
-          Videos und Kanäle
-        </span>
-      </div>
-
-    </label>
-
-
-    <label class="source-option">
-
-      <input
-        type="checkbox"
-        id="redditSource"
-      >
-
-      <div>
-        <div class="source-name">
-          👽 Reddit
-        </div>
-
-        <span class="source-status">
-          Beiträge und Communities
-        </span>
-      </div>
-
-    </label>
-
-
-    <button
-      class="secondary-button"
-      onclick="goToAccounts()"
-    >
-      Zurück
-    </button>
-
-    <button onclick="goToFeedType()">
-      Weiter
-    </button>
-
-  </div>
-
-
-  <!-- ======================================
-       SCHRITT 3: MEINE ACCOUNTS / MEIN FEED
-       ====================================== -->
-
-  <div
-    id="feedTypeScreen"
-    class="screen hidden"
-  >
-
-    <div class="step">Schritt 3 von 4</div>
-
-    <h2>Wie soll deine Ausgabe entstehen?</h2>
-
-    <p class="intro">
-      Du entscheidest, ob du selbst die Accounts
-      bestimmst oder einen personalisierten Feed möchtest.
-    </p>
-
+    <!-- MODE -->
+    <h2>3. Wie soll deine Ausgabe entstehen?</h2>
 
     <div
-      id="myAccountsChoice"
-      class="choice active"
-      onclick="selectFeedType('accounts')"
+      id="myAccountsOption"
+      class="option"
+      onclick="selectMode('accounts')"
     >
+      <div class="option-title">🧑 Meine Accounts</div>
+      <div class="option-description">
+        Du wählst selbst, welchen Accounts du folgen möchtest.
+        Die tägliche Ausgabe wird nur aus diesen Accounts zusammengestellt.
+      </div>
+    </div>
 
-      <strong>Meine Accounts</strong>
+    <div
+      id="myFeedOption"
+      class="option"
+      onclick="selectMode('feed')"
+    >
+      <div class="option-title">✨ Mein Feed</div>
+      <div class="option-description">
+        daily feed erstellt eine personalisierte Auswahl aus deinen
+        ausgewählten Plattformen.
+      </div>
+    </div>
 
-      <span>
-        Du bestimmst selbst, welchen Accounts du folgst.
-        Jeden Morgen wird daraus automatisch eine neue
-        Ausgabe zusammengestellt.
-      </span>
+    <!-- ACCOUNT SELECTION -->
+    <div id="accountSelection" class="hidden">
+
+      <h2>4. Wähle deine Accounts</h2>
+
+      <p>
+        Wähle die Accounts aus, deren Inhalte in deiner Ausgabe erscheinen
+        sollen.
+      </p>
+
+      <div id="accountList"></div>
+
+      <div class="note">
+        Diese Accounts sind momentan Beispiele für den Prototyp.
+        Später werden hier echte Accounts aus deinen verbundenen Plattformen
+        angezeigt.
+      </div>
 
     </div>
 
+    <!-- LIMIT -->
+    <h2 id="limitHeading">5. Wie groß soll deine Ausgabe sein?</h2>
 
     <div
-      id="myFeedChoice"
-      class="choice"
-      onclick="selectFeedType('feed')"
-    >
-
-      <strong>Mein Feed</strong>
-
-      <span>
-        Eine personalisierte Auswahl wie bei einem
-        normalen Social-Media-Feed – aber mit einem Ende.
-      </span>
-
-    </div>
-
-
-    <button
-      class="secondary-button"
-      onclick="goToSources()"
-    >
-      Zurück
-    </button>
-
-    <button onclick="goToLimits()">
-      Weiter
-    </button>
-
-  </div>
-
-
-  <!-- ======================================
-       LIMIT
-       ====================================== -->
-
-  <div
-    id="limitScreen"
-    class="screen hidden"
-  >
-
-    <div class="step">Schritt 4 von 4</div>
-
-    <h2>Wie groß soll deine Ausgabe sein?</h2>
-
-    <p class="intro">
-      Deine Ausgabe wird automatisch beendet,
-      sobald deine gewählte Grenze erreicht ist.
-    </p>
-
-
-    <div
-      id="optionCount"
-      class="limit-option active"
+      id="countOption"
+      class="option selected"
       onclick="selectLimitMode('count')"
     >
+      <div class="option-title">📱 Inhalte</div>
+      <div class="option-description">
+        Die Ausgabe endet nach einer bestimmten Anzahl von Inhalten.
+      </div>
 
-      <strong>Inhalte</strong>
-
-      <span>
-        Eine feste Anzahl von Beiträgen.
-      </span>
-
+      <input
+        id="contentCount"
+        type="number"
+        min="1"
+        value="10"
+        onclick="event.stopPropagation()"
+      >
     </div>
 
-
     <div
-      id="optionTime"
-      class="limit-option"
+      id="timeOption"
+      class="option"
       onclick="selectLimitMode('time')"
     >
+      <div class="option-title">⏱️ Zeit</div>
+      <div class="option-description">
+        Die Ausgabe endet nach einer bestimmten Zeit.
+      </div>
 
-      <strong>Zeit</strong>
-
-      <span>
-        Eine feste Zeitspanne.
-      </span>
-
+      <input
+        id="timeMinutes"
+        type="number"
+        min="1"
+        value="10"
+        onclick="event.stopPropagation()"
+      >
     </div>
 
-
     <div
-      id="optionBoth"
-      class="limit-option"
+      id="bothOption"
+      class="option"
       onclick="selectLimitMode('both')"
     >
-
-      <strong>Inhalte oder Zeit</strong>
-
-      <span>
-        Was zuerst erreicht wird, beendet die Ausgabe.
-      </span>
-
-    </div>
-
-
-    <div
-      id="countInputBox"
-      class="input-box"
-    >
-
-      <label for="countInput">
-        Anzahl der Inhalte
-      </label>
+      <div class="option-title">⏱️ Inhalte oder Zeit</div>
+      <div class="option-description">
+        Die Ausgabe endet, sobald eines der beiden Limits erreicht ist.
+      </div>
 
       <input
-        id="countInput"
+        id="bothCount"
         type="number"
         min="1"
-        value="30"
+        value="10"
+        onclick="event.stopPropagation()"
       >
-
-    </div>
-
-
-    <div
-      id="timeInputBox"
-      class="input-box hidden"
-    >
-
-      <label for="timeInput">
-        Minuten
-      </label>
 
       <input
-        id="timeInput"
+        id="bothTime"
         type="number"
         min="1"
-        value="60"
+        value="10"
+        onclick="event.stopPropagation()"
       >
-
     </div>
 
-
-    <div
-      id="bothInputBox"
-      class="input-box hidden"
-    >
-
-      <label for="bothCountInput">
-        Maximale Anzahl Inhalte
-      </label>
-
-      <input
-        id="bothCountInput"
-        type="number"
-        min="1"
-        value="30"
-      >
-
-      <label
-        for="bothTimeInput"
-        style="margin-top: 12px;"
-      >
-        Maximale Minuten
-      </label>
-
-      <input
-        id="bothTimeInput"
-        type="number"
-        min="1"
-        value="60"
-      >
-
-    </div>
-
-
-    <button
-      class="secondary-button"
-      onclick="goToFeedType()"
-    >
-      Zurück
-    </button>
-
-    <button onclick="startEdition()">
+    <button class="primary" onclick="startEdition()">
       Ausgabe starten
     </button>
 
   </div>
 
 
-  <!-- ======================================
-       AUSGABE
-       ====================================== -->
+  <!-- EDITION -->
+  <div id="editionScreen" class="hidden">
 
-  <div
-    id="editionScreen"
-    class="hidden"
-  >
+    <div class="edition-header">
 
-    <div
-      class="timer"
-      id="timer"
-    >
-      Zeit
-    </div>
+      <strong>Deine Ausgabe</strong>
 
+      <div id="editionInfo" class="timer"></div>
 
-    <div class="progress">
-
-      <div
-        class="progress-bar"
-        id="progressBar"
-      ></div>
-
-    </div>
-
-
-    <div
-      class="edition-card"
-      id="contentCard"
-    >
-
-      <div
-        class="category"
-        id="contentCategory"
-      >
-        Kategorie
-      </div>
-
-      <h2 id="contentTitle">
-        Titel
-      </h2>
-
-      <p id="contentText">
-        Text
-      </p>
-
-      <div
-        class="source"
-        id="contentSource"
-      >
-        Quelle
+      <div class="progress">
+        <div id="progressBar" class="progress-bar"></div>
       </div>
 
     </div>
 
+    <div id="contentCard" class="content-card">
+
+      <div class="content-top">
+
+        <div id="contentPlatform" class="content-platform"></div>
+
+        <div id="contentTitle" class="content-title"></div>
+
+        <div id="contentText" class="content-text"></div>
+
+      </div>
+
+      <div id="contentAccount" class="content-account"></div>
+
+    </div>
 
     <div class="navigation">
 
-      <button onclick="previousCard()">
-        ↑ Zurück
+      <button
+        class="secondary"
+        onclick="previousContent()"
+      >
+        ← Zurück
       </button>
 
-      <button onclick="nextCard()">
-        Weiter ↓
+      <button
+        class="primary"
+        onclick="nextContent()"
+      >
+        Weiter →
       </button>
 
     </div>
@@ -888,24 +536,30 @@
   </div>
 
 
-  <!-- ======================================
-       ENDE
-       ====================================== -->
+  <!-- END -->
+  <div id="endScreen" class="screen hidden">
 
-  <div
-    id="endScreen"
-    class="screen hidden end-screen"
-  >
-
-    <h2>Das war's für heute.</h2>
+    <h1>Ausgabe beendet</h1>
 
     <p>
-      Deine Ausgabe ist beendet.
-      Keine neuen Inhalte. Kein Nachladen.
+      Das war deine heutige daily-feed-Ausgabe.
     </p>
 
-    <button onclick="restartSetup()">
-      Ausgabe neu konfigurieren
+    <div class="card">
+
+      <strong>Keine weiteren Inhalte.</strong>
+
+      <p>
+        Du hast das für heute festgelegte Limit erreicht.
+      </p>
+
+    </div>
+
+    <button
+      class="primary"
+      onclick="location.reload()"
+    >
+      Neue Ausgabe
     </button>
 
   </div>
@@ -915,893 +569,939 @@
 
 <script>
 
+  /* -----------------------------
+     STATE
+  ----------------------------- */
 
-/* ==========================================
-   DATEN
-   ========================================== */
+  let connectedAccounts = {};
 
+  let selectedMode = "accounts";
 
-const dailyEdition = [
+  let selectedLimitMode = "count";
 
-  {
-    category: "Instagram",
-    title: "Beitrag deines ausgewählten Accounts",
-    text: "Hier wird später ein echter Instagram-Beitrag erscheinen.",
-    source: "Instagram"
-  },
+  let selectedSources = [];
 
-  {
-    category: "TikTok",
-    title: "Video deines ausgewählten Accounts",
-    text: "Hier wird später ein echtes TikTok-Video erscheinen.",
-    source: "TikTok"
-  },
+  let selectedAccounts = [];
 
-  {
-    category: "YouTube",
-    title: "Neues Video",
-    text: "Hier wird später ein echtes YouTube-Video erscheinen.",
-    source: "YouTube"
-  },
+  let currentIndex = 0;
 
-  {
-    category: "Instagram",
-    title: "Noch ein Beitrag",
-    text: "Dieser Platzhalter zeigt später einen weiteren ausgewählten Beitrag.",
-    source: "Instagram"
-  },
+  let dailyEdition = [];
 
-  {
-    category: "TikTok",
-    title: "Noch ein Video",
-    text: "Dieser Platzhalter wird später durch echte Inhalte ersetzt.",
-    source: "TikTok"
-  },
+  let contentLimit = 10;
 
-  {
-    category: "Reddit",
-    title: "Interessanter Beitrag",
-    text: "Hier könnte später ein Beitrag aus einer ausgewählten Community erscheinen.",
-    source: "Reddit"
-  },
+  let timeLimitMinutes = 10;
 
-  {
-    category: "Instagram",
-    title: "Beitrag",
-    text: "Die tägliche Ausgabe wird aus deinen verbundenen Quellen zusammengestellt.",
-    source: "Instagram"
-  },
+  let editionStartTime = null;
 
-  {
-    category: "YouTube",
-    title: "Video",
-    text: "Die endgültige App wird hier echte Inhalte anzeigen.",
-    source: "YouTube"
-  },
-
-  {
-    category: "TikTok",
-    title: "Video",
-    text: "Dieser Inhalt ist momentan nur ein Platzhalter.",
-    source: "TikTok"
-  },
-
-  {
-    category: "Instagram",
-    title: "Beitrag",
-    text: "Die Ausgabe bleibt nach ihrer Erstellung eingefroren.",
-    source: "Instagram"
-  },
-
-  {
-    category: "Reddit",
-    title: "Diskussion",
-    text: "Kein endloses Nachladen – nur die Inhalte deiner heutigen Ausgabe.",
-    source: "Reddit"
-  },
-
-  {
-    category: "Instagram",
-    title: "Beitrag",
-    text: "Später wird hier ein echter Social-Media-Beitrag angezeigt.",
-    source: "Instagram"
-  },
-
-  {
-    category: "TikTok",
-    title: "Video",
-    text: "Die Auswahl erfolgt später automatisch.",
-    source: "TikTok"
-  },
-
-  {
-    category: "YouTube",
-    title: "Video",
-    text: "Deine Ausgabe bekommt ein definiertes Ende.",
-    source: "YouTube"
-  },
-
-  {
-    category: "Instagram",
-    title: "Beitrag",
-    text: "Zurückgehen zeigt immer denselben Beitrag.",
-    source: "Instagram"
-  }
-
-];
+  let timerInterval = null;
 
 
-/* ==========================================
-   APP-ZUSTAND
-   ========================================== */
+  /* -----------------------------
+     TEST ACCOUNTS
+  ----------------------------- */
+
+  const availableAccounts = [
+
+    {
+      platform: "Instagram",
+      username: "@natgeo"
+    },
+
+    {
+      platform: "Instagram",
+      username: "@nike"
+    },
+
+    {
+      platform: "Instagram",
+      username: "@designmilk"
+    },
+
+    {
+      platform: "TikTok",
+      username: "@science"
+    },
+
+    {
+      platform: "TikTok",
+      username: "@creator_daily"
+    },
+
+    {
+      platform: "TikTok",
+      username: "@techworld"
+    },
+
+    {
+      platform: "YouTube",
+      username: "Kurzgesagt"
+    },
+
+    {
+      platform: "YouTube",
+      username: "MrBeast"
+    },
+
+    {
+      platform: "Reddit",
+      username: "r/technology"
+    },
+
+    {
+      platform: "Reddit",
+      username: "r/science"
+    }
+
+  ];
 
 
-let connectedAccounts = {
-  instagram: false,
-  tiktok: false,
-  youtube: false,
-  reddit: false
-};
+  /* -----------------------------
+     TEST CONTENT
+  ----------------------------- */
+
+  const allContent = [
+
+    {
+      platform: "Instagram",
+      account: "@natgeo",
+      title: "Die Welt entdecken",
+      text: "Ein neuer Blick auf einen besonderen Ort dieser Erde."
+    },
+
+    {
+      platform: "Instagram",
+      account: "@nike",
+      title: "Move forward",
+      text: "Motivation und Sport in deiner heutigen Ausgabe."
+    },
+
+    {
+      platform: "Instagram",
+      account: "@designmilk",
+      title: "Neues Design",
+      text: "Ein interessantes Beispiel für modernes Design."
+    },
+
+    {
+      platform: "TikTok",
+      account: "@science",
+      title: "Warum ist der Himmel blau?",
+      text: "Ein kurzer wissenschaftlicher Blick auf ein alltägliches Phänomen."
+    },
+
+    {
+      platform: "TikTok",
+      account: "@creator_daily",
+      title: "Heute im Internet",
+      text: "Ein interessanter Fund aus der digitalen Welt."
+    },
+
+    {
+      platform: "TikTok",
+      account: "@techworld",
+      title: "Neue Technologie",
+      text: "Was gerade in der Technikwelt passiert."
+    },
+
+    {
+      platform: "YouTube",
+      account: "Kurzgesagt",
+      title: "Eine große Frage",
+      text: "Ein kurzer wissenschaftlicher Gedankenanstoß."
+    },
+
+    {
+      platform: "YouTube",
+      account: "MrBeast",
+      title: "Das heutige Video",
+      text: "Ein Beispiel für einen YouTube-Inhalt."
+    },
+
+    {
+      platform: "Reddit",
+      account: "r/technology",
+      title: "Technologie-Diskussion",
+      text: "Eine Diskussion aus der Community."
+    },
+
+    {
+      platform: "Reddit",
+      account: "r/science",
+      title: "Neue wissenschaftliche Erkenntnisse",
+      text: "Ein interessantes Thema aus der Wissenschaft."
+    }
+
+  ];
 
 
-let selectedSources = {
-  instagram: false,
-  tiktok: false,
-  youtube: false,
-  reddit: false
-};
+  /* -----------------------------
+     CONNECT ACCOUNTS
+  ----------------------------- */
 
+  function connectAccount(platform) {
 
-let feedType = "accounts";
+    connectedAccounts[platform] = true;
 
+    const button = event.target;
 
-let limitMode = "count";
+    button.textContent = "Verbunden";
 
-let contentLimit = 30;
+    button.classList.add("connected");
 
-let timeLimitMinutes = 60;
-
-let currentIndex = 0;
-
-let startedAt = null;
-
-let timerInterval = null;
-
-let editionFinished = false;
-
-
-/* ==========================================
-   KONTEN VERBINDEN
-   ========================================== */
-
-
-function connectAccount(platform) {
-
-  /*
-   * Momentan simulieren wir die Verbindung.
-   *
-   * Später wird diese Funktion durch
-   * den echten OAuth-Login ersetzt.
-   */
-
-  connectedAccounts[platform] = true;
-
-
-  const status =
-    document.getElementById(
+    const status = document.getElementById(
       platform + "Status"
     );
 
-  const button =
-    document.getElementById(
-      platform + "Button"
-    );
+    status.className = "status";
 
+    status.textContent = "Verbunden";
 
-  status.textContent =
-    "Verbunden";
-
-
-  button.textContent =
-    "Verbunden";
-
-
-  button.classList.add("connected");
-
-}
-
-
-/* ==========================================
-   QUELLEN
-   ========================================== */
-
-
-function goToSources() {
-
-  document
-    .getElementById("accountsScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("feedTypeScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("limitScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("sourcesScreen")
-    .classList.remove("hidden");
-
-}
-
-
-function goToAccounts() {
-
-  document
-    .getElementById("sourcesScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("accountsScreen")
-    .classList.remove("hidden");
-
-}
-
-
-/* ==========================================
-   FEED-TYP
-   ========================================== */
-
-
-function goToFeedType() {
-
-  selectedSources.instagram =
-    document.getElementById(
-      "instagramSource"
-    ).checked;
-
-  selectedSources.tiktok =
-    document.getElementById(
-      "tiktokSource"
-    ).checked;
-
-  selectedSources.youtube =
-    document.getElementById(
-      "youtubeSource"
-    ).checked;
-
-  selectedSources.reddit =
-    document.getElementById(
-      "redditSource"
-    ).checked;
-
-
-  document
-    .getElementById("sourcesScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("limitScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("feedTypeScreen")
-    .classList.remove("hidden");
-
-}
-
-
-function selectFeedType(type) {
-
-  feedType = type;
-
-
-  document
-    .getElementById("myAccountsChoice")
-    .classList.remove("active");
-
-  document
-    .getElementById("myFeedChoice")
-    .classList.remove("active");
-
-
-  if (type === "accounts") {
-
-    document
-      .getElementById("myAccountsChoice")
-      .classList.add("active");
+    renderAccountSelection();
 
   }
 
 
-  if (type === "feed") {
+  /* -----------------------------
+     MODE
+  ----------------------------- */
+
+  function selectMode(mode) {
+
+    selectedMode = mode;
 
     document
-      .getElementById("myFeedChoice")
-      .classList.add("active");
-
-  }
-
-}
-
-
-/* ==========================================
-   LIMIT
-   ========================================== */
-
-
-function goToLimits() {
-
-  document
-    .getElementById("feedTypeScreen")
-    .classList.add("hidden");
-
-  document
-    .getElementById("limitScreen")
-    .classList.remove("hidden");
-
-}
-
-
-function selectLimitMode(mode) {
-
-  limitMode = mode;
-
-
-  document
-    .getElementById("optionCount")
-    .classList.remove("active");
-
-  document
-    .getElementById("optionTime")
-    .classList.remove("active");
-
-  document
-    .getElementById("optionBoth")
-    .classList.remove("active");
-
-
-  document
-    .getElementById("countInputBox")
-    .classList.add("hidden");
-
-  document
-    .getElementById("timeInputBox")
-    .classList.add("hidden");
-
-  document
-    .getElementById("bothInputBox")
-    .classList.add("hidden");
-
-
-  if (mode === "count") {
-
-    document
-      .getElementById("optionCount")
-      .classList.add("active");
-
-    document
-      .getElementById("countInputBox")
-      .classList.remove("hidden");
-
-  }
-
-
-  if (mode === "time") {
-
-    document
-      .getElementById("optionTime")
-      .classList.add("active");
-
-    document
-      .getElementById("timeInputBox")
-      .classList.remove("hidden");
-
-  }
-
-
-  if (mode === "both") {
-
-    document
-      .getElementById("optionBoth")
-      .classList.add("active");
-
-    document
-      .getElementById("bothInputBox")
-      .classList.remove("hidden");
-
-  }
-
-}
-
-
-/* ==========================================
-   AUSGABE STARTEN
-   ========================================== */
-
-
-function startEdition() {
-
-  editionFinished = false;
-
-  currentIndex = 0;
-
-  startedAt = Date.now();
-
-
-  if (limitMode === "count") {
-
-    contentLimit =
-      Math.max(
-        1,
-        Number(
-          document.getElementById("countInput").value
-        ) || 30
+      .getElementById("myAccountsOption")
+      .classList.toggle(
+        "selected",
+        mode === "accounts"
       );
 
-  }
-
-
-  if (limitMode === "time") {
-
-    timeLimitMinutes =
-      Math.max(
-        1,
-        Number(
-          document.getElementById("timeInput").value
-        ) || 60
+    document
+      .getElementById("myFeedOption")
+      .classList.toggle(
+        "selected",
+        mode === "feed"
       );
-
-  }
-
-
-  if (limitMode === "both") {
-
-    contentLimit =
-      Math.max(
-        1,
-        Number(
-          document.getElementById("bothCountInput").value
-        ) || 30
-      );
-
-
-    timeLimitMinutes =
-      Math.max(
-        1,
-        Number(
-          document.getElementById("bothTimeInput").value
-        ) || 60
-      );
-
-  }
-
-
-  document
-    .getElementById("limitScreen")
-    .classList.add("hidden");
-
-
-  document
-    .getElementById("editionScreen")
-    .classList.remove("hidden");
-
-
-  showCard();
-
-
-  clearInterval(timerInterval);
-
-
-  timerInterval =
-    setInterval(updateTimer, 1000);
-
-
-  updateTimer();
-
-}
-
-
-/* ==========================================
-   INHALT
-   ========================================== */
-
-
-function showCard() {
-
-  if (editionFinished) {
-    return;
-  }
-
-
-  if (
-    currentIndex < 0 ||
-    currentIndex >= dailyEdition.length
-  ) {
-
-    finishEdition();
-
-    return;
-
-  }
-
-
-  const content =
-    dailyEdition[currentIndex];
-
-
-  document
-    .getElementById("contentCategory")
-    .textContent =
-      content.category;
-
-
-  document
-    .getElementById("contentTitle")
-    .textContent =
-      content.title;
-
-
-  document
-    .getElementById("contentText")
-    .textContent =
-      content.text;
-
-
-  document
-    .getElementById("contentSource")
-    .textContent =
-      "Quelle: " +
-      content.source;
-
-
-  if (limitMode === "count") {
 
     document
-      .getElementById("timer")
-      .textContent =
-        "Inhalt " +
-        (currentIndex + 1) +
-        " von " +
-        contentLimit;
-
-
-    const progress =
-      Math.min(
-        100,
-        ((currentIndex + 1) / contentLimit) * 100
+      .getElementById("accountSelection")
+      .classList.toggle(
+        "hidden",
+        mode !== "accounts"
       );
 
-
-    document
-      .getElementById("progressBar")
-      .style.width =
-        progress + "%";
+    renderAccountSelection();
 
   }
 
 
-  if (limitMode === "time") {
+  /* -----------------------------
+     ACCOUNT LIST
+  ----------------------------- */
 
-    updateTimer();
+  function renderAccountSelection() {
 
-  }
+    if (selectedMode !== "accounts") {
+      return;
+    }
 
+    const list =
+      document.getElementById("accountList");
 
-  if (limitMode === "both") {
+    list.innerHTML = "";
 
-    document
-      .getElementById("timer")
-      .textContent =
-        "Inhalt " +
-        (currentIndex + 1) +
-        " von " +
-        contentLimit;
+    const connectedPlatforms =
+      Object.keys(connectedAccounts)
+        .filter(
+          platform =>
+            connectedAccounts[platform]
+        );
 
-  }
+    const accounts =
+      availableAccounts.filter(
+        account =>
+          connectedPlatforms.includes(
+            account.platform
+          )
+      );
 
-}
+    if (accounts.length === 0) {
 
-
-/* ==========================================
-   WEITER
-   ========================================== */
-
-
-function nextCard() {
-
-  if (editionFinished) {
-    return;
-  }
-
-
-  /*
-   * Zeit überprüfen
-   */
-
-  if (
-    limitMode === "time" ||
-    limitMode === "both"
-  ) {
-
-    const elapsed =
-      (Date.now() - startedAt) / 1000 / 60;
-
-
-    if (
-      elapsed >= timeLimitMinutes
-    ) {
-
-      finishEdition();
+      list.innerHTML = `
+        <div class="card">
+          Verbinde zuerst mindestens eine Plattform,
+          um Accounts auswählen zu können.
+        </div>
+      `;
 
       return;
+    }
+
+    accounts.forEach(
+      (account, index) => {
+
+        const checked =
+          selectedAccounts.some(
+            selected =>
+              selected.platform === account.platform &&
+              selected.username === account.username
+          );
+
+        const wrapper =
+          document.createElement("div");
+
+        wrapper.className = "card";
+
+        wrapper.innerHTML = `
+
+          <label class="account">
+
+            <input
+              type="checkbox"
+              ${checked ? "checked" : ""}
+              onchange="toggleAccount(${index})"
+            >
+
+            <div class="account-info">
+
+              <div class="account-name">
+                ${account.username}
+              </div>
+
+              <div class="account-platform">
+                ${account.platform}
+              </div>
+
+            </div>
+
+          </label>
+
+        `;
+
+        wrapper.dataset.platform =
+          account.platform;
+
+        wrapper.dataset.username =
+          account.username;
+
+        list.appendChild(wrapper);
+
+      }
+    );
+
+  }
+
+
+  function toggleAccount(index) {
+
+    const connectedPlatforms =
+      Object.keys(connectedAccounts)
+        .filter(
+          platform =>
+            connectedAccounts[platform]
+        );
+
+    const accounts =
+      availableAccounts.filter(
+        account =>
+          connectedPlatforms.includes(
+            account.platform
+          )
+      );
+
+    const account = accounts[index];
+
+    const exists =
+      selectedAccounts.some(
+        selected =>
+          selected.platform === account.platform &&
+          selected.username === account.username
+      );
+
+    if (exists) {
+
+      selectedAccounts =
+        selectedAccounts.filter(
+          selected =>
+            !(
+              selected.platform === account.platform &&
+              selected.username === account.username
+            )
+        );
+
+    } else {
+
+      selectedAccounts.push(account);
 
     }
 
   }
 
 
-  /*
-   * Anzahl überprüfen
-   */
+  /* -----------------------------
+     LIMIT MODE
+  ----------------------------- */
 
-  if (
-    limitMode === "count" ||
-    limitMode === "both"
-  ) {
+  function selectLimitMode(mode) {
+
+    selectedLimitMode = mode;
+
+    document
+      .getElementById("countOption")
+      .classList.toggle(
+        "selected",
+        mode === "count"
+      );
+
+    document
+      .getElementById("timeOption")
+      .classList.toggle(
+        "selected",
+        mode === "time"
+      );
+
+    document
+      .getElementById("bothOption")
+      .classList.toggle(
+        "selected",
+        mode === "both"
+      );
+
+  }
+
+
+  /* -----------------------------
+     SOURCES
+  ----------------------------- */
+
+  function getSelectedSources() {
+
+    return Array.from(
+      document.querySelectorAll(
+        ".source:checked"
+      )
+    ).map(
+      checkbox =>
+        checkbox.value
+    );
+
+  }
+
+
+  /* -----------------------------
+     BUILD EDITION
+  ----------------------------- */
+
+  function buildEdition() {
+
+    selectedSources =
+      getSelectedSources();
+
+    let possibleContent =
+      allContent.filter(
+        item =>
+          selectedSources.includes(
+            item.platform
+          )
+      );
+
+
+    /*
+      MEINE ACCOUNTS:
+      Nur explizit ausgewählte Accounts.
+    */
+
+    if (selectedMode === "accounts") {
+
+      possibleContent =
+        possibleContent.filter(
+          item =>
+            selectedAccounts.some(
+              account =>
+                account.platform === item.platform &&
+                account.username === item.account
+            )
+        );
+
+    }
+
+
+    /*
+      MEIN FEED:
+      Personalisierte Auswahl aus den
+      gewählten Plattformen.
+    */
+
+    if (selectedMode === "feed") {
+
+      possibleContent =
+        possibleContent.sort(
+          () => Math.random() - 0.5
+        );
+
+    }
+
+
+    /*
+      Ausgabe einfrieren.
+      Danach wird nicht mehr neu geladen.
+    */
+
+    dailyEdition =
+      [...possibleContent];
+
+  }
+
+
+  /* -----------------------------
+     START
+  ----------------------------- */
+
+  function startEdition() {
+
+    selectedSources =
+      getSelectedSources();
+
+    if (selectedSources.length === 0) {
+
+      alert(
+        "Bitte wähle mindestens eine Plattform aus."
+      );
+
+      return;
+    }
+
 
     if (
+      selectedMode === "accounts" &&
+      selectedAccounts.length === 0
+    ) {
+
+      alert(
+        "Bitte wähle mindestens einen Account aus."
+      );
+
+      return;
+    }
+
+
+    if (selectedLimitMode === "count") {
+
+      contentLimit =
+        Math.max(
+          1,
+          parseInt(
+            document.getElementById(
+              "contentCount"
+            ).value
+          ) || 10
+        );
+
+    }
+
+
+    if (selectedLimitMode === "time") {
+
+      timeLimitMinutes =
+        Math.max(
+          1,
+          parseInt(
+            document.getElementById(
+              "timeMinutes"
+            ).value
+          ) || 10
+        );
+
+    }
+
+
+    if (selectedLimitMode === "both") {
+
+      contentLimit =
+        Math.max(
+          1,
+          parseInt(
+            document.getElementById(
+              "bothCount"
+            ).value
+          ) || 10
+        );
+
+      timeLimitMinutes =
+        Math.max(
+          1,
+          parseInt(
+            document.getElementById(
+              "bothTime"
+            ).value
+          ) || 10
+        );
+
+    }
+
+
+    buildEdition();
+
+
+    if (dailyEdition.length === 0) {
+
+      alert(
+        "Für deine Auswahl gibt es momentan keine Test-Inhalte."
+      );
+
+      return;
+    }
+
+
+    currentIndex = 0;
+
+    editionStartTime =
+      Date.now();
+
+
+    document
+      .getElementById("setupScreen")
+      .classList.add("hidden");
+
+    document
+      .getElementById("endScreen")
+      .classList.add("hidden");
+
+    document
+      .getElementById("editionScreen")
+      .classList.remove("hidden");
+
+
+    showContent();
+
+    startTimer();
+
+  }
+
+
+  /* -----------------------------
+     SHOW CONTENT
+  ----------------------------- */
+
+  function showContent() {
+
+    if (
+      currentIndex >= dailyEdition.length
+    ) {
+
+      endEdition();
+
+      return;
+    }
+
+
+    const content =
+      dailyEdition[currentIndex];
+
+
+    document
+      .getElementById("contentPlatform")
+      .textContent =
+        content.platform;
+
+
+    document
+      .getElementById("contentTitle")
+      .textContent =
+        content.title;
+
+
+    document
+      .getElementById("contentText")
+      .textContent =
+        content.text;
+
+
+    document
+      .getElementById("contentAccount")
+      .textContent =
+        content.account;
+
+
+    updateProgress();
+
+  }
+
+
+  /* -----------------------------
+     NAVIGATION
+  ----------------------------- */
+
+  function nextContent() {
+
+    if (
+      selectedLimitMode === "count" &&
       currentIndex + 1 >= contentLimit
     ) {
 
-      finishEdition();
+      endEdition();
 
       return;
-
     }
 
-  }
 
+    if (
+      selectedLimitMode === "both" &&
+      currentIndex + 1 >= contentLimit
+    ) {
 
-  /*
-   * Nächsten Inhalt zeigen
-   */
+      endEdition();
 
-  if (
-    currentIndex + 1 <
-    dailyEdition.length
-  ) {
+      return;
+    }
+
 
     currentIndex++;
 
-    showCard();
-
-  } else {
-
-    finishEdition();
+    showContent();
 
   }
 
-}
 
+  function previousContent() {
 
-/* ==========================================
-   ZURÜCK
-   ========================================== */
-
-
-function previousCard() {
-
-  if (editionFinished) {
-    return;
-  }
-
-
-  if (currentIndex > 0) {
+    if (currentIndex <= 0) {
+      return;
+    }
 
     currentIndex--;
 
-    showCard();
-
-  }
-
-}
-
-
-/* ==========================================
-   TIMER
-   ========================================== */
-
-
-function updateTimer() {
-
-  if (
-    !startedAt ||
-    editionFinished
-  ) {
-
-    return;
+    showContent();
 
   }
 
 
-  const elapsedSeconds =
-    Math.floor(
-      (Date.now() - startedAt) / 1000
-    );
+  /* -----------------------------
+     PROGRESS
+  ----------------------------- */
+
+  function updateProgress() {
+
+    let percentage = 0;
 
 
-  if (
-    limitMode === "time" ||
-    limitMode === "both"
-  ) {
+    if (
+      selectedLimitMode === "count"
+    ) {
 
-    const totalSeconds =
-      timeLimitMinutes * 60;
+      percentage =
+        ((currentIndex + 1) /
+          contentLimit) *
+        100;
 
+    } else {
 
-    const remaining =
-      Math.max(
-        0,
-        totalSeconds - elapsedSeconds
-      );
+      percentage =
+        ((currentIndex + 1) /
+          Math.max(
+            dailyEdition.length,
+            1
+          )) *
+        100;
 
-
-    const minutes =
-      Math.floor(
-        remaining / 60
-      );
-
-
-    const seconds =
-      remaining % 60;
-
-
-    document
-      .getElementById("timer")
-      .textContent =
-        "Noch " +
-        minutes +
-        ":" +
-        String(seconds).padStart(2, "0");
-
-
-    const progress =
-      Math.min(
-        100,
-        (elapsedSeconds / totalSeconds) * 100
-      );
+    }
 
 
     document
       .getElementById("progressBar")
       .style.width =
-        progress + "%";
+        Math.min(
+          100,
+          percentage
+        ) + "%";
+
+  }
 
 
-    if (remaining <= 0) {
+  /* -----------------------------
+     TIMER
+  ----------------------------- */
 
-      finishEdition();
+  function startTimer() {
+
+    clearInterval(
+      timerInterval
+    );
+
+
+    timerInterval =
+      setInterval(
+        () => {
+
+          const elapsed =
+            Date.now() -
+            editionStartTime;
+
+          const seconds =
+            Math.floor(
+              elapsed / 1000
+            );
+
+          const limitSeconds =
+            timeLimitMinutes *
+            60;
+
+
+          if (
+            selectedLimitMode === "time" ||
+            selectedLimitMode === "both"
+          ) {
+
+            if (
+              seconds >=
+              limitSeconds
+            ) {
+
+              endEdition();
+
+              return;
+            }
+
+          }
+
+
+          const remaining =
+            Math.max(
+              0,
+              limitSeconds -
+              seconds
+            );
+
+
+          if (
+            selectedLimitMode === "time" ||
+            selectedLimitMode === "both"
+          ) {
+
+            const minutes =
+              Math.floor(
+                remaining / 60
+              );
+
+            const secs =
+              remaining % 60;
+
+            document
+              .getElementById(
+                "editionInfo"
+              )
+              .textContent =
+                `${minutes}:${String(
+                  secs
+                ).padStart(2, "0")} min`;
+
+          } else {
+
+            document
+              .getElementById(
+                "editionInfo"
+              )
+              .textContent =
+                `${currentIndex + 1} / ${contentLimit}`;
+
+          }
+
+        },
+        1000
+      );
+
+  }
+
+
+  /* -----------------------------
+     END
+  ----------------------------- */
+
+  function endEdition() {
+
+    clearInterval(
+      timerInterval
+    );
+
+
+    document
+      .getElementById(
+        "editionScreen"
+      )
+      .classList.add("hidden");
+
+
+    document
+      .getElementById(
+        "endScreen"
+      )
+      .classList.remove("hidden");
+
+  }
+
+
+  /* -----------------------------
+     SWIPE
+  ----------------------------- */
+
+  let touchStartY = 0;
+
+  document.addEventListener(
+    "touchstart",
+    function(event) {
+
+      touchStartY =
+        event.changedTouches[0].screenY;
 
     }
-
-  }
-
-}
+  );
 
 
-/* ==========================================
-   ENDE
-   ========================================== */
+  document.addEventListener(
+    "touchend",
+    function(event) {
+
+      if (
+        document
+          .getElementById(
+            "editionScreen"
+          )
+          .classList.contains(
+            "hidden"
+          )
+      ) {
+        return;
+      }
 
 
-function finishEdition() {
-
-  if (editionFinished) {
-    return;
-  }
+      const touchEndY =
+        event.changedTouches[0].screenY;
 
 
-  editionFinished = true;
+      const difference =
+        touchStartY -
+        touchEndY;
 
 
-  clearInterval(timerInterval);
+      if (
+        Math.abs(difference) < 50
+      ) {
+        return;
+      }
 
 
-  document
-    .getElementById("editionScreen")
-    .classList.add("hidden");
+      if (difference > 0) {
 
+        nextContent();
 
-  document
-    .getElementById("endScreen")
-    .classList.remove("hidden");
+      } else {
 
-}
+        previousContent();
 
-
-/* ==========================================
-   NEU KONFIGURIEREN
-   ========================================== */
-
-
-function restartSetup() {
-
-  clearInterval(timerInterval);
-
-  currentIndex = 0;
-
-  startedAt = null;
-
-  editionFinished = false;
-
-
-  document
-    .getElementById("endScreen")
-    .classList.add("hidden");
-
-
-  document
-    .getElementById("accountsScreen")
-    .classList.remove("hidden");
-
-}
-
-
-/* ==========================================
-   WISCHEN
-   ========================================== */
-
-
-let touchStartY = 0;
-
-let touchEndY = 0;
-
-
-const card =
-  document.getElementById("contentCard");
-
-
-card.addEventListener(
-  "touchstart",
-  function(event) {
-
-    touchStartY =
-      event.changedTouches[0].screenY;
-
-  }
-);
-
-
-card.addEventListener(
-  "touchend",
-  function(event) {
-
-    touchEndY =
-      event.changedTouches[0].screenY;
-
-
-    const difference =
-      touchStartY - touchEndY;
-
-
-    if (difference > 50) {
-
-      nextCard();
+      }
 
     }
-
-
-    if (difference < -50) {
-
-      previousCard();
-
-    }
-
-  }
-);
+  );
 
 </script>
 
