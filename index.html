@@ -23,7 +23,6 @@
       margin: 0 auto;
       min-height: 100vh;
       background: white;
-      position: relative;
       overflow: hidden;
     }
 
@@ -52,6 +51,107 @@
       display: none;
     }
 
+    h2 {
+      margin-top: 0;
+      line-height: 1.2;
+    }
+
+    .intro {
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .choice {
+      border: 2px solid #ddd;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 12px;
+      cursor: pointer;
+    }
+
+    .choice.active {
+      border-color: #111;
+      background: #f0f0f0;
+    }
+
+    .choice strong {
+      display: block;
+      font-size: 18px;
+      margin-bottom: 6px;
+    }
+
+    .choice span {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .account {
+      border: 1px solid #ddd;
+      border-radius: 15px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .account-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .account-name {
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .account-status {
+      font-size: 13px;
+      color: #777;
+      margin-top: 5px;
+    }
+
+    .connect-button {
+      width: auto;
+      margin: 0;
+      padding: 10px 14px;
+      font-size: 14px;
+    }
+
+    .connected {
+      background: #eee;
+      color: #111;
+    }
+
+    .source-option {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      padding: 15px;
+      margin-bottom: 10px;
+      cursor: pointer;
+    }
+
+    .source-option input {
+      width: 20px;
+      height: 20px;
+    }
+
+    .source-name {
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .source-status {
+      display: block;
+      font-size: 12px;
+      color: #777;
+      margin-top: 3px;
+    }
+
     .limit-option {
       border: 2px solid #ddd;
       border-radius: 16px;
@@ -78,6 +178,7 @@
 
     .input-box {
       margin-top: 10px;
+      margin-bottom: 15px;
     }
 
     .input-box label {
@@ -87,7 +188,7 @@
       color: #555;
     }
 
-    input {
+    input[type="number"] {
       width: 100%;
       padding: 13px;
       border: 1px solid #ccc;
@@ -111,13 +212,25 @@
       transform: scale(0.98);
     }
 
+    .secondary-button {
+      background: #eee;
+      color: #111;
+    }
+
+    .back-button {
+      background: transparent;
+      color: #555;
+      padding: 10px 0;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
     .edition-card {
       min-height: 430px;
       padding: 25px 20px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      touch-action: pan-y;
     }
 
     .category {
@@ -192,7 +305,6 @@
 
     .end-screen h2 {
       font-size: 30px;
-      margin-bottom: 15px;
     }
 
     .end-screen p {
@@ -205,6 +317,13 @@
       color: #777;
       font-size: 13px;
       margin-top: 15px;
+      line-height: 1.4;
+    }
+
+    .step {
+      color: #777;
+      font-size: 13px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -219,41 +338,404 @@
   </header>
 
 
-  <!-- STARTSCREEN -->
+  <!-- ======================================
+       SCHRITT 1: KONTEN VERBINDEN
+       ====================================== -->
 
-  <div id="startScreen" class="screen">
+  <div id="accountsScreen" class="screen">
 
-    <h2>Wie möchtest du deine Ausgabe begrenzen?</h2>
+    <div class="step">Schritt 1 von 3</div>
+
+    <h2>Verbinde deine Konten</h2>
+
+    <p class="intro">
+      Verbinde die Plattformen, aus denen daily feed
+      später deine Inhalte beziehen darf.
+    </p>
+
+
+    <div class="account">
+
+      <div class="account-top">
+
+        <div>
+          <div class="account-name">
+            📷 Instagram
+          </div>
+
+          <div
+            class="account-status"
+            id="instagramStatus"
+          >
+            Nicht verbunden
+          </div>
+        </div>
+
+        <button
+          id="instagramButton"
+          class="connect-button"
+          onclick="connectAccount('instagram')"
+        >
+          Verbinden
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="account">
+
+      <div class="account-top">
+
+        <div>
+          <div class="account-name">
+            🎵 TikTok
+          </div>
+
+          <div
+            class="account-status"
+            id="tiktokStatus"
+          >
+            Nicht verbunden
+          </div>
+        </div>
+
+        <button
+          id="tiktokButton"
+          class="connect-button"
+          onclick="connectAccount('tiktok')"
+        >
+          Verbinden
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="account">
+
+      <div class="account-top">
+
+        <div>
+          <div class="account-name">
+            ▶️ YouTube
+          </div>
+
+          <div
+            class="account-status"
+            id="youtubeStatus"
+          >
+            Nicht verbunden
+          </div>
+        </div>
+
+        <button
+          id="youtubeButton"
+          class="connect-button"
+          onclick="connectAccount('youtube')"
+        >
+          Verbinden
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="account">
+
+      <div class="account-top">
+
+        <div>
+          <div class="account-name">
+            👽 Reddit
+          </div>
+
+          <div
+            class="account-status"
+            id="redditStatus"
+          >
+            Nicht verbunden
+          </div>
+        </div>
+
+        <button
+          id="redditButton"
+          class="connect-button"
+          onclick="connectAccount('reddit')"
+        >
+          Verbinden
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <p class="small-info">
+      Im aktuellen Prototyp wird die Verbindung nur simuliert.
+      Die echte Anmeldung über die jeweiligen Plattformen
+      kommt später.
+    </p>
+
+
+    <button onclick="goToSources()">
+      Weiter
+    </button>
+
+  </div>
+
+
+  <!-- ======================================
+       SCHRITT 2: QUELLEN
+       ====================================== -->
+
+  <div
+    id="sourcesScreen"
+    class="screen hidden"
+  >
+
+    <div class="step">Schritt 2 von 3</div>
+
+    <h2>Woher sollen deine Inhalte kommen?</h2>
+
+    <p class="intro">
+      Du entscheidest selbst, welche verbundenen
+      Plattformen daily feed verwenden darf.
+    </p>
+
+
+    <label class="source-option">
+
+      <input
+        type="checkbox"
+        id="instagramSource"
+      >
+
+      <div>
+        <div class="source-name">
+          📷 Instagram
+        </div>
+
+        <span class="source-status">
+          Inhalte und ausgewählte Accounts
+        </span>
+      </div>
+
+    </label>
+
+
+    <label class="source-option">
+
+      <input
+        type="checkbox"
+        id="tiktokSource"
+      >
+
+      <div>
+        <div class="source-name">
+          🎵 TikTok
+        </div>
+
+        <span class="source-status">
+          Videos und ausgewählte Accounts
+        </span>
+      </div>
+
+    </label>
+
+
+    <label class="source-option">
+
+      <input
+        type="checkbox"
+        id="youtubeSource"
+      >
+
+      <div>
+        <div class="source-name">
+          ▶️ YouTube
+        </div>
+
+        <span class="source-status">
+          Videos und Kanäle
+        </span>
+      </div>
+
+    </label>
+
+
+    <label class="source-option">
+
+      <input
+        type="checkbox"
+        id="redditSource"
+      >
+
+      <div>
+        <div class="source-name">
+          👽 Reddit
+        </div>
+
+        <span class="source-status">
+          Beiträge und Communities
+        </span>
+      </div>
+
+    </label>
+
+
+    <button
+      class="secondary-button"
+      onclick="goToAccounts()"
+    >
+      Zurück
+    </button>
+
+    <button onclick="goToFeedType()">
+      Weiter
+    </button>
+
+  </div>
+
+
+  <!-- ======================================
+       SCHRITT 3: MEINE ACCOUNTS / MEIN FEED
+       ====================================== -->
+
+  <div
+    id="feedTypeScreen"
+    class="screen hidden"
+  >
+
+    <div class="step">Schritt 3 von 4</div>
+
+    <h2>Wie soll deine Ausgabe entstehen?</h2>
+
+    <p class="intro">
+      Du entscheidest, ob du selbst die Accounts
+      bestimmst oder einen personalisierten Feed möchtest.
+    </p>
+
 
     <div
-      class="limit-option active"
+      id="myAccountsChoice"
+      class="choice active"
+      onclick="selectFeedType('accounts')"
+    >
+
+      <strong>Meine Accounts</strong>
+
+      <span>
+        Du bestimmst selbst, welchen Accounts du folgst.
+        Jeden Morgen wird daraus automatisch eine neue
+        Ausgabe zusammengestellt.
+      </span>
+
+    </div>
+
+
+    <div
+      id="myFeedChoice"
+      class="choice"
+      onclick="selectFeedType('feed')"
+    >
+
+      <strong>Mein Feed</strong>
+
+      <span>
+        Eine personalisierte Auswahl wie bei einem
+        normalen Social-Media-Feed – aber mit einem Ende.
+      </span>
+
+    </div>
+
+
+    <button
+      class="secondary-button"
+      onclick="goToSources()"
+    >
+      Zurück
+    </button>
+
+    <button onclick="goToLimits()">
+      Weiter
+    </button>
+
+  </div>
+
+
+  <!-- ======================================
+       LIMIT
+       ====================================== -->
+
+  <div
+    id="limitScreen"
+    class="screen hidden"
+  >
+
+    <div class="step">Schritt 4 von 4</div>
+
+    <h2>Wie groß soll deine Ausgabe sein?</h2>
+
+    <p class="intro">
+      Deine Ausgabe wird automatisch beendet,
+      sobald deine gewählte Grenze erreicht ist.
+    </p>
+
+
+    <div
       id="optionCount"
-      onclick="selectMode('count')"
+      class="limit-option active"
+      onclick="selectLimitMode('count')"
     >
-      <strong>30 Inhalte</strong>
-      <span>Eine feste Anzahl von Inhalten</span>
+
+      <strong>Inhalte</strong>
+
+      <span>
+        Eine feste Anzahl von Beiträgen.
+      </span>
+
     </div>
 
+
     <div
-      class="limit-option"
       id="optionTime"
-      onclick="selectMode('time')"
+      class="limit-option"
+      onclick="selectLimitMode('time')"
     >
-      <strong>60 Minuten</strong>
-      <span>Die Ausgabe endet nach der gewählten Zeit</span>
+
+      <strong>Zeit</strong>
+
+      <span>
+        Eine feste Zeitspanne.
+      </span>
+
     </div>
+
 
     <div
-      class="limit-option"
       id="optionBoth"
-      onclick="selectMode('both')"
+      class="limit-option"
+      onclick="selectLimitMode('both')"
     >
-      <strong>30 Inhalte oder 60 Minuten</strong>
-      <span>Was zuerst erreicht wird, beendet die Ausgabe</span>
+
+      <strong>Inhalte oder Zeit</strong>
+
+      <span>
+        Was zuerst erreicht wird, beendet die Ausgabe.
+      </span>
+
     </div>
 
 
-    <div id="countInputBox" class="input-box">
+    <div
+      id="countInputBox"
+      class="input-box"
+    >
+
       <label for="countInput">
         Anzahl der Inhalte
       </label>
@@ -264,6 +746,7 @@
         min="1"
         value="30"
       >
+
     </div>
 
 
@@ -271,6 +754,7 @@
       id="timeInputBox"
       class="input-box hidden"
     >
+
       <label for="timeInput">
         Minuten
       </label>
@@ -281,6 +765,7 @@
         min="1"
         value="60"
       >
+
     </div>
 
 
@@ -317,33 +802,44 @@
     </div>
 
 
+    <button
+      class="secondary-button"
+      onclick="goToFeedType()"
+    >
+      Zurück
+    </button>
+
     <button onclick="startEdition()">
       Ausgabe starten
     </button>
 
-    <div class="small-info">
-      Du kannst später jederzeit zurückgehen.
-    </div>
-
   </div>
 
 
-  <!-- AUSGABE -->
+  <!-- ======================================
+       AUSGABE
+       ====================================== -->
 
   <div
     id="editionScreen"
     class="hidden"
   >
 
-    <div class="timer" id="timer">
+    <div
+      class="timer"
+      id="timer"
+    >
       Zeit
     </div>
 
+
     <div class="progress">
+
       <div
         class="progress-bar"
         id="progressBar"
       ></div>
+
     </div>
 
 
@@ -352,7 +848,10 @@
       id="contentCard"
     >
 
-      <div class="category" id="contentCategory">
+      <div
+        class="category"
+        id="contentCategory"
+      >
         Kategorie
       </div>
 
@@ -364,7 +863,10 @@
         Text
       </p>
 
-      <div class="source" id="contentSource">
+      <div
+        class="source"
+        id="contentSource"
+      >
         Quelle
       </div>
 
@@ -386,7 +888,9 @@
   </div>
 
 
-  <!-- ENDE -->
+  <!-- ======================================
+       ENDE
+       ====================================== -->
 
   <div
     id="endScreen"
@@ -397,11 +901,11 @@
 
     <p>
       Deine Ausgabe ist beendet.
-      Morgen wartet eine neue Ausgabe auf dich.
+      Keine neuen Inhalte. Kein Nachladen.
     </p>
 
-    <button onclick="restartEdition()">
-      Neue Ausgabe starten
+    <button onclick="restartSetup()">
+      Ausgabe neu konfigurieren
     </button>
 
   </div>
@@ -411,456 +915,623 @@
 
 <script>
 
-  /*
-   * ==========================================
-   * TÄGLICHE AUSGABE
-   * ==========================================
-   *
-   * Diese Inhalte sind fest.
-   *
-   * Wenn du zurückgehst, bekommst du
-   * genau denselben Inhalt wieder.
-   *
-   */
 
-  const dailyEdition = [
+/* ==========================================
+   DATEN
+   ========================================== */
 
-    {
-      category: "Wissen",
-      title: "Warum ist der Himmel blau?",
-      text: "Das Sonnenlicht wird in der Atmosphäre gestreut. Blaues Licht wird dabei stärker gestreut als andere Farben.",
-      source: "daily feed"
-    },
 
-    {
-      category: "Technologie",
-      title: "Was ist künstliche Intelligenz?",
-      text: "Künstliche Intelligenz beschreibt Computersysteme, die Aufgaben ausführen können, für die normalerweise menschliche Fähigkeiten wie Erkennen, Lernen oder Entscheiden nötig sind.",
-      source: "daily feed"
-    },
+const dailyEdition = [
 
-    {
-      category: "Gesellschaft",
-      title: "Warum sind Pausen wichtig?",
-      text: "Regelmäßige Pausen können dabei helfen, Aufmerksamkeit und Konzentration über längere Zeit aufrechtzuerhalten.",
-      source: "daily feed"
-    },
+  {
+    category: "Instagram",
+    title: "Beitrag deines ausgewählten Accounts",
+    text: "Hier wird später ein echter Instagram-Beitrag erscheinen.",
+    source: "Instagram"
+  },
 
-    {
-      category: "Wissen",
-      title: "Wie entstehen Wolken?",
-      text: "Wenn feuchte Luft aufsteigt und abkühlt, kann Wasserdampf kondensieren. Dabei entstehen winzige Wassertröpfchen oder Eiskristalle.",
-      source: "daily feed"
-    },
+  {
+    category: "TikTok",
+    title: "Video deines ausgewählten Accounts",
+    text: "Hier wird später ein echtes TikTok-Video erscheinen.",
+    source: "TikTok"
+  },
 
-    {
-      category: "Natur",
-      title: "Warum verändern sich die Jahreszeiten?",
-      text: "Die Jahreszeiten entstehen vor allem durch die Neigung der Erdachse und den jährlichen Umlauf der Erde um die Sonne.",
-      source: "daily feed"
-    },
+  {
+    category: "YouTube",
+    title: "Neues Video",
+    text: "Hier wird später ein echtes YouTube-Video erscheinen.",
+    source: "YouTube"
+  },
 
-    {
-      category: "Technologie",
-      title: "Was macht ein Betriebssystem?",
-      text: "Ein Betriebssystem verwaltet die grundlegenden Funktionen eines Computers oder Smartphones und stellt Anwendungen wichtige Schnittstellen zur Verfügung.",
-      source: "daily feed"
-    },
+  {
+    category: "Instagram",
+    title: "Noch ein Beitrag",
+    text: "Dieser Platzhalter zeigt später einen weiteren ausgewählten Beitrag.",
+    source: "Instagram"
+  },
 
-    {
-      category: "Wissen",
-      title: "Warum schlafen Menschen?",
-      text: "Schlaf unterstützt unter anderem Erholung, Gedächtnisverarbeitung und verschiedene körperliche Prozesse.",
-      source: "daily feed"
-    },
+  {
+    category: "TikTok",
+    title: "Noch ein Video",
+    text: "Dieser Platzhalter wird später durch echte Inhalte ersetzt.",
+    source: "TikTok"
+  },
 
-    {
-      category: "Kultur",
-      title: "Warum erzählen Menschen Geschichten?",
-      text: "Geschichten können Erfahrungen vermitteln, Wissen weitergeben und Menschen miteinander verbinden.",
-      source: "daily feed"
-    },
+  {
+    category: "Reddit",
+    title: "Interessanter Beitrag",
+    text: "Hier könnte später ein Beitrag aus einer ausgewählten Community erscheinen.",
+    source: "Reddit"
+  },
 
-    {
-      category: "Wissenschaft",
-      title: "Was ist DNA?",
-      text: "DNA enthält genetische Informationen. Sie dient als eine Art Bauplan für viele biologische Prozesse eines Organismus.",
-      source: "daily feed"
-    },
+  {
+    category: "Instagram",
+    title: "Beitrag",
+    text: "Die tägliche Ausgabe wird aus deinen verbundenen Quellen zusammengestellt.",
+    source: "Instagram"
+  },
 
-    {
-      category: "Wissen",
-      title: "Warum ist Wasser für das Leben wichtig?",
-      text: "Wasser ist an zahlreichen biologischen und chemischen Vorgängen beteiligt und für bekannte Lebensformen unverzichtbar.",
-      source: "daily feed"
-    },
+  {
+    category: "YouTube",
+    title: "Video",
+    text: "Die endgültige App wird hier echte Inhalte anzeigen.",
+    source: "YouTube"
+  },
 
-    {
-      category: "Natur",
-      title: "Wie entstehen Regenbögen?",
-      text: "Ein Regenbogen entsteht, wenn Sonnenlicht in Wassertropfen gebrochen, reflektiert und in seine verschiedenen Farben aufgeteilt wird.",
-      source: "daily feed"
-    },
+  {
+    category: "TikTok",
+    title: "Video",
+    text: "Dieser Inhalt ist momentan nur ein Platzhalter.",
+    source: "TikTok"
+  },
 
-    {
-      category: "Technologie",
-      title: "Was ist das Internet?",
-      text: "Das Internet ist ein weltweites Netzwerk miteinander verbundener Computersysteme, über das Daten ausgetauscht werden.",
-      source: "daily feed"
-    },
+  {
+    category: "Instagram",
+    title: "Beitrag",
+    text: "Die Ausgabe bleibt nach ihrer Erstellung eingefroren.",
+    source: "Instagram"
+  },
 
-    {
-      category: "Wissen",
-      title: "Warum haben Menschen unterschiedliche Augenfarben?",
-      text: "Die Augenfarbe hängt unter anderem von der Menge und Verteilung des Pigments Melanin in der Iris ab.",
-      source: "daily feed"
-    },
+  {
+    category: "Reddit",
+    title: "Diskussion",
+    text: "Kein endloses Nachladen – nur die Inhalte deiner heutigen Ausgabe.",
+    source: "Reddit"
+  },
 
-    {
-      category: "Gesellschaft",
-      title: "Warum arbeiten Menschen zusammen?",
-      text: "Zusammenarbeit ermöglicht es Menschen, Wissen, Fähigkeiten und Ressourcen zu kombinieren und gemeinsame Ziele zu erreichen.",
-      source: "daily feed"
-    },
+  {
+    category: "Instagram",
+    title: "Beitrag",
+    text: "Später wird hier ein echter Social-Media-Beitrag angezeigt.",
+    source: "Instagram"
+  },
 
-    {
-      category: "Wissenschaft",
-      title: "Was ist Gravitation?",
-      text: "Gravitation ist die Wechselwirkung, durch die Körper mit Masse einander anziehen.",
-      source: "daily feed"
-    },
+  {
+    category: "TikTok",
+    title: "Video",
+    text: "Die Auswahl erfolgt später automatisch.",
+    source: "TikTok"
+  },
 
-    {
-      category: "Natur",
-      title: "Warum gibt es Ebbe und Flut?",
-      text: "Die Gezeiten werden hauptsächlich durch die Anziehungskraft des Mondes und der Sonne sowie die Bewegung der Erde beeinflusst.",
-      source: "daily feed"
-    },
+  {
+    category: "YouTube",
+    title: "Video",
+    text: "Deine Ausgabe bekommt ein definiertes Ende.",
+    source: "YouTube"
+  },
 
-    {
-      category: "Technologie",
-      title: "Was ist ein Algorithmus?",
-      text: "Ein Algorithmus ist eine genau beschriebene Folge von Schritten, mit denen ein Problem gelöst oder eine Aufgabe ausgeführt werden kann.",
-      source: "daily feed"
-    },
+  {
+    category: "Instagram",
+    title: "Beitrag",
+    text: "Zurückgehen zeigt immer denselben Beitrag.",
+    source: "Instagram"
+  }
 
-    {
-      category: "Wissen",
-      title: "Warum können wir Musik hören?",
-      text: "Schallwellen gelangen über das Ohr ins Innenohr und werden dort in Signale umgewandelt, die das Gehirn verarbeitet.",
-      source: "daily feed"
-    },
+];
 
-    {
-      category: "Gesellschaft",
-      title: "Warum gibt es Sprachen?",
-      text: "Sprachen ermöglichen Menschen, Informationen, Gedanken und Gefühle miteinander auszutauschen.",
-      source: "daily feed"
-    },
 
-    {
-      category: "Wissenschaft",
-      title: "Was ist eine Zelle?",
-      text: "Die Zelle ist die grundlegende strukturelle und funktionelle Einheit aller bekannten Lebewesen.",
-      source: "daily feed"
-    },
+/* ==========================================
+   APP-ZUSTAND
+   ========================================== */
 
-    {
-      category: "Natur",
-      title: "Warum sind Bäume wichtig?",
-      text: "Bäume bieten Lebensräume, speichern Kohlenstoff, beeinflussen Wasserkreisläufe und produzieren Sauerstoff durch Photosynthese.",
-      source: "daily feed"
-    },
 
-    {
-      category: "Technologie",
-      title: "Was ist ein Smartphone?",
-      text: "Ein Smartphone kombiniert Funktionen eines Mobiltelefons mit Computerfunktionen wie Internetzugang, Apps und Kamera.",
-      source: "daily feed"
-    },
+let connectedAccounts = {
+  instagram: false,
+  tiktok: false,
+  youtube: false,
+  reddit: false
+};
 
-    {
-      category: "Wissen",
-      title: "Wie funktioniert unser Gedächtnis?",
-      text: "Das Gedächtnis ermöglicht es dem Gehirn, Informationen aufzunehmen, zu speichern und später wieder abzurufen.",
-      source: "daily feed"
-    },
 
-    {
-      category: "Kultur",
-      title: "Warum gibt es Museen?",
-      text: "Museen sammeln, bewahren und vermitteln kulturelle, historische oder wissenschaftliche Objekte und Informationen.",
-      source: "daily feed"
-    },
+let selectedSources = {
+  instagram: false,
+  tiktok: false,
+  youtube: false,
+  reddit: false
+};
 
-    {
-      category: "Wissenschaft",
-      title: "Was ist Photosynthese?",
-      text: "Bei der Photosynthese nutzen Pflanzen Lichtenergie, um aus Wasser und Kohlendioxid energiereiche organische Stoffe aufzubauen.",
-      source: "daily feed"
-    },
 
-    {
-      category: "Natur",
-      title: "Warum weht Wind?",
-      text: "Wind entsteht durch Luftbewegungen, die unter anderem durch Unterschiede im Luftdruck verursacht werden.",
-      source: "daily feed"
-    },
+let feedType = "accounts";
 
-    {
-      category: "Technologie",
-      title: "Was ist Cloud Computing?",
-      text: "Beim Cloud Computing werden Rechenleistung, Speicher oder andere Dienste über Netzwerke bereitgestellt.",
-      source: "daily feed"
-    },
 
-    {
-      category: "Wissen",
-      title: "Warum brauchen Menschen Sauerstoff?",
-      text: "Sauerstoff wird bei der menschlichen Zellatmung benötigt, durch die Energie aus Nährstoffen gewonnen wird.",
-      source: "daily feed"
-    },
+let limitMode = "count";
 
-    {
-      category: "Gesellschaft",
-      title: "Warum gibt es Städte?",
-      text: "Städte ermöglichen vielen Menschen, dicht zusammenzuleben und Infrastruktur, Arbeit, Bildung und Dienstleistungen zu teilen.",
-      source: "daily feed"
-    },
+let contentLimit = 30;
 
-    {
-      category: "Wissenschaft",
-      title: "Was ist ein Planet?",
-      text: "Ein Planet ist ein Himmelskörper, der einen Stern umkreist und genügend Masse besitzt, um annähernd eine kugelförmige Gestalt anzunehmen.",
-      source: "daily feed"
-    },
+let timeLimitMinutes = 60;
 
-    {
-      category: "Natur",
-      title: "Warum ändern sich die Blätter im Herbst?",
-      text: "Wenn die Tage kürzer werden, bauen viele Laubbäume Chlorophyll ab. Dadurch werden andere Farbstoffe sichtbar.",
-      source: "daily feed"
-    }
+let currentIndex = 0;
 
-  ];
+let startedAt = null;
 
+let timerInterval = null;
+
+let editionFinished = false;
+
+
+/* ==========================================
+   KONTEN VERBINDEN
+   ========================================== */
+
+
+function connectAccount(platform) {
 
   /*
-   * ==========================================
-   * VARIABLEN
-   * ==========================================
+   * Momentan simulieren wir die Verbindung.
+   *
+   * Später wird diese Funktion durch
+   * den echten OAuth-Login ersetzt.
    */
 
-  let mode = "count";
-
-  let contentLimit = 30;
-
-  let timeLimitMinutes = 60;
-
-  let currentIndex = 0;
-
-  let startedAt = null;
-
-  let timerInterval = null;
-
-  let editionFinished = false;
+  connectedAccounts[platform] = true;
 
 
-  /*
-   * ==========================================
-   * MODUS AUSWÄHLEN
-   * ==========================================
-   */
+  const status =
+    document.getElementById(
+      platform + "Status"
+    );
 
-  function selectMode(selectedMode) {
+  const button =
+    document.getElementById(
+      platform + "Button"
+    );
 
-    mode = selectedMode;
+
+  status.textContent =
+    "Verbunden";
+
+
+  button.textContent =
+    "Verbunden";
+
+
+  button.classList.add("connected");
+
+}
+
+
+/* ==========================================
+   QUELLEN
+   ========================================== */
+
+
+function goToSources() {
+
+  document
+    .getElementById("accountsScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("feedTypeScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("limitScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("sourcesScreen")
+    .classList.remove("hidden");
+
+}
+
+
+function goToAccounts() {
+
+  document
+    .getElementById("sourcesScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("accountsScreen")
+    .classList.remove("hidden");
+
+}
+
+
+/* ==========================================
+   FEED-TYP
+   ========================================== */
+
+
+function goToFeedType() {
+
+  selectedSources.instagram =
+    document.getElementById(
+      "instagramSource"
+    ).checked;
+
+  selectedSources.tiktok =
+    document.getElementById(
+      "tiktokSource"
+    ).checked;
+
+  selectedSources.youtube =
+    document.getElementById(
+      "youtubeSource"
+    ).checked;
+
+  selectedSources.reddit =
+    document.getElementById(
+      "redditSource"
+    ).checked;
+
+
+  document
+    .getElementById("sourcesScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("limitScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("feedTypeScreen")
+    .classList.remove("hidden");
+
+}
+
+
+function selectFeedType(type) {
+
+  feedType = type;
+
+
+  document
+    .getElementById("myAccountsChoice")
+    .classList.remove("active");
+
+  document
+    .getElementById("myFeedChoice")
+    .classList.remove("active");
+
+
+  if (type === "accounts") {
 
     document
-      .getElementById("optionCount")
-      .classList.remove("active");
-
-    document
-      .getElementById("optionTime")
-      .classList.remove("active");
-
-    document
-      .getElementById("optionBoth")
-      .classList.remove("active");
-
-
-    document
-      .getElementById("countInputBox")
-      .classList.add("hidden");
-
-    document
-      .getElementById("timeInputBox")
-      .classList.add("hidden");
-
-    document
-      .getElementById("bothInputBox")
-      .classList.add("hidden");
-
-
-    if (mode === "count") {
-
-      document
-        .getElementById("optionCount")
-        .classList.add("active");
-
-      document
-        .getElementById("countInputBox")
-        .classList.remove("hidden");
-
-    }
-
-
-    if (mode === "time") {
-
-      document
-        .getElementById("optionTime")
-        .classList.add("active");
-
-      document
-        .getElementById("timeInputBox")
-        .classList.remove("hidden");
-
-    }
-
-
-    if (mode === "both") {
-
-      document
-        .getElementById("optionBoth")
-        .classList.add("active");
-
-      document
-        .getElementById("bothInputBox")
-        .classList.remove("hidden");
-
-    }
+      .getElementById("myAccountsChoice")
+      .classList.add("active");
 
   }
 
 
-  /*
-   * ==========================================
-   * AUSGABE STARTEN
-   * ==========================================
-   */
-
-  function startEdition() {
-
-    editionFinished = false;
-
-    currentIndex = 0;
-
-    startedAt = Date.now();
-
-
-    if (mode === "count") {
-
-      contentLimit =
-        Math.max(
-          1,
-          Number(
-            document.getElementById("countInput").value
-          ) || 30
-        );
-
-    }
-
-
-    if (mode === "time") {
-
-      timeLimitMinutes =
-        Math.max(
-          1,
-          Number(
-            document.getElementById("timeInput").value
-          ) || 60
-        );
-
-    }
-
-
-    if (mode === "both") {
-
-      contentLimit =
-        Math.max(
-          1,
-          Number(
-            document.getElementById("bothCountInput").value
-          ) || 30
-        );
-
-
-      timeLimitMinutes =
-        Math.max(
-          1,
-          Number(
-            document.getElementById("bothTimeInput").value
-          ) || 60
-        );
-
-    }
-
+  if (type === "feed") {
 
     document
-      .getElementById("startScreen")
-      .classList.add("hidden");
+      .getElementById("myFeedChoice")
+      .classList.add("active");
+
+  }
+
+}
+
+
+/* ==========================================
+   LIMIT
+   ========================================== */
+
+
+function goToLimits() {
+
+  document
+    .getElementById("feedTypeScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("limitScreen")
+    .classList.remove("hidden");
+
+}
+
+
+function selectLimitMode(mode) {
+
+  limitMode = mode;
+
+
+  document
+    .getElementById("optionCount")
+    .classList.remove("active");
+
+  document
+    .getElementById("optionTime")
+    .classList.remove("active");
+
+  document
+    .getElementById("optionBoth")
+    .classList.remove("active");
+
+
+  document
+    .getElementById("countInputBox")
+    .classList.add("hidden");
+
+  document
+    .getElementById("timeInputBox")
+    .classList.add("hidden");
+
+  document
+    .getElementById("bothInputBox")
+    .classList.add("hidden");
+
+
+  if (mode === "count") {
 
     document
-      .getElementById("endScreen")
-      .classList.add("hidden");
+      .getElementById("optionCount")
+      .classList.add("active");
 
     document
-      .getElementById("editionScreen")
+      .getElementById("countInputBox")
       .classList.remove("hidden");
 
-
-    showCard();
-
-
-    clearInterval(timerInterval);
+  }
 
 
-    timerInterval =
-      setInterval(updateTimer, 1000);
+  if (mode === "time") {
 
+    document
+      .getElementById("optionTime")
+      .classList.add("active");
+
+    document
+      .getElementById("timeInputBox")
+      .classList.remove("hidden");
+
+  }
+
+
+  if (mode === "both") {
+
+    document
+      .getElementById("optionBoth")
+      .classList.add("active");
+
+    document
+      .getElementById("bothInputBox")
+      .classList.remove("hidden");
+
+  }
+
+}
+
+
+/* ==========================================
+   AUSGABE STARTEN
+   ========================================== */
+
+
+function startEdition() {
+
+  editionFinished = false;
+
+  currentIndex = 0;
+
+  startedAt = Date.now();
+
+
+  if (limitMode === "count") {
+
+    contentLimit =
+      Math.max(
+        1,
+        Number(
+          document.getElementById("countInput").value
+        ) || 30
+      );
+
+  }
+
+
+  if (limitMode === "time") {
+
+    timeLimitMinutes =
+      Math.max(
+        1,
+        Number(
+          document.getElementById("timeInput").value
+        ) || 60
+      );
+
+  }
+
+
+  if (limitMode === "both") {
+
+    contentLimit =
+      Math.max(
+        1,
+        Number(
+          document.getElementById("bothCountInput").value
+        ) || 30
+      );
+
+
+    timeLimitMinutes =
+      Math.max(
+        1,
+        Number(
+          document.getElementById("bothTimeInput").value
+        ) || 60
+      );
+
+  }
+
+
+  document
+    .getElementById("limitScreen")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("editionScreen")
+    .classList.remove("hidden");
+
+
+  showCard();
+
+
+  clearInterval(timerInterval);
+
+
+  timerInterval =
+    setInterval(updateTimer, 1000);
+
+
+  updateTimer();
+
+}
+
+
+/* ==========================================
+   INHALT
+   ========================================== */
+
+
+function showCard() {
+
+  if (editionFinished) {
+    return;
+  }
+
+
+  if (
+    currentIndex < 0 ||
+    currentIndex >= dailyEdition.length
+  ) {
+
+    finishEdition();
+
+    return;
+
+  }
+
+
+  const content =
+    dailyEdition[currentIndex];
+
+
+  document
+    .getElementById("contentCategory")
+    .textContent =
+      content.category;
+
+
+  document
+    .getElementById("contentTitle")
+    .textContent =
+      content.title;
+
+
+  document
+    .getElementById("contentText")
+    .textContent =
+      content.text;
+
+
+  document
+    .getElementById("contentSource")
+    .textContent =
+      "Quelle: " +
+      content.source;
+
+
+  if (limitMode === "count") {
+
+    document
+      .getElementById("timer")
+      .textContent =
+        "Inhalt " +
+        (currentIndex + 1) +
+        " von " +
+        contentLimit;
+
+
+    const progress =
+      Math.min(
+        100,
+        ((currentIndex + 1) / contentLimit) * 100
+      );
+
+
+    document
+      .getElementById("progressBar")
+      .style.width =
+        progress + "%";
+
+  }
+
+
+  if (limitMode === "time") {
 
     updateTimer();
 
   }
 
 
+  if (limitMode === "both") {
+
+    document
+      .getElementById("timer")
+      .textContent =
+        "Inhalt " +
+        (currentIndex + 1) +
+        " von " +
+        contentLimit;
+
+  }
+
+}
+
+
+/* ==========================================
+   WEITER
+   ========================================== */
+
+
+function nextCard() {
+
+  if (editionFinished) {
+    return;
+  }
+
+
   /*
-   * ==========================================
-   * INHALT ANZEIGEN
-   * ==========================================
+   * Zeit überprüfen
    */
 
-  function showCard() {
+  if (
+    limitMode === "time" ||
+    limitMode === "both"
+  ) {
 
-    if (editionFinished) {
-      return;
-    }
-
-
-    /*
-     * Ganz wichtig:
-     *
-     * Im Zeit-Modus gibt es KEINE
-     * künstliche Begrenzung auf 30 Inhalte.
-     *
-     * Wir zeigen einfach den aktuellen
-     * Inhalt aus der festen Ausgabe.
-     */
+    const elapsed =
+      (Date.now() - startedAt) / 1000 / 60;
 
 
     if (
-      currentIndex < 0 ||
-      currentIndex >= dailyEdition.length
+      elapsed >= timeLimitMinutes
     ) {
 
       finishEdition();
@@ -869,175 +1540,148 @@
 
     }
 
-
-    const content =
-      dailyEdition[currentIndex];
+  }
 
 
-    document
-      .getElementById("contentCategory")
-      .textContent = content.category;
+  /*
+   * Anzahl überprüfen
+   */
 
+  if (
+    limitMode === "count" ||
+    limitMode === "both"
+  ) {
 
-    document
-      .getElementById("contentTitle")
-      .textContent = content.title;
+    if (
+      currentIndex + 1 >= contentLimit
+    ) {
 
+      finishEdition();
 
-    document
-      .getElementById("contentText")
-      .textContent = content.text;
-
-
-    document
-      .getElementById("contentSource")
-      .textContent = "Quelle: " + content.source;
-
-
-    /*
-     * Fortschritt
-     */
-
-    let progress = 0;
-
-
-    if (mode === "count") {
-
-      progress =
-        ((currentIndex + 1) / contentLimit) * 100;
+      return;
 
     }
 
-
-    if (mode === "time") {
-
-      /*
-       * Im Zeitmodus zeigt der Balken den
-       * zeitlichen Fortschritt.
-       */
-
-      const elapsed =
-        (Date.now() - startedAt) / 1000 / 60;
-
-      progress =
-        (elapsed / timeLimitMinutes) * 100;
-
-    }
+  }
 
 
-    if (mode === "both") {
+  /*
+   * Nächsten Inhalt zeigen
+   */
 
-      const countProgress =
-        ((currentIndex + 1) / contentLimit) * 100;
+  if (
+    currentIndex + 1 <
+    dailyEdition.length
+  ) {
 
-      const elapsed =
-        (Date.now() - startedAt) / 1000 / 60;
+    currentIndex++;
 
-      const timeProgress =
-        (elapsed / timeLimitMinutes) * 100;
+    showCard();
 
-      progress =
-        Math.max(
-          countProgress,
-          timeProgress
-        );
+  } else {
 
-    }
+    finishEdition();
+
+  }
+
+}
 
 
-    progress =
-      Math.min(100, Math.max(0, progress));
+/* ==========================================
+   ZURÜCK
+   ========================================== */
+
+
+function previousCard() {
+
+  if (editionFinished) {
+    return;
+  }
+
+
+  if (currentIndex > 0) {
+
+    currentIndex--;
+
+    showCard();
+
+  }
+
+}
+
+
+/* ==========================================
+   TIMER
+   ========================================== */
+
+
+function updateTimer() {
+
+  if (
+    !startedAt ||
+    editionFinished
+  ) {
+
+    return;
+
+  }
+
+
+  const elapsedSeconds =
+    Math.floor(
+      (Date.now() - startedAt) / 1000
+    );
+
+
+  if (
+    limitMode === "time" ||
+    limitMode === "both"
+  ) {
+
+    const totalSeconds =
+      timeLimitMinutes * 60;
+
+
+    const remaining =
+      Math.max(
+        0,
+        totalSeconds - elapsedSeconds
+      );
+
+
+    const minutes =
+      Math.floor(
+        remaining / 60
+      );
+
+
+    const seconds =
+      remaining % 60;
+
+
+    document
+      .getElementById("timer")
+      .textContent =
+        "Noch " +
+        minutes +
+        ":" +
+        String(seconds).padStart(2, "0");
+
+
+    const progress =
+      Math.min(
+        100,
+        (elapsedSeconds / totalSeconds) * 100
+      );
 
 
     document
       .getElementById("progressBar")
-      .style.width = progress + "%";
-
-  }
-
-
-  /*
-   * ==========================================
-   * WEITER
-   * ==========================================
-   */
-
-  function nextCard() {
-
-    if (editionFinished) {
-      return;
-    }
+      .style.width =
+        progress + "%";
 
 
-    /*
-     * Zuerst prüfen wir die Zeit.
-     */
-
-    if (
-      mode === "time" ||
-      mode === "both"
-    ) {
-
-      const elapsed =
-        (Date.now() - startedAt) / 1000 / 60;
-
-
-      if (elapsed >= timeLimitMinutes) {
-
-        finishEdition();
-
-        return;
-
-      }
-
-    }
-
-
-    /*
-     * Danach prüfen wir die Anzahl.
-     *
-     * Nur count und both haben
-     * eine Inhaltsbegrenzung.
-     */
-
-    if (
-      mode === "count" ||
-      mode === "both"
-    ) {
-
-      if (
-        currentIndex + 1 >= contentLimit
-      ) {
-
-        finishEdition();
-
-        return;
-
-      }
-
-    }
-
-
-    /*
-     * Nächster Inhalt.
-     */
-
-    if (
-      currentIndex + 1 <
-      dailyEdition.length
-    ) {
-
-      currentIndex++;
-
-      showCard();
-
-    } else {
-
-      /*
-       * Hier sind einfach alle momentan
-       * vorhandenen Beispielinhalte
-       * aufgebraucht.
-       */
+    if (remaining <= 0) {
 
       finishEdition();
 
@@ -1045,310 +1689,119 @@
 
   }
 
+}
 
-  /*
-   * ==========================================
-   * ZURÜCK
-   * ==========================================
-   */
 
-  function previousCard() {
+/* ==========================================
+   ENDE
+   ========================================== */
 
-    if (editionFinished) {
-      return;
+
+function finishEdition() {
+
+  if (editionFinished) {
+    return;
+  }
+
+
+  editionFinished = true;
+
+
+  clearInterval(timerInterval);
+
+
+  document
+    .getElementById("editionScreen")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("endScreen")
+    .classList.remove("hidden");
+
+}
+
+
+/* ==========================================
+   NEU KONFIGURIEREN
+   ========================================== */
+
+
+function restartSetup() {
+
+  clearInterval(timerInterval);
+
+  currentIndex = 0;
+
+  startedAt = null;
+
+  editionFinished = false;
+
+
+  document
+    .getElementById("endScreen")
+    .classList.add("hidden");
+
+
+  document
+    .getElementById("accountsScreen")
+    .classList.remove("hidden");
+
+}
+
+
+/* ==========================================
+   WISCHEN
+   ========================================== */
+
+
+let touchStartY = 0;
+
+let touchEndY = 0;
+
+
+const card =
+  document.getElementById("contentCard");
+
+
+card.addEventListener(
+  "touchstart",
+  function(event) {
+
+    touchStartY =
+      event.changedTouches[0].screenY;
+
+  }
+);
+
+
+card.addEventListener(
+  "touchend",
+  function(event) {
+
+    touchEndY =
+      event.changedTouches[0].screenY;
+
+
+    const difference =
+      touchStartY - touchEndY;
+
+
+    if (difference > 50) {
+
+      nextCard();
+
     }
 
 
-    if (currentIndex > 0) {
+    if (difference < -50) {
 
-      currentIndex--;
-
-      showCard();
+      previousCard();
 
     }
 
   }
-
-
-  /*
-   * ==========================================
-   * TIMER
-   * ==========================================
-   */
-
-  function updateTimer() {
-
-    if (
-      !startedAt ||
-      editionFinished
-    ) {
-
-      return;
-
-    }
-
-
-    const elapsedSeconds =
-      Math.floor(
-        (Date.now() - startedAt) / 1000
-      );
-
-
-    const elapsedMinutes =
-      Math.floor(
-        elapsedSeconds / 60
-      );
-
-
-    const remainingSeconds =
-      elapsedSeconds % 60;
-
-
-    /*
-     * Zeitmodus
-     */
-
-    if (
-      mode === "time" ||
-      mode === "both"
-    ) {
-
-      const totalSeconds =
-        timeLimitMinutes * 60;
-
-
-      const remaining =
-        Math.max(
-          0,
-          totalSeconds - elapsedSeconds
-        );
-
-
-      const minutes =
-        Math.floor(remaining / 60);
-
-
-      const seconds =
-        remaining % 60;
-
-
-      document
-        .getElementById("timer")
-        .textContent =
-          "Noch " +
-          minutes +
-          ":" +
-          String(seconds).padStart(2, "0");
-
-
-      /*
-       * Zeit ist vorbei
-       */
-
-      if (remaining <= 0) {
-
-        finishEdition();
-
-        return;
-
-      }
-
-
-      /*
-       * Zeitfortschritt aktualisieren
-       */
-
-      const progress =
-        Math.min(
-          100,
-          (elapsedSeconds / totalSeconds) * 100
-        );
-
-
-      if (mode === "time") {
-
-        document
-          .getElementById("progressBar")
-          .style.width =
-            progress + "%";
-
-      }
-
-    }
-
-
-    /*
-     * Inhaltsmodus
-     */
-
-    if (mode === "count") {
-
-      document
-        .getElementById("timer")
-        .textContent =
-          "Inhalt " +
-          (currentIndex + 1) +
-          " von " +
-          contentLimit;
-
-
-      const progress =
-        Math.min(
-          100,
-          ((currentIndex + 1) / contentLimit) * 100
-        );
-
-
-      document
-        .getElementById("progressBar")
-        .style.width =
-          progress + "%";
-
-    }
-
-
-    /*
-     * Beide Begrenzungen
-     */
-
-    if (mode === "both") {
-
-      document
-        .getElementById("timer")
-        .textContent =
-          "Inhalt " +
-          (currentIndex + 1) +
-          " von " +
-          contentLimit;
-
-    }
-
-  }
-
-
-  /*
-   * ==========================================
-   * AUSGABE BEENDEN
-   * ==========================================
-   */
-
-  function finishEdition() {
-
-    if (editionFinished) {
-      return;
-    }
-
-
-    editionFinished = true;
-
-
-    clearInterval(timerInterval);
-
-
-    document
-      .getElementById("editionScreen")
-      .classList.add("hidden");
-
-
-    document
-      .getElementById("endScreen")
-      .classList.remove("hidden");
-
-  }
-
-
-  /*
-   * ==========================================
-   * NEU STARTEN
-   * ==========================================
-   */
-
-  function restartEdition() {
-
-    clearInterval(timerInterval);
-
-    currentIndex = 0;
-
-    startedAt = null;
-
-    editionFinished = false;
-
-
-    document
-      .getElementById("endScreen")
-      .classList.add("hidden");
-
-
-    document
-      .getElementById("startScreen")
-      .classList.remove("hidden");
-
-  }
-
-
-  /*
-   * ==========================================
-   * WISCHGESTEN
-   * ==========================================
-   */
-
-  let touchStartY = 0;
-
-  let touchEndY = 0;
-
-
-  const card =
-    document.getElementById("contentCard");
-
-
-  card.addEventListener(
-    "touchstart",
-    function(event) {
-
-      touchStartY =
-        event.changedTouches[0].screenY;
-
-    }
-  );
-
-
-  card.addEventListener(
-    "touchend",
-    function(event) {
-
-      touchEndY =
-        event.changedTouches[0].screenY;
-
-
-      const difference =
-        touchStartY - touchEndY;
-
-
-      /*
-       * Nach oben wischen
-       * = nächster Inhalt
-       */
-
-      if (difference > 50) {
-
-        nextCard();
-
-      }
-
-
-      /*
-       * Nach unten wischen
-       * = vorheriger Inhalt
-       */
-
-      if (difference < -50) {
-
-        previousCard();
-
-      }
-
-    }
-  );
+);
 
 </script>
 
