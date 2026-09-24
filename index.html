@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>daily feed</title>
 
   <style>
@@ -17,52 +18,55 @@
       color: #111;
     }
 
-    .app {
-      max-width: 600px;
-      min-height: 100vh;
-      margin: auto;
-      background: white;
-    }
-
-    header {
-      padding: 24px 20px 10px;
-      font-size: 28px;
-      font-weight: 700;
-    }
-
     .screen {
-      padding: 20px;
-      padding-bottom: 50px;
+      min-height: 100vh;
+      padding: 30px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 600px;
     }
 
     h1 {
-      font-size: 30px;
-      margin: 10px 0;
+      font-size: 42px;
+      margin: 0 0 10px;
+      letter-spacing: -2px;
     }
 
     h2 {
-      font-size: 21px;
-      margin-top: 30px;
+      margin-top: 0;
     }
 
-    p {
+    .subtitle {
       color: #666;
+      margin-bottom: 30px;
       line-height: 1.5;
     }
 
     .card {
-      border: 1px solid #ddd;
-      border-radius: 18px;
-      padding: 16px;
-      margin: 12px 0;
+      background: white;
+      border-radius: 20px;
+      padding: 22px;
+      margin-bottom: 16px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.06);
     }
 
-    .source-row {
+    .section-title {
+      font-weight: 700;
+      margin-bottom: 14px;
+      font-size: 18px;
+    }
+
+    label {
       display: flex;
       align-items: center;
       gap: 12px;
-      font-size: 18px;
-      padding: 12px 0;
+      padding: 13px 0;
+      cursor: pointer;
     }
 
     input[type="checkbox"],
@@ -71,1577 +75,1623 @@
       height: 20px;
     }
 
-    .mode {
-      border: 2px solid #ddd;
-      border-radius: 18px;
-      padding: 18px;
-      margin: 12px 0;
-      cursor: pointer;
+    input[type="number"] {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      font-size: 17px;
+      margin-top: 8px;
     }
 
-    .mode.selected {
-      border-color: #111;
-      background: #f3f3f3;
-    }
-
-    .mode-title {
-      font-size: 19px;
-      font-weight: 700;
-    }
-
-    .mode-text {
-      margin-top: 7px;
-      color: #666;
-      line-height: 1.45;
-    }
-
-    .account-platform {
-      margin-top: 25px;
-      font-size: 19px;
-      font-weight: 700;
+    .account-list {
+      margin-top: 10px;
     }
 
     .account {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 0;
-      border-bottom: 1px solid #eee;
-    }
-
-    .account:last-child {
-      border-bottom: none;
-    }
-
-    .account-name {
-      font-weight: 600;
-    }
-
-    .account-description {
-      font-size: 13px;
-      color: #777;
-      margin-top: 3px;
-    }
-
-    .limit {
-      border: 2px solid #ddd;
-      border-radius: 18px;
-      padding: 18px;
-      margin: 12px 0;
-      cursor: pointer;
-    }
-
-    .limit.selected {
-      border-color: #111;
-      background: #f3f3f3;
-    }
-
-    input[type="number"] {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ccc;
+      background: #f7f7f7;
       border-radius: 12px;
-      font-size: 17px;
-      margin-top: 12px;
+      margin-bottom: 8px;
+      padding: 4px 12px;
     }
 
     button {
-      border: 0;
-      border-radius: 14px;
-      padding: 14px 18px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-    }
-
-    .primary {
       width: 100%;
-      margin-top: 20px;
+      border: none;
+      border-radius: 15px;
+      padding: 17px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
       background: #111;
       color: white;
+      margin-top: 8px;
     }
 
-    .secondary {
-      background: #eee;
+    button.secondary {
+      background: #e9e9e9;
       color: #111;
     }
 
-    .connected {
-      background: #e4f5e8;
-      color: #176b2b;
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
     }
 
     .hidden {
       display: none !important;
     }
 
-    .note {
-      background: #f5f5f5;
-      border-radius: 14px;
-      padding: 14px;
-      margin-top: 15px;
+    .mode-card {
+      border: 2px solid transparent;
+      transition: 0.2s;
+    }
+
+    .mode-card.selected {
+      border-color: #111;
+    }
+
+    .mode-card label {
+      padding: 4px 0;
+    }
+
+    .mode-description {
       color: #666;
       font-size: 14px;
-      line-height: 1.45;
+      margin: 5px 0 0 32px;
+      line-height: 1.4;
+    }
+
+    /* Ausgabe */
+
+    #editionScreen {
+      padding: 0;
+      align-items: stretch;
+    }
+
+    .edition {
+      width: 100%;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
 
     .edition-header {
-      padding: 20px;
-      border-bottom: 1px solid #eee;
+      padding: 18px 20px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    .edition-title {
-      font-size: 19px;
-      font-weight: 700;
+    .logo {
+      font-size: 22px;
+      font-weight: 800;
     }
 
-    .edition-info {
-      color: #666;
+    .counter {
       font-size: 14px;
-      margin-top: 7px;
+      color: #666;
+    }
+
+    .progress-container {
+      height: 4px;
+      background: #ddd;
+      margin: 0 20px;
+      border-radius: 10px;
+      overflow: hidden;
     }
 
     .progress {
-      height: 6px;
-      background: #eee;
-      border-radius: 10px;
-      margin-top: 12px;
-      overflow: hidden;
+      height: 100%;
+      background: #111;
+      width: 0%;
+      transition: width 0.2s;
     }
 
-    .progress-bar {
-      height: 100%;
-      width: 0%;
-      background: #111;
+    .timer {
+      text-align: center;
+      padding: 12px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    .content-area {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      touch-action: pan-y;
     }
 
     .content-card {
-      margin: 20px;
-      min-height: 430px;
-      border-radius: 22px;
-      background: #f1f1f1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      overflow: hidden;
+      width: 100%;
+      max-width: 600px;
+      background: white;
+      border-radius: 25px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.08);
     }
 
-    .content-main {
-      padding: 22px;
-    }
-
-    .content-platform {
-      color: #777;
+    .platform {
       font-size: 14px;
+      color: #777;
+      margin-bottom: 12px;
     }
 
-    .content-title {
-      font-size: 29px;
+    .account-name {
       font-weight: 700;
+      margin-bottom: 25px;
+    }
+
+    .content-card h2 {
+      font-size: 30px;
       line-height: 1.15;
-      margin-top: 15px;
+      margin-bottom: 18px;
     }
 
-    .content-text {
-      color: #555;
-      font-size: 17px;
-      line-height: 1.5;
-      margin-top: 18px;
-    }
-
-    .content-account {
-      padding: 20px;
-      font-weight: 600;
+    .content-card p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #444;
     }
 
     .navigation {
       display: flex;
       gap: 10px;
-      padding: 20px;
+      padding: 15px 20px 25px;
     }
 
     .navigation button {
-      flex: 1;
+      margin: 0;
     }
 
-    .timer {
+    .hint {
       text-align: center;
+      color: #999;
+      font-size: 13px;
+      padding-bottom: 10px;
+    }
+
+    /* Ende */
+
+    .end-card {
+      text-align: center;
+    }
+
+    .end-card h2 {
+      font-size: 34px;
+    }
+
+    .end-card p {
       color: #666;
-      font-size: 14px;
-      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    .success {
+      font-size: 50px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
 
 <body>
 
-<div class="app">
-
-  <header>daily feed</header>
-
-  <!-- SETUP -->
+  <!-- =========================
+       START / EINSTELLUNGEN
+       ========================= -->
 
   <div id="setupScreen" class="screen">
+    <div class="container">
 
-    <h1>Deine tägliche Ausgabe</h1>
+      <h1>daily feed</h1>
 
-    <p>
-      Du entscheidest, welche Plattformen und – wenn du möchtest –
-      welche Accounts berücksichtigt werden.
-    </p>
-
-
-    <!-- SCHRITT 1 -->
-
-    <h2>1. Woher sollen die Inhalte kommen?</h2>
-
-    <div class="card">
-
-      <label class="source-row">
-        <input type="checkbox" class="source" value="Instagram">
-        Instagram
-      </label>
-
-      <label class="source-row">
-        <input type="checkbox" class="source" value="TikTok">
-        TikTok
-      </label>
-
-      <label class="source-row">
-        <input type="checkbox" class="source" value="YouTube">
-        YouTube
-      </label>
-
-      <label class="source-row">
-        <input type="checkbox" class="source" value="Reddit">
-        Reddit
-      </label>
-
-    </div>
-
-
-    <!-- SCHRITT 2 -->
-
-    <h2>2. Wie sollen die Inhalte ausgewählt werden?</h2>
-
-    <div
-      id="accountsMode"
-      class="mode selected"
-      onclick="selectMode('accounts')"
-    >
-
-      <div class="mode-title">
-        🧑 Meine Accounts
-      </div>
-
-      <div class="mode-text">
-        Du bestimmst selbst, welche Accounts du sehen möchtest.
-        Nur Inhalte dieser Accounts kommen in deine Ausgabe.
-      </div>
-
-    </div>
-
-
-    <div
-      id="feedMode"
-      class="mode"
-      onclick="selectMode('feed')"
-    >
-
-      <div class="mode-title">
-        ✨ Mein Feed
-      </div>
-
-      <div class="mode-text">
-        daily feed erstellt einen personalisierten Feed aus
-        den von dir ausgewählten Plattformen.
-      </div>
-
-    </div>
-
-
-    <!-- SCHRITT 3 -->
-
-    <div id="accountSection">
-
-      <h2>3. Welche Accounts möchtest du sehen?</h2>
-
-      <p>
-        Wähle die Accounts aus, deren Inhalte in deiner täglichen
-        Ausgabe erscheinen dürfen.
+      <p class="subtitle">
+        Der Algorithmus entscheidet, <strong>was</strong> du siehst.
+        Du entscheidest, <strong>wie viel</strong> du davon siehst.
       </p>
 
-      <div id="accountList"></div>
-
-      <div class="note">
-        Die Accounts sind im aktuellen Prototyp Beispiele.
-        Später werden hier deine echten Accounts aus den verbundenen
-        Plattformen angezeigt.
-      </div>
-
-    </div>
-
-
-    <!-- SCHRITT 4 -->
-
-    <h2 id="limitTitle">
-      4. Wie groß soll deine Ausgabe sein?
-    </h2>
-
-
-    <div
-      id="countLimit"
-      class="limit selected"
-      onclick="selectLimit('count')"
-    >
-
-      <strong>📱 Anzahl der Inhalte</strong>
-
-      <input
-        id="countInput"
-        type="number"
-        min="1"
-        value="10"
-        onclick="event.stopPropagation()"
-      >
-
-    </div>
-
-
-    <div
-      id="timeLimit"
-      class="limit"
-      onclick="selectLimit('time')"
-    >
-
-      <strong>⏱️ Zeit</strong>
-
-      <input
-        id="timeInput"
-        type="number"
-        min="1"
-        value="10"
-        onclick="event.stopPropagation()"
-      >
-
-    </div>
-
-
-    <div
-      id="bothLimit"
-      class="limit"
-      onclick="selectLimit('both')"
-    >
-
-      <strong>⏱️ Inhalte oder Zeit</strong>
-
-      <input
-        id="bothCountInput"
-        type="number"
-        min="1"
-        value="10"
-        onclick="event.stopPropagation()"
-      >
-
-      <input
-        id="bothTimeInput"
-        type="number"
-        min="1"
-        value="10"
-        onclick="event.stopPropagation()"
-      >
-
-    </div>
-
-
-    <!-- START -->
-
-    <button
-      class="primary"
-      onclick="startEdition()"
-    >
-      Ausgabe starten
-    </button>
-
-  </div>
-
-
-  <!-- AUSGABE -->
-
-  <div
-    id="editionScreen"
-    class="hidden"
-  >
-
-    <div class="edition-header">
-
-      <div class="edition-title">
-        Deine daily feed Ausgabe
-      </div>
-
-      <div
-        id="editionInfo"
-        class="edition-info"
-      ></div>
-
-      <div class="progress">
-        <div
-          id="progressBar"
-          class="progress-bar"
-        ></div>
-      </div>
-
-    </div>
-
-
-    <div class="content-card">
-
-      <div class="content-main">
-
-        <div
-          id="contentPlatform"
-          class="content-platform"
-        ></div>
-
-        <div
-          id="contentTitle"
-          class="content-title"
-        ></div>
-
-        <div
-          id="contentText"
-          class="content-text"
-        ></div>
-
-      </div>
-
-      <div
-        id="contentAccount"
-        class="content-account"
-      ></div>
-
-    </div>
-
-
-    <div class="navigation">
-
-      <button
-        class="secondary"
-        onclick="previousContent()"
-      >
-        ← Zurück
-      </button>
-
-      <button
-        class="primary"
-        onclick="nextContent()"
-      >
-        Weiter →
-      </button>
-
-    </div>
-
-  </div>
-
-
-  <!-- ENDE -->
-
-  <div
-    id="endScreen"
-    class="screen hidden"
-  >
-
-    <h1>Ausgabe beendet</h1>
-
-    <p>
-      Deine heutige daily feed Ausgabe ist vorbei.
-    </p>
-
-    <div class="card">
-
-      <strong>
-        Keine weiteren Inhalte.
-      </strong>
-
-      <p>
-        Du hast dein festgelegtes Limit erreicht.
-      </p>
-
-    </div>
-
-    <button
-      class="primary"
-      onclick="location.reload()"
-    >
-      Neue Ausgabe
-    </button>
-
-  </div>
-
-</div>
-
-
-<script>
-
-  /* ==============================
-     APP STATE
-  ============================== */
-
-  let selectedMode = "accounts";
-
-  let selectedLimit = "count";
-
-  let selectedSources = [];
-
-  let selectedAccounts = [];
-
-  let dailyEdition = [];
-
-  let currentIndex = 0;
-
-  let contentLimit = 10;
-
-  let timeLimitMinutes = 10;
-
-  let editionStartTime = 0;
-
-  let timer = null;
-
-
-  /* ==============================
-     TEST ACCOUNTS
-  ============================== */
-
-  const accounts = [
-
-    {
-      platform: "Instagram",
-      username: "@natgeo"
-    },
-
-    {
-      platform: "Instagram",
-      username: "@nike"
-    },
-
-    {
-      platform: "Instagram",
-      username: "@designmilk"
-    },
-
-    {
-      platform: "TikTok",
-      username: "@science"
-    },
-
-    {
-      platform: "TikTok",
-      username: "@creator_daily"
-    },
-
-    {
-      platform: "TikTok",
-      username: "@techworld"
-    },
-
-    {
-      platform: "YouTube",
-      username: "Kurzgesagt"
-    },
-
-    {
-      platform: "YouTube",
-      username: "MrBeast"
-    },
-
-    {
-      platform: "Reddit",
-      username: "r/science"
-    },
-
-    {
-      platform: "Reddit",
-      username: "r/technology"
-    }
-
-  ];
-
-
-  /* ==============================
-     TEST CONTENT
-  ============================== */
-
-  const content = [
-
-    {
-      platform: "Instagram",
-      account: "@natgeo",
-      title: "Die Welt entdecken",
-      text: "Ein neuer Blick auf einen besonderen Ort dieser Erde."
-    },
-
-    {
-      platform: "Instagram",
-      account: "@nike",
-      title: "Move forward",
-      text: "Motivation und Sport für deinen heutigen Tag."
-    },
-
-    {
-      platform: "Instagram",
-      account: "@designmilk",
-      title: "Modernes Design",
-      text: "Ein interessantes Beispiel für zeitgenössisches Design."
-    },
-
-    {
-      platform: "TikTok",
-      account: "@science",
-      title: "Warum ist der Himmel blau?",
-      text: "Ein kurzer wissenschaftlicher Blick auf ein alltägliches Phänomen."
-    },
-
-    {
-      platform: "TikTok",
-      account: "@creator_daily",
-      title: "Heute im Internet",
-      text: "Ein interessanter Fund aus der digitalen Welt."
-    },
-
-    {
-      platform: "TikTok",
-      account: "@techworld",
-      title: "Neue Technologie",
-      text: "Was gerade in der Technikwelt passiert."
-    },
-
-    {
-      platform: "YouTube",
-      account: "Kurzgesagt",
-      title: "Eine große Frage",
-      text: "Ein wissenschaftlicher Gedankenanstoß."
-    },
-
-    {
-      platform: "YouTube",
-      account: "MrBeast",
-      title: "Das heutige Video",
-      text: "Ein Beispiel für einen YouTube-Inhalt."
-    },
-
-    {
-      platform: "Reddit",
-      account: "r/science",
-      title: "Neue Erkenntnisse",
-      text: "Eine interessante Diskussion aus der Wissenschaft."
-    },
-
-    {
-      platform: "Reddit",
-      account: "r/technology",
-      title: "Technologie-Diskussion",
-      text: "Eine Diskussion aus der Community."
-    }
-
-  ];
-
-
-  /* ==============================
-     MODE AUSWÄHLEN
-  ============================== */
-
-  function selectMode(mode) {
-
-    selectedMode = mode;
-
-    document
-      .getElementById("accountsMode")
-      .classList.toggle(
-        "selected",
-        mode === "accounts"
-      );
-
-    document
-      .getElementById("feedMode")
-      .classList.toggle(
-        "selected",
-        mode === "feed"
-      );
-
-
-    const accountSection =
-      document.getElementById(
-        "accountSection"
-      );
-
-
-    if (mode === "accounts") {
-
-      accountSection.classList.remove(
-        "hidden"
-      );
-
-      renderAccounts();
-
-    } else {
-
-      accountSection.classList.add(
-        "hidden"
-      );
-
-    }
-
-  }
-
-
-  /* ==============================
-     QUELLEN AUSLESEN
-  ============================== */
-
-  function getSources() {
-
-    return Array.from(
-      document.querySelectorAll(
-        ".source:checked"
-      )
-    ).map(
-      checkbox =>
-        checkbox.value
-    );
-
-  }
-
-
-  /* ==============================
-     ACCOUNT-LISTE
-  ============================== */
-
-  function renderAccounts() {
-
-    const list =
-      document.getElementById(
-        "accountList"
-      );
-
-    const sources =
-      getSources();
-
-
-    list.innerHTML = "";
-
-
-    if (sources.length === 0) {
-
-      list.innerHTML = `
-        <div class="card">
-          Bitte wähle zuerst mindestens eine
-          Plattform oben aus.
+      <!-- Quellen -->
+
+      <div class="card">
+        <div class="section-title">
+          Woher sollen die Inhalte kommen?
         </div>
-      `;
 
-      return;
+        <label>
+          <input
+            type="checkbox"
+            value="Instagram"
+            class="source-checkbox"
+          >
+          Instagram
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            value="TikTok"
+            class="source-checkbox"
+          >
+          TikTok
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            value="YouTube"
+            class="source-checkbox"
+          >
+          YouTube
+        </label>
+
+        <label>
+          <input
+            type="checkbox"
+            value="Reddit"
+            class="source-checkbox"
+          >
+          Reddit
+        </label>
+      </div>
+
+      <!-- Auswahlmodus -->
+
+      <div class="card">
+        <div class="section-title">
+          Wie sollen die Inhalte ausgewählt werden?
+        </div>
+
+        <div class="card mode-card" id="accountsModeCard">
+          <label>
+            <input
+              type="radio"
+              name="selectionMode"
+              value="accounts"
+            >
+            🧑 Meine Accounts
+          </label>
+
+          <div class="mode-description">
+            Du bestimmst selbst, welchen Accounts du folgen möchtest.
+          </div>
+        </div>
+
+        <div class="card mode-card" id="feedModeCard">
+          <label>
+            <input
+              type="radio"
+              name="selectionMode"
+              value="feed"
+            >
+            ✨ Mein Feed
+          </label>
+
+          <div class="mode-description">
+            Die Auswahl erfolgt algorithmisch aus deinen gewählten Plattformen.
+          </div>
+        </div>
+      </div>
+
+      <!-- Accounts -->
+
+      <div id="accountsSection" class="card hidden">
+
+        <div class="section-title">
+          Welche Accounts möchtest du sehen?
+        </div>
+
+        <div id="accountList" class="account-list"></div>
+
+      </div>
+
+      <!-- Limit -->
+
+      <div class="card">
+
+        <div class="section-title">
+          Wie viel möchtest du sehen?
+        </div>
+
+        <label>
+          <input
+            type="radio"
+            name="limitMode"
+            value="count"
+          >
+          Anzahl der Inhalte
+        </label>
+
+        <div id="countInput" class="hidden">
+          <input
+            type="number"
+            id="contentCount"
+            min="1"
+            value="10"
+            placeholder="z. B. 10"
+          >
+        </div>
+
+        <label>
+          <input
+            type="radio"
+            name="limitMode"
+            value="time"
+          >
+          Zeit
+        </label>
+
+        <div id="timeInput" class="hidden">
+          <input
+            type="number"
+            id="timeMinutes"
+            min="1"
+            value="10"
+            placeholder="z. B. 10 Minuten"
+          >
+        </div>
+
+        <label>
+          <input
+            type="radio"
+            name="limitMode"
+            value="both"
+          >
+          Anzahl UND Zeit
+        </label>
+
+        <div id="bothInput" class="hidden">
+
+          <input
+            type="number"
+            id="bothCount"
+            min="1"
+            value="10"
+            placeholder="Anzahl Inhalte"
+          >
+
+          <input
+            type="number"
+            id="bothTime"
+            min="1"
+            value="10"
+            placeholder="Minuten"
+          >
+
+        </div>
+
+      </div>
+
+      <button id="startButton">
+        Ausgabe starten
+      </button>
+
+    </div>
+  </div>
+
+
+  <!-- =========================
+       AUSGABE
+       ========================= -->
+
+  <div id="editionScreen" class="screen hidden">
+
+    <div class="edition">
+
+      <div class="edition-header">
+        <div class="logo">daily feed</div>
+        <div id="counter" class="counter"></div>
+      </div>
+
+      <div class="progress-container">
+        <div id="progress" class="progress"></div>
+      </div>
+
+      <div id="timer" class="timer"></div>
+
+      <div
+        id="contentArea"
+        class="content-area"
+      >
+
+        <div
+          id="contentCard"
+          class="content-card"
+        ></div>
+
+      </div>
+
+      <div class="hint">
+        Wische nach links/rechts oder benutze die Buttons.
+      </div>
+
+      <div class="navigation">
+
+        <button
+          id="previousButton"
+          class="secondary"
+        >
+          ← Zurück
+        </button>
+
+        <button
+          id="nextButton"
+        >
+          Weiter →
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       ENDE
+       ========================= -->
+
+  <div id="endScreen" class="screen hidden">
+
+    <div class="container">
+
+      <div class="card end-card">
+
+        <div class="success">✓</div>
+
+        <h2>Das war's für heute.</h2>
+
+        <p>
+          Deine tägliche Ausgabe ist beendet.
+        </p>
+
+        <p>
+          Morgen wartet eine neue Ausgabe auf dich.
+        </p>
+
+        <button id="backToStartButton">
+          Einstellungen ansehen
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    /* =====================================================
+       TEST-ACCOUNTS
+       ===================================================== */
+
+    const accounts = [
+
+      { platform: "Instagram", username: "@natgeo" },
+      { platform: "Instagram", username: "@nike" },
+      { platform: "Instagram", username: "@designmilk" },
+
+      { platform: "TikTok", username: "@science" },
+      { platform: "TikTok", username: "@creator_daily" },
+      { platform: "TikTok", username: "@techworld" },
+
+      { platform: "YouTube", username: "Kurzgesagt" },
+      { platform: "YouTube", username: "MrBeast" },
+
+      { platform: "Reddit", username: "r/science" },
+      { platform: "Reddit", username: "r/technology" }
+
+    ];
+
+
+    /* =====================================================
+       TEST-INHALTE
+
+       Jeder Account bekommt 10 Beispielinhalte.
+       Dadurch können wir z.B. 10 Inhalte testen.
+       ===================================================== */
+
+    function makeTestContent(platform, account) {
+
+      const titles = [
+        "Ein neuer Beitrag",
+        "Das solltest du heute sehen",
+        "Interessante Entdeckung",
+        "Was denkst du darüber?",
+        "Ein Blick hinter die Kulissen",
+        "Heute entdeckt",
+        "Eine spannende Geschichte",
+        "Das Internet diskutiert",
+        "Neue Perspektiven",
+        "Zum Nachdenken"
+      ];
+
+      return titles.map((title, index) => {
+
+        return {
+          platform: platform,
+          account: account,
+          title: title,
+          text:
+            `Beispielinhalt ${index + 1} von ${account}. ` +
+            `Dieser Inhalt dient momentan als Test für daily feed. ` +
+            `Später wird hier echter Inhalt der jeweiligen Plattform angezeigt.`
+        };
+
+      });
+
     }
 
 
-    sources.forEach(
-      platform => {
+    const content = [
 
-        const platformAccounts =
-          accounts.filter(
-            account =>
-              account.platform === platform
-          );
+      ...makeTestContent("Instagram", "@natgeo"),
+      ...makeTestContent("Instagram", "@nike"),
+      ...makeTestContent("Instagram", "@designmilk"),
 
+      ...makeTestContent("TikTok", "@science"),
+      ...makeTestContent("TikTok", "@creator_daily"),
+      ...makeTestContent("TikTok", "@techworld"),
 
-        const title =
-          document.createElement("div");
+      ...makeTestContent("YouTube", "Kurzgesagt"),
+      ...makeTestContent("YouTube", "MrBeast"),
 
-        title.className =
-          "account-platform";
+      ...makeTestContent("Reddit", "r/science"),
+      ...makeTestContent("Reddit", "r/technology")
 
-        title.textContent =
-          platform;
-
-        list.appendChild(title);
+    ];
 
 
-        platformAccounts.forEach(
-          account => {
+    /* =====================================================
+       APP-ZUSTAND
+       ===================================================== */
 
-            const selected =
-              selectedAccounts.some(
-                selectedAccount =>
-                  selectedAccount.platform ===
-                    account.platform &&
-                  selectedAccount.username ===
-                    account.username
-              );
+    let selectedSources = [];
+    let selectedMode = "";
+    let selectedAccounts = [];
+
+    let limitMode = "";
+    let contentLimit = 0;
+    let timeLimitMinutes = 0;
+
+    let dailyEdition = [];
+    let currentIndex = 0;
+
+    let startedAt = null;
+    let timerInterval = null;
+
+    const STORAGE_KEY = "dailyFeedState";
 
 
-            const row =
-              document.createElement("label");
+    /* =====================================================
+       HEUTIGES DATUM
+       ===================================================== */
 
-            row.className =
-              "account";
+    function getTodayKey() {
+
+      const now = new Date();
+
+      return (
+        now.getFullYear() +
+        "-" +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(now.getDate()).padStart(2, "0")
+      );
+
+    }
 
 
-            row.innerHTML = `
+    /* =====================================================
+       SPEICHERN
+       ===================================================== */
 
+    function saveDailyState() {
+
+      const state = {
+
+        date: getTodayKey(),
+
+        dailyEdition: dailyEdition,
+        currentIndex: currentIndex,
+
+        selectedSources: selectedSources,
+        selectedMode: selectedMode,
+        selectedAccounts: selectedAccounts,
+
+        limitMode: limitMode,
+        contentLimit: contentLimit,
+        timeLimitMinutes: timeLimitMinutes,
+
+        startedAt: startedAt
+
+      };
+
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(state)
+      );
+
+    }
+
+
+    /* =====================================================
+       LADEN
+       ===================================================== */
+
+    function loadDailyState() {
+
+      const saved =
+        localStorage.getItem(STORAGE_KEY);
+
+      if (!saved) {
+        return false;
+      }
+
+      try {
+
+        const state =
+          JSON.parse(saved);
+
+        /*
+          Wichtig:
+          Nur die Ausgabe von HEUTE laden.
+        */
+
+        if (state.date !== getTodayKey()) {
+
+          localStorage.removeItem(STORAGE_KEY);
+
+          return false;
+
+        }
+
+
+        dailyEdition =
+          state.dailyEdition || [];
+
+        currentIndex =
+          state.currentIndex || 0;
+
+        selectedSources =
+          state.selectedSources || [];
+
+        selectedMode =
+          state.selectedMode || "";
+
+        selectedAccounts =
+          state.selectedAccounts || [];
+
+        limitMode =
+          state.limitMode || "";
+
+        contentLimit =
+          state.contentLimit || 0;
+
+        timeLimitMinutes =
+          state.timeLimitMinutes || 0;
+
+        startedAt =
+          state.startedAt || null;
+
+
+        return dailyEdition.length > 0;
+
+      }
+
+      catch (error) {
+
+        console.error(
+          "Fehler beim Laden:",
+          error
+        );
+
+        return false;
+
+      }
+
+    }
+
+
+    /* =====================================================
+       ACCOUNT-LISTE
+       ===================================================== */
+
+    function renderAccounts() {
+
+      const accountList =
+        document.getElementById("accountList");
+
+      accountList.innerHTML = "";
+
+
+      accounts
+        .filter(account =>
+          selectedSources.includes(account.platform)
+        )
+        .forEach(account => {
+
+          const wrapper =
+            document.createElement("div");
+
+          wrapper.className = "account";
+
+          wrapper.innerHTML = `
+            <label>
               <input
                 type="checkbox"
-                ${selected ? "checked" : ""}
+                class="account-checkbox"
+                data-platform="${account.platform}"
+                data-account="${account.username}"
               >
+              ${account.platform} · ${account.username}
+            </label>
+          `;
 
-              <div>
+          accountList.appendChild(wrapper);
 
-                <div class="account-name">
-                  ${account.username}
-                </div>
-
-                <div class="account-description">
-                  ${account.platform}
-                </div>
-
-              </div>
-
-            `;
-
-
-            const checkbox =
-              row.querySelector(
-                "input"
-              );
-
-
-            checkbox.addEventListener(
-              "change",
-              function() {
-
-                toggleAccount(
-                  account,
-                  checkbox.checked
-                );
-
-              }
-            );
-
-
-            list.appendChild(row);
-
-          }
-        );
-
-      }
-    );
-
-  }
-
-
-  /* ==============================
-     ACCOUNT AUSWÄHLEN
-  ============================== */
-
-  function toggleAccount(
-    account,
-    checked
-  ) {
-
-    if (checked) {
-
-      const alreadySelected =
-        selectedAccounts.some(
-          selected =>
-            selected.platform ===
-              account.platform &&
-            selected.username ===
-              account.username
-        );
-
-
-      if (!alreadySelected) {
-
-        selectedAccounts.push(
-          account
-        );
-
-      }
-
-    } else {
-
-      selectedAccounts =
-        selectedAccounts.filter(
-          selected =>
-            !(
-              selected.platform ===
-                account.platform &&
-              selected.username ===
-                account.username
-            )
-        );
+        });
 
     }
 
-  }
 
+    /* =====================================================
+       QUELLEN
+       ===================================================== */
 
-  /* ==============================
-     QUELLEN ÄNDERN
-  ============================== */
-
-  document
-    .querySelectorAll(".source")
-    .forEach(
-      checkbox => {
+    document
+      .querySelectorAll(".source-checkbox")
+      .forEach(checkbox => {
 
         checkbox.addEventListener(
           "change",
-          function() {
+          () => {
 
-            /*
-              Wenn eine Plattform abgewählt wird,
-              werden deren Accounts ebenfalls
-              aus der Auswahl entfernt.
-            */
-
-            const sources =
-              getSources();
-
-
-            selectedAccounts =
-              selectedAccounts.filter(
-                account =>
-                  sources.includes(
-                    account.platform
-                  )
+            selectedSources =
+              Array.from(
+                document.querySelectorAll(
+                  ".source-checkbox:checked"
+                )
+              ).map(
+                checkbox => checkbox.value
               );
 
 
-            if (
-              selectedMode === "accounts"
-            ) {
-
-              renderAccounts();
-
-            }
+            renderAccounts();
 
           }
         );
+
+      });
+
+
+    /* =====================================================
+       MODUS
+       ===================================================== */
+
+    document
+      .querySelectorAll(
+        'input[name="selectionMode"]'
+      )
+      .forEach(radio => {
+
+        radio.addEventListener(
+          "change",
+          () => {
+
+            selectedMode = radio.value;
+
+            document
+              .getElementById(
+                "accountsSection"
+              )
+              .classList.toggle(
+                "hidden",
+                selectedMode !== "accounts"
+              );
+
+
+            document
+              .getElementById(
+                "accountsModeCard"
+              )
+              .classList.toggle(
+                "selected",
+                selectedMode === "accounts"
+              );
+
+
+            document
+              .getElementById(
+                "feedModeCard"
+              )
+              .classList.toggle(
+                "selected",
+                selectedMode === "feed"
+              );
+
+          }
+        );
+
+      });
+
+
+    /* =====================================================
+       LIMIT
+       ===================================================== */
+
+    document
+      .querySelectorAll(
+        'input[name="limitMode"]'
+      )
+      .forEach(radio => {
+
+        radio.addEventListener(
+          "change",
+          () => {
+
+            limitMode = radio.value;
+
+
+            document
+              .getElementById("countInput")
+              .classList.toggle(
+                "hidden",
+                limitMode !== "count"
+              );
+
+
+            document
+              .getElementById("timeInput")
+              .classList.toggle(
+                "hidden",
+                limitMode !== "time"
+              );
+
+
+            document
+              .getElementById("bothInput")
+              .classList.toggle(
+                "hidden",
+                limitMode !== "both"
+              );
+
+          }
+        );
+
+      });
+
+
+    /* =====================================================
+       AUSGABE ERSTELLEN
+       ===================================================== */
+
+    function buildEdition() {
+
+      /*
+        WICHTIG:
+
+        Falls heute bereits eine Ausgabe existiert,
+        darf KEINE neue erstellt werden.
+      */
+
+      if (loadDailyState()) {
+
+        showEditionScreen();
+        showContent();
+
+        if (
+          limitMode === "time" ||
+          limitMode === "both"
+        ) {
+          startTimer();
+        }
+
+        return;
+
+      }
+
+
+      /*
+        Quellen überprüfen
+      */
+
+      if (selectedSources.length === 0) {
+
+        alert(
+          "Bitte wähle mindestens eine Plattform aus."
+        );
+
+        return;
+
+      }
+
+
+      /*
+        Bei "Meine Accounts":
+        ausgewählte Accounts holen
+      */
+
+      if (selectedMode === "accounts") {
+
+        selectedAccounts =
+          Array.from(
+            document.querySelectorAll(
+              ".account-checkbox:checked"
+            )
+          ).map(checkbox => ({
+
+            platform:
+              checkbox.dataset.platform,
+
+            username:
+              checkbox.dataset.account
+
+          }));
+
+
+        if (selectedAccounts.length === 0) {
+
+          alert(
+            "Bitte wähle mindestens einen Account aus."
+          );
+
+          return;
+
+        }
+
+      }
+
+
+      /*
+        Limit bestimmen
+      */
+
+      if (limitMode === "count") {
+
+        contentLimit =
+          Math.max(
+            1,
+            Number(
+              document.getElementById(
+                "contentCount"
+              ).value
+            ) || 10
+          );
+
+      }
+
+
+      if (limitMode === "time") {
+
+        timeLimitMinutes =
+          Math.max(
+            1,
+            Number(
+              document.getElementById(
+                "timeMinutes"
+              ).value
+            ) || 10
+          );
+
+      }
+
+
+      if (limitMode === "both") {
+
+        contentLimit =
+          Math.max(
+            1,
+            Number(
+              document.getElementById(
+                "bothCount"
+              ).value
+            ) || 10
+          );
+
+
+        timeLimitMinutes =
+          Math.max(
+            1,
+            Number(
+              document.getElementById(
+                "bothTime"
+              ).value
+            ) || 10
+          );
+
+      }
+
+
+      /*
+        Inhalte nach Plattform filtern
+      */
+
+      let availableContent =
+        content.filter(item =>
+          selectedSources.includes(
+            item.platform
+          )
+        );
+
+
+      /*
+        Bei "Meine Accounts":
+        Nur die ausgewählten Accounts
+      */
+
+      if (selectedMode === "accounts") {
+
+        availableContent =
+          availableContent.filter(item =>
+
+            selectedAccounts.some(account =>
+
+              account.platform === item.platform &&
+              account.username === item.account
+
+            )
+
+          );
+
+      }
+
+
+      /*
+        Einfache Durchmischung,
+        damit die Reihenfolge nicht immer gleich ist.
+      */
+
+      availableContent =
+        [...availableContent]
+          .sort(
+            () => Math.random() - 0.5
+          );
+
+
+      /*
+        Bei Anzahl:
+        auf gewünschte Anzahl begrenzen
+      */
+
+      if (
+        limitMode === "count" ||
+        limitMode === "both"
+      ) {
+
+        availableContent =
+          availableContent.slice(
+            0,
+            contentLimit
+          );
+
+      }
+
+
+      dailyEdition =
+        availableContent;
+
+
+      if (dailyEdition.length === 0) {
+
+        alert(
+          "Für diese Auswahl wurden keine Inhalte gefunden."
+        );
+
+        return;
+
+      }
+
+
+      currentIndex = 0;
+
+      startedAt =
+        Date.now();
+
+
+      /*
+        Ganze Tagesausgabe speichern.
+      */
+
+      saveDailyState();
+
+
+      showEditionScreen();
+      showContent();
+
+
+      if (
+        limitMode === "time" ||
+        limitMode === "both"
+      ) {
+
+        startTimer();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       AUSGABE ANZEIGEN
+       ===================================================== */
+
+    function showEditionScreen() {
+
+      document
+        .getElementById("setupScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("endScreen")
+        .classList.add("hidden");
+
+      document
+        .getElementById("editionScreen")
+        .classList.remove("hidden");
+
+    }
+
+
+    /* =====================================================
+       INHALT ANZEIGEN
+       ===================================================== */
+
+    function showContent() {
+
+      if (
+        currentIndex < 0
+      ) {
+
+        currentIndex = 0;
+
+      }
+
+
+      if (
+        currentIndex >= dailyEdition.length
+      ) {
+
+        showEndScreen();
+
+        return;
+
+      }
+
+
+      const item =
+        dailyEdition[currentIndex];
+
+
+      const contentCard =
+        document.getElementById(
+          "contentCard"
+        );
+
+
+      contentCard.innerHTML = `
+
+        <div class="platform">
+          ${item.platform}
+        </div>
+
+        <div class="account-name">
+          ${item.account}
+        </div>
+
+        <h2>
+          ${item.title}
+        </h2>
+
+        <p>
+          ${item.text}
+        </p>
+
+      `;
+
+
+      /*
+        Zähler
+      */
+
+      document
+        .getElementById("counter")
+        .textContent =
+          `${currentIndex + 1} / ${dailyEdition.length}`;
+
+
+      /*
+        Fortschritt
+      */
+
+      const progress =
+        (
+          (currentIndex + 1) /
+          dailyEdition.length
+        ) * 100;
+
+
+      document
+        .getElementById("progress")
+        .style.width =
+          `${progress}%`;
+
+
+      /*
+        Zurück-Button
+      */
+
+      document
+        .getElementById(
+          "previousButton"
+        )
+        .disabled =
+          currentIndex === 0;
+
+
+      /*
+        Wenn letzter Inhalt:
+        Button entsprechend ändern
+      */
+
+      document
+        .getElementById(
+          "nextButton"
+        )
+        .textContent =
+          currentIndex === dailyEdition.length - 1
+            ? "Fertig"
+            : "Weiter →";
+
+
+      /*
+        Position speichern
+      */
+
+      saveDailyState();
+
+    }
+
+
+    /* =====================================================
+       NÄCHSTER INHALT
+       ===================================================== */
+
+    function nextContent() {
+
+      if (
+        currentIndex <
+        dailyEdition.length - 1
+      ) {
+
+        currentIndex++;
+
+        saveDailyState();
+
+        showContent();
+
+      }
+      else {
+
+        showEndScreen();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       VORHERIGER INHALT
+       ===================================================== */
+
+    function previousContent() {
+
+      if (
+        currentIndex > 0
+      ) {
+
+        currentIndex--;
+
+        saveDailyState();
+
+        showContent();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       ENDE
+       ===================================================== */
+
+    function showEndScreen() {
+
+      clearInterval(timerInterval);
+
+      document
+        .getElementById(
+          "editionScreen"
+        )
+        .classList.add("hidden");
+
+      document
+        .getElementById(
+          "endScreen"
+        )
+        .classList.remove("hidden");
+
+    }
+
+
+    /* =====================================================
+       TIMER
+       ===================================================== */
+
+    function startTimer() {
+
+      clearInterval(timerInterval);
+
+
+      if (!startedAt) {
+
+        startedAt =
+          Date.now();
+
+        saveDailyState();
+
+      }
+
+
+      timerInterval =
+        setInterval(
+          updateTimer,
+          1000
+        );
+
+
+      updateTimer();
+
+    }
+
+
+    function updateTimer() {
+
+      if (
+        !startedAt ||
+        !timeLimitMinutes
+      ) {
+
+        return;
+
+      }
+
+
+      const elapsed =
+        Date.now() -
+        startedAt;
+
+
+      const total =
+        timeLimitMinutes *
+        60 *
+        1000;
+
+
+      const remaining =
+        Math.max(
+          0,
+          total - elapsed
+        );
+
+
+      const seconds =
+        Math.floor(
+          remaining / 1000
+        );
+
+
+      const minutes =
+        Math.floor(
+          seconds / 60
+        );
+
+
+      const remainingSeconds =
+        seconds % 60;
+
+
+      document
+        .getElementById("timer")
+        .textContent =
+          `Noch ${minutes}:${String(
+            remainingSeconds
+          ).padStart(2, "0")} Minuten`;
+
+
+      if (
+        remaining <= 0
+      ) {
+
+        clearInterval(timerInterval);
+
+        showEndScreen();
+
+      }
+
+    }
+
+
+    /* =====================================================
+       BUTTONS
+       ===================================================== */
+
+    document
+      .getElementById(
+        "startButton"
+      )
+      .addEventListener(
+        "click",
+        buildEdition
+      );
+
+
+    document
+      .getElementById(
+        "nextButton"
+      )
+      .addEventListener(
+        "click",
+        nextContent
+      );
+
+
+    document
+      .getElementById(
+        "previousButton"
+      )
+      .addEventListener(
+        "click",
+        previousContent
+      );
+
+
+    /*
+      Nach Ende zurück zu den Einstellungen.
+
+      Die Tagesausgabe bleibt gespeichert.
+      Dadurch kann man sie nicht versehentlich
+      durch einen neuen Start überschreiben.
+    */
+
+    document
+      .getElementById(
+        "backToStartButton"
+      )
+      .addEventListener(
+        "click",
+        () => {
+
+          document
+            .getElementById(
+              "endScreen"
+            )
+            .classList.add("hidden");
+
+          document
+            .getElementById(
+              "setupScreen"
+            )
+            .classList.remove("hidden");
+
+        }
+      );
+
+
+    /* =====================================================
+       SWIPE
+       ===================================================== */
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+
+    const contentArea =
+      document.getElementById(
+        "contentArea"
+      );
+
+
+    contentArea.addEventListener(
+      "touchstart",
+      event => {
+
+        touchStartX =
+          event.changedTouches[0].screenX;
+
+      },
+      { passive: true }
+    );
+
+
+    contentArea.addEventListener(
+      "touchend",
+      event => {
+
+        touchEndX =
+          event.changedTouches[0].screenX;
+
+
+        const difference =
+          touchStartX -
+          touchEndX;
+
+
+        /*
+          Nur deutliche Wischbewegungen
+        */
+
+        if (
+          Math.abs(difference) < 50
+        ) {
+
+          return;
+
+        }
+
+
+        if (difference > 0) {
+
+          nextContent();
+
+        }
+        else {
+
+          previousContent();
+
+        }
+
+      },
+      { passive: true }
+    );
+
+
+    /* =====================================================
+       APP BEIM ÖFFNEN
+       ===================================================== */
+
+    window.addEventListener(
+      "load",
+      () => {
+
+        /*
+          Gibt es bereits eine heutige Ausgabe?
+        */
+
+        if (loadDailyState()) {
+
+          showEditionScreen();
+
+          showContent();
+
+
+          if (
+            limitMode === "time" ||
+            limitMode === "both"
+          ) {
+
+            startTimer();
+
+          }
+
+        }
 
       }
     );
 
-
-  /* ==============================
-     LIMIT
-  ============================== */
-
-  function selectLimit(limit) {
-
-    selectedLimit = limit;
-
-
-    document
-      .getElementById("countLimit")
-      .classList.toggle(
-        "selected",
-        limit === "count"
-      );
-
-
-    document
-      .getElementById("timeLimit")
-      .classList.toggle(
-        "selected",
-        limit === "time"
-      );
-
-
-    document
-      .getElementById("bothLimit")
-      .classList.toggle(
-        "selected",
-        limit === "both"
-      );
-
-  }
-
-
-  /* ==============================
-     AUSGABE ERSTELLEN
-  ============================== */
-
-  function buildEdition() {
-
-    selectedSources =
-      getSources();
-
-
-    /*
-      ZUERST IMMER NUR
-      DIE AUSGEWÄHLTEN PLATTFORMEN
-    */
-
-    let availableContent =
-      content.filter(
-        item =>
-          selectedSources.includes(
-            item.platform
-          )
-      );
-
-
-    /*
-      MEINE ACCOUNTS:
-      ZUSÄTZLICH nur die
-      ausdrücklich ausgewählten Accounts.
-    */
-
-    if (
-      selectedMode === "accounts"
-    ) {
-
-      availableContent =
-        availableContent.filter(
-          item =>
-            selectedAccounts.some(
-              account =>
-                account.platform ===
-                  item.platform &&
-                account.username ===
-                  item.account
-            )
-        );
-
-    }
-
-
-    /*
-      MEIN FEED:
-      Plattformen bleiben begrenzt,
-      Reihenfolge wird personalisiert.
-    */
-
-    if (
-      selectedMode === "feed"
-    ) {
-
-      availableContent =
-        [...availableContent].sort(
-          () => Math.random() - 0.5
-        );
-
-    }
-
-
-    /*
-      WICHTIG:
-      Die Ausgabe wird jetzt eingefroren.
-    */
-
-    dailyEdition =
-      [...availableContent];
-
-  }
-
-
-  /* ==============================
-     AUSGABE STARTEN
-  ============================== */
-
-  function startEdition() {
-
-    selectedSources =
-      getSources();
-
-
-    if (
-      selectedSources.length === 0
-    ) {
-
-      alert(
-        "Bitte wähle mindestens eine Plattform aus."
-      );
-
-      return;
-
-    }
-
-
-    if (
-      selectedMode === "accounts" &&
-      selectedAccounts.length === 0
-    ) {
-
-      alert(
-        "Bitte wähle mindestens einen Account aus."
-      );
-
-      return;
-
-    }
-
-
-    if (
-      selectedLimit === "count"
-    ) {
-
-      contentLimit =
-        Math.max(
-          1,
-          parseInt(
-            document.getElementById(
-              "countInput"
-            ).value
-          ) || 10
-        );
-
-    }
-
-
-    if (
-      selectedLimit === "time"
-    ) {
-
-      timeLimitMinutes =
-        Math.max(
-          1,
-          parseInt(
-            document.getElementById(
-              "timeInput"
-            ).value
-          ) || 10
-        );
-
-    }
-
-
-    if (
-      selectedLimit === "both"
-    ) {
-
-      contentLimit =
-        Math.max(
-          1,
-          parseInt(
-            document.getElementById(
-              "bothCountInput"
-            ).value
-          ) || 10
-        );
-
-
-      timeLimitMinutes =
-        Math.max(
-          1,
-          parseInt(
-            document.getElementById(
-              "bothTimeInput"
-            ).value
-          ) || 10
-        );
-
-    }
-
-
-    buildEdition();
-
-
-    if (
-      dailyEdition.length === 0
-    ) {
-
-      alert(
-        "Für deine Auswahl gibt es momentan keine Test-Inhalte."
-      );
-
-      return;
-
-    }
-
-
-    currentIndex = 0;
-
-    editionStartTime =
-      Date.now();
-
-
-    document
-      .getElementById("setupScreen")
-      .classList.add("hidden");
-
-
-    document
-      .getElementById("endScreen")
-      .classList.add("hidden");
-
-
-    document
-      .getElementById("editionScreen")
-      .classList.remove("hidden");
-
-
-    showContent();
-
-    startTimer();
-
-  }
-
-
-  /* ==============================
-     INHALT ANZEIGEN
-  ============================== */
-
-  function showContent() {
-
-    if (
-      currentIndex >=
-      dailyEdition.length
-    ) {
-
-      endEdition();
-
-      return;
-
-    }
-
-
-    const item =
-      dailyEdition[currentIndex];
-
-
-    document
-      .getElementById(
-        "contentPlatform"
-      )
-      .textContent =
-        item.platform;
-
-
-    document
-      .getElementById(
-        "contentTitle"
-      )
-      .textContent =
-        item.title;
-
-
-    document
-      .getElementById(
-        "contentText"
-      )
-      .textContent =
-        item.text;
-
-
-    document
-      .getElementById(
-        "contentAccount"
-      )
-      .textContent =
-        item.account;
-
-
-    updateProgress();
-
-  }
-
-
-  /* ==============================
-     WEITER
-  ============================== */
-
-  function nextContent() {
-
-    if (
-      selectedLimit === "count" &&
-      currentIndex + 1 >= contentLimit
-    ) {
-
-      endEdition();
-
-      return;
-
-    }
-
-
-    if (
-      selectedLimit === "both" &&
-      currentIndex + 1 >= contentLimit
-    ) {
-
-      endEdition();
-
-      return;
-
-    }
-
-
-    currentIndex++;
-
-    showContent();
-
-  }
-
-
-  /* ==============================
-     ZURÜCK
-  ============================== */
-
-  function previousContent() {
-
-    if (
-      currentIndex <= 0
-    ) {
-
-      return;
-
-    }
-
-
-    currentIndex--;
-
-    showContent();
-
-  }
-
-
-  /* ==============================
-     FORTSCHRITT
-  ============================== */
-
-  function updateProgress() {
-
-    let percentage;
-
-
-    if (
-      selectedLimit === "count" ||
-      selectedLimit === "both"
-    ) {
-
-      percentage =
-        ((currentIndex + 1) /
-          contentLimit) *
-        100;
-
-    } else {
-
-      percentage =
-        ((currentIndex + 1) /
-          Math.max(
-            dailyEdition.length,
-            1
-          )) *
-        100;
-
-    }
-
-
-    document
-      .getElementById(
-        "progressBar"
-      )
-      .style.width =
-        Math.min(
-          100,
-          percentage
-        ) + "%";
-
-  }
-
-
-  /* ==============================
-     TIMER
-  ============================== */
-
-  function startTimer() {
-
-    clearInterval(timer);
-
-
-    timer =
-      setInterval(
-        function() {
-
-          const elapsed =
-            Math.floor(
-              (Date.now() -
-                editionStartTime) /
-              1000
-            );
-
-
-          if (
-            selectedLimit === "time" ||
-            selectedLimit === "both"
-          ) {
-
-            const maxSeconds =
-              timeLimitMinutes *
-              60;
-
-
-            if (
-              elapsed >=
-              maxSeconds
-            ) {
-
-              endEdition();
-
-              return;
-
-            }
-
-
-            const remaining =
-              maxSeconds -
-              elapsed;
-
-
-            const minutes =
-              Math.floor(
-                remaining / 60
-              );
-
-
-            const seconds =
-              remaining % 60;
-
-
-            document
-              .getElementById(
-                "editionInfo"
-              )
-              .textContent =
-                `${minutes}:${String(
-                  seconds
-                ).padStart(2, "0")} verbleibend`;
-
-          } else {
-
-            document
-              .getElementById(
-                "editionInfo"
-              )
-              .textContent =
-                `${currentIndex + 1} / ${contentLimit}`;
-
-          }
-
-        },
-        1000
-      );
-
-  }
-
-
-  /* ==============================
-     ENDE
-  ============================== */
-
-  function endEdition() {
-
-    clearInterval(timer);
-
-
-    document
-      .getElementById(
-        "editionScreen"
-      )
-      .classList.add("hidden");
-
-
-    document
-      .getElementById(
-        "endScreen"
-      )
-      .classList.remove("hidden");
-
-  }
-
-
-  /* ==============================
-     SWIPE
-  ============================== */
-
-  let touchStartY = 0;
-
-
-  document.addEventListener(
-    "touchstart",
-    function(event) {
-
-      touchStartY =
-        event.changedTouches[0]
-          .screenY;
-
-    }
-  );
-
-
-  document.addEventListener(
-    "touchend",
-    function(event) {
-
-      if (
-        document
-          .getElementById(
-            "editionScreen"
-          )
-          .classList.contains(
-            "hidden"
-          )
-      ) {
-
-        return;
-
-      }
-
-
-      const touchEndY =
-        event.changedTouches[0]
-          .screenY;
-
-
-      const difference =
-        touchStartY -
-        touchEndY;
-
-
-      if (
-        Math.abs(difference) < 50
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        difference > 0
-      ) {
-
-        nextContent();
-
-      } else {
-
-        previousContent();
-
-      }
-
-    }
-  );
-
-
-  /*
-    Beim Laden:
-    "Meine Accounts" ist standardmäßig ausgewählt.
-    Die Ausgabe startet NICHT automatisch.
-  */
-
-  renderAccounts();
-
-</script>
+  </script>
 
 </body>
 </html>
