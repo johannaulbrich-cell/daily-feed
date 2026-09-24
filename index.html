@@ -2,7 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
   <meta name="theme-color" content="#ffffff" />
   <title>daily feed</title>
 
@@ -18,7 +21,13 @@
       padding: 0;
       width: 100%;
       min-height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
       background: #f5f5f5;
       color: #111;
     }
@@ -43,6 +52,10 @@
       min-height: 100vh;
       background: white;
     }
+
+    /* =========================================================
+       HEADER
+    ========================================================== */
 
     .header {
       position: sticky;
@@ -72,15 +85,9 @@
       padding: 24px 20px 40px;
     }
 
-    h1,
-    h2,
-    h3 {
-      margin-top: 0;
-    }
-
     h2 {
       font-size: 22px;
-      margin-bottom: 8px;
+      margin: 0 0 8px;
       letter-spacing: -0.3px;
     }
 
@@ -92,7 +99,9 @@
       display: none !important;
     }
 
-    /* PLATTFORMEN */
+    /* =========================================================
+       PLATTFORMEN
+    ========================================================== */
 
     .platform-grid {
       display: grid;
@@ -120,7 +129,9 @@
       transform: scale(0.98);
     }
 
-    /* CONNECTED ACCOUNT */
+    /* =========================================================
+       KONTO VERBINDEN
+    ========================================================== */
 
     .connected-box {
       margin-top: 14px;
@@ -178,7 +189,9 @@
       white-space: nowrap;
     }
 
-    /* MODE */
+    /* =========================================================
+       MODUS
+    ========================================================== */
 
     .mode-grid {
       display: grid;
@@ -212,7 +225,9 @@
       margin-top: 5px;
     }
 
-    /* ACCOUNTS */
+    /* =========================================================
+       ACCOUNTS
+    ========================================================== */
 
     .accounts-box {
       margin-top: 14px;
@@ -294,7 +309,9 @@
       margin-bottom: 12px;
     }
 
-    /* LIMIT */
+    /* =========================================================
+       LIMIT
+    ========================================================== */
 
     .limit-grid {
       display: grid;
@@ -350,7 +367,9 @@
       border-color: #111;
     }
 
-    /* START */
+    /* =========================================================
+       START
+    ========================================================== */
 
     .start-button {
       width: 100%;
@@ -370,108 +389,220 @@
       cursor: not-allowed;
     }
 
-    /* EDITION */
+    /* =========================================================
+       ECHTER FEED
+    ========================================================== */
 
     #editionScreen {
       min-height: 100vh;
-      background: #111;
-      color: white;
-      display: flex;
-      flex-direction: column;
+      background: #fff;
+      color: #111;
     }
 
-    .edition-header {
-      padding: 18px 18px 10px;
+    .feed-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      height: 58px;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid #e8e8e8;
+
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+
+      padding:
+        0 16px;
+
+      padding-top:
+        env(safe-area-inset-top);
     }
 
-    .edition-counter {
-      font-size: 13px;
-      color: #aaa;
+    .feed-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
 
-    .back-button {
+    .feed-logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.7px;
+    }
+
+    .feed-counter {
+      color: #777;
+      font-size: 12px;
+    }
+
+    .feed-back-button {
       border: 0;
-      background: #242424;
-      color: white;
+      background: #f1f1f1;
+      color: #111;
       border-radius: 10px;
-      padding: 9px 12px;
+      padding: 8px 11px;
       font-size: 13px;
     }
 
-    .content-area {
-      flex: 1;
+    /*
+      Der eigentliche Feed.
+      Jeder Post steht unter dem vorherigen.
+      Kein "Weiter"-Button.
+      Kein Umschalten eines einzelnen Cards.
+    */
+
+    .feed-scroll {
+      width: 100%;
+    }
+
+    .feed-post {
+      width: 100%;
+      background: #fff;
+      border-bottom: 8px solid #f3f3f3;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 13px 14px;
+    }
+
+    .post-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #111;
+      color: #fff;
+
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      touch-action: pan-y;
-      overflow: hidden;
-    }
 
-    .content-card {
-      width: 100%;
-      max-width: 520px;
-      border-radius: 24px;
-      overflow: hidden;
-      background: #1e1e1e;
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .content-image {
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      display: block;
-      background: #333;
-    }
-
-    .content-info {
-      padding: 18px;
-    }
-
-    .content-platform {
-      font-size: 12px;
-      color: #aaa;
-      margin-bottom: 7px;
-    }
-
-    .content-account {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 750;
-      margin-bottom: 8px;
+      flex-shrink: 0;
     }
 
-    .content-title {
-      font-size: 18px;
-      line-height: 1.35;
+    .post-user-info {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .post-username {
+      font-size: 14px;
+      font-weight: 750;
+      line-height: 1.2;
+    }
+
+    .post-platform {
+      font-size: 11px;
+      color: #888;
+      margin-top: 3px;
+    }
+
+    .post-more {
+      font-size: 20px;
+      line-height: 1;
+      color: #555;
+    }
+
+    .post-image-wrapper {
+      width: 100%;
+      background: #eee;
+    }
+
+    .post-image {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+    }
+
+    .post-actions {
+      display: flex;
+      align-items: center;
+      gap: 17px;
+      padding: 12px 14px 7px;
+    }
+
+    .post-action {
+      border: 0;
+      background: transparent;
+      padding: 0;
+      font-size: 23px;
+      line-height: 1;
+    }
+
+    .post-action:last-child {
+      margin-left: auto;
+    }
+
+    .post-caption {
+      padding: 0 14px 17px;
+    }
+
+    .post-title {
+      font-size: 14px;
+      line-height: 1.45;
       font-weight: 650;
     }
 
-    .content-description {
-      margin-top: 8px;
-      color: #bbb;
-      line-height: 1.5;
+    .post-description {
+      color: #555;
       font-size: 14px;
+      line-height: 1.45;
+      margin-top: 4px;
     }
 
-    .edition-footer {
-      padding: 10px 20px 22px;
+    .post-number {
+      color: #999;
+      font-size: 11px;
+      margin-top: 9px;
+    }
+
+    /*
+      Kleiner Abschluss am Ende der Feed-Liste.
+      Der Endscreen kommt erst nach dem letzten Beitrag.
+    */
+
+    .feed-end {
+      padding: 50px 24px 70px;
       text-align: center;
-      color: #888;
-      font-size: 12px;
+      background: #fff;
     }
 
-    .timer {
-      margin-top: 5px;
+    .feed-end-icon {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .feed-end-title {
+      font-size: 22px;
+      font-weight: 800;
+    }
+
+    .feed-end-text {
+      color: #777;
+      font-size: 14px;
+      line-height: 1.5;
+      margin-top: 8px;
+    }
+
+    .review-button-inline {
+      margin-top: 20px;
+      border: 0;
+      border-radius: 13px;
+      background: #111;
       color: #fff;
+      padding: 13px 17px;
       font-weight: 700;
     }
 
-    /* END SCREEN */
+    /* =========================================================
+       END SCREEN
+    ========================================================== */
 
     #endScreen {
       min-height: 100vh;
@@ -516,9 +647,12 @@
       font-size: 16px;
     }
 
-    /* MOBILE */
+    /* =========================================================
+       MOBILE
+    ========================================================== */
 
     @media (max-width: 560px) {
+
       .screen {
         padding: 22px 16px 32px;
       }
@@ -548,66 +682,103 @@
         grid-template-columns: 1fr;
       }
 
-      .content-area {
-        padding: 12px;
+      /*
+        Auf dem Handy wirklich die ganze Breite
+        wie bei einem Social Feed.
+      */
+
+      .feed-post {
+        border-bottom-width: 6px;
       }
 
-      .content-card {
-        border-radius: 20px;
+      .post-image {
+        aspect-ratio: 1 / 1;
       }
+
     }
   </style>
 </head>
 
 <body>
 
-  <!-- =========================
-       SETUP SCREEN
-  ========================== -->
+  <!-- =========================================================
+       SETUP
+  ========================================================== -->
 
   <div id="setupScreen" class="app">
 
     <header class="header">
-      <div class="logo">daily feed</div>
+
+      <div class="logo">
+        daily feed
+      </div>
+
       <p class="subtitle">
         Der Algorithmus entscheidet WAS du siehst.<br />
         Du entscheidest WIE VIEL du davon siehst.
       </p>
+
     </header>
+
 
     <main class="screen">
 
       <!-- 1. PLATTFORMEN -->
 
       <section class="section">
-        <h2>Woher sollen die Inhalte kommen?</h2>
+
+        <h2>
+          Woher sollen die Inhalte kommen?
+        </h2>
+
         <p class="subtitle">
           Wähle die Plattformen aus, aus denen deine Ausgabe Inhalte beziehen soll.
         </p>
 
-        <div id="platformGrid" class="platform-grid"></div>
+        <div
+          id="platformGrid"
+          class="platform-grid"
+        ></div>
+
       </section>
 
 
       <!-- 2. KONTO VERBINDEN -->
 
-      <section id="connectedAccountsSection" class="section hidden">
-        <h2>Konto verbinden</h2>
+      <section
+        id="connectedAccountsSection"
+        class="section hidden"
+      >
+
+        <h2>
+          Konto verbinden
+        </h2>
 
         <p class="subtitle">
           Verbinde hier dein eigenes Konto der ausgewählten Plattform.
         </p>
 
         <div class="connected-box">
-          <div id="connectedAccountsList"></div>
+
+          <div
+            id="connectedAccountsList"
+          ></div>
+
         </div>
+
       </section>
 
 
       <!-- 3. MODUS -->
 
-      <section id="modeSection" class="section hidden">
-        <h2>Wie sollen die Inhalte ausgewählt werden?</h2>
+      <section
+        id="modeSection"
+        class="section hidden"
+      >
+
+        <h2>
+          Wie sollen die Inhalte ausgewählt werden?
+        </h2>
 
         <div class="mode-grid">
 
@@ -617,11 +788,18 @@
             type="button"
             onclick="selectMode('Meine Accounts')"
           >
-            <div class="mode-title">🧑 Meine Accounts</div>
-            <div class="mode-description">
-              Du bestimmst selbst, von welchen Accounts du Inhalte sehen möchtest.
+
+            <div class="mode-title">
+              🧑 Meine Accounts
             </div>
+
+            <div class="mode-description">
+              Du bestimmst selbst, von welchen Accounts
+              du Inhalte sehen möchtest.
+            </div>
+
           </button>
+
 
           <button
             id="myFeedModeButton"
@@ -629,39 +807,63 @@
             type="button"
             onclick="selectMode('Mein Feed')"
           >
-            <div class="mode-title">✨ Mein Feed</div>
-            <div class="mode-description">
-              daily feed stellt dir aus den ausgewählten Plattformen eine persönliche
-              Auswahl zusammen.
+
+            <div class="mode-title">
+              ✨ Mein Feed
             </div>
+
+            <div class="mode-description">
+              daily feed stellt dir aus den ausgewählten
+              Plattformen eine persönliche Auswahl zusammen.
+            </div>
+
           </button>
 
         </div>
+
       </section>
 
 
       <!-- 4. MEINE ACCOUNTS -->
 
-      <section id="myAccountsSection" class="section hidden">
-        <h2>Meine Accounts</h2>
+      <section
+        id="myAccountsSection"
+        class="section hidden"
+      >
+
+        <h2>
+          Meine Accounts
+        </h2>
 
         <p class="subtitle">
           Wähle die Accounts aus, deren Inhalte du sehen möchtest.
         </p>
 
         <div class="accounts-box">
-          <div id="myAccountsList"></div>
+
+          <div
+            id="myAccountsList"
+          ></div>
+
         </div>
+
       </section>
 
 
       <!-- 5. LIMIT -->
 
-      <section id="limitSection" class="section hidden">
-        <h2>Wie viel möchtest du sehen?</h2>
+      <section
+        id="limitSection"
+        class="section hidden"
+      >
+
+        <h2>
+          Wie viel möchtest du sehen?
+        </h2>
 
         <p class="subtitle">
-          Begrenze deine tägliche Ausgabe nach Anzahl, Zeit oder beidem.
+          Begrenze deine tägliche Ausgabe nach Anzahl,
+          Zeit oder beidem.
         </p>
 
         <div class="limit-grid">
@@ -695,10 +897,21 @@
 
         </div>
 
-        <div id="limitInputs" class="limit-inputs hidden">
 
-          <div id="contentLimitGroup" class="input-group hidden">
-            <label for="contentLimitInput">Anzahl Inhalte</label>
+        <div
+          id="limitInputs"
+          class="limit-inputs hidden"
+        >
+
+          <div
+            id="contentLimitGroup"
+            class="input-group hidden"
+          >
+
+            <label for="contentLimitInput">
+              Anzahl Inhalte
+            </label>
+
             <input
               id="contentLimitInput"
               class="number-input"
@@ -707,10 +920,19 @@
               max="100"
               value="10"
             />
+
           </div>
 
-          <div id="timeLimitGroup" class="input-group hidden">
-            <label for="timeLimitInput">Zeit in Minuten</label>
+
+          <div
+            id="timeLimitGroup"
+            class="input-group hidden"
+          >
+
+            <label for="timeLimitInput">
+              Zeit in Minuten
+            </label>
+
             <input
               id="timeLimitInput"
               class="number-input"
@@ -719,9 +941,11 @@
               max="180"
               value="10"
             />
+
           </div>
 
         </div>
+
       </section>
 
 
@@ -738,77 +962,73 @@
       </button>
 
     </main>
+
   </div>
 
 
-  <!-- =========================
-       EDITION SCREEN
-  ========================== -->
+  <!-- =========================================================
+       ECHTER FEED
+  ========================================================== -->
 
-  <div id="editionScreen" class="hidden">
+  <div
+    id="editionScreen"
+    class="hidden"
+  >
 
-    <div class="edition-header">
+    <header class="feed-header">
 
-      <button
-        class="back-button"
-        type="button"
-        onclick="previousContent()"
-      >
-        ← Zurück
-      </button>
+      <div class="feed-header-left">
 
-      <div id="editionCounter" class="edition-counter">
-        1 / 1
-      </div>
+        <button
+          class="feed-back-button"
+          type="button"
+          onclick="backToTopOfFeed()"
+        >
+          ↑
+        </button>
 
-    </div>
-
-    <div id="contentArea" class="content-area">
-
-      <article class="content-card">
-
-        <img
-          id="contentImage"
-          class="content-image"
-          src=""
-          alt=""
-        />
-
-        <div class="content-info">
-
-          <div id="contentPlatform" class="content-platform"></div>
-
-          <div id="contentAccount" class="content-account"></div>
-
-          <div id="contentTitle" class="content-title"></div>
-
-          <div id="contentDescription" class="content-description"></div>
-
+        <div class="feed-logo">
+          daily feed
         </div>
 
-      </article>
+      </div>
 
-    </div>
+      <div
+        id="feedCounter"
+        class="feed-counter"
+      >
+        0 / 0
+      </div>
 
-    <div class="edition-footer">
-      Nach oben / unten wischen
-      <div id="timer" class="timer"></div>
-    </div>
+    </header>
+
+
+    <main
+      id="feedScroll"
+      class="feed-scroll"
+    ></main>
 
   </div>
 
 
-  <!-- =========================
+  <!-- =========================================================
        END SCREEN
-  ========================== -->
+  ========================================================== -->
 
-  <div id="endScreen" class="hidden">
+  <div
+    id="endScreen"
+    class="hidden"
+  >
 
     <div class="end-card">
 
-      <div class="end-icon">✓</div>
+      <div class="end-icon">
+        ✓
+      </div>
 
-      <h1>Das war's für heute.</h1>
+      <h1>
+        Das war's für heute.
+      </h1>
 
       <p>
         Deine Ausgabe ist vorbei.
@@ -832,7 +1052,7 @@
   <script>
 
     /* =========================================================
-       GRUNDEINSTELLUNGEN
+       PLATTFORMEN
     ========================================================== */
 
     const platforms = [
@@ -845,6 +1065,7 @@
       "Snapchat",
       "Facebook"
     ];
+
 
     const platformIcons = {
       Instagram: "📸",
@@ -859,7 +1080,7 @@
 
 
     /* =========================================================
-       DEMO-ACCOUNTS
+       DEMO ACCOUNTS
     ========================================================== */
 
     let accounts = [
@@ -952,29 +1173,40 @@
     ========================================================== */
 
     let selectedSources = [];
+
     let selectedMode = "";
+
     let selectedAccounts = [];
 
     let limitMode = "";
+
     let contentLimit = 0;
+
     let timeLimitMinutes = 0;
 
     let dailyEdition = [];
+
     let currentIndex = 0;
 
     let startedAt = null;
+
     let timerInterval = null;
 
     let editionFinished = false;
 
 
     /* =========================================================
-       STORAGE KEYS
+       STORAGE
     ========================================================== */
 
-    const DAILY_STATE_KEY = "dailyFeedDailyState";
-    const MY_ACCOUNTS_KEY = "dailyFeedMyAccounts";
-    const USER_ACCOUNTS_KEY = "dailyFeedUserAccounts";
+    const DAILY_STATE_KEY =
+      "dailyFeedDailyState";
+
+    const MY_ACCOUNTS_KEY =
+      "dailyFeedMyAccounts";
+
+    const USER_ACCOUNTS_KEY =
+      "dailyFeedUserAccounts";
 
 
     /* =========================================================
@@ -982,40 +1214,64 @@
     ========================================================== */
 
     const setupScreen =
-      document.getElementById("setupScreen");
+      document.getElementById(
+        "setupScreen"
+      );
 
     const editionScreen =
-      document.getElementById("editionScreen");
+      document.getElementById(
+        "editionScreen"
+      );
 
     const endScreen =
-      document.getElementById("endScreen");
+      document.getElementById(
+        "endScreen"
+      );
 
     const platformGrid =
-      document.getElementById("platformGrid");
+      document.getElementById(
+        "platformGrid"
+      );
 
     const connectedAccountsSection =
-      document.getElementById("connectedAccountsSection");
+      document.getElementById(
+        "connectedAccountsSection"
+      );
 
     const connectedAccountsList =
-      document.getElementById("connectedAccountsList");
+      document.getElementById(
+        "connectedAccountsList"
+      );
 
     const modeSection =
-      document.getElementById("modeSection");
+      document.getElementById(
+        "modeSection"
+      );
 
     const myAccountsSection =
-      document.getElementById("myAccountsSection");
+      document.getElementById(
+        "myAccountsSection"
+      );
 
     const myAccountsList =
-      document.getElementById("myAccountsList");
+      document.getElementById(
+        "myAccountsList"
+      );
 
     const limitSection =
-      document.getElementById("limitSection");
+      document.getElementById(
+        "limitSection"
+      );
 
     const startButton =
-      document.getElementById("startButton");
+      document.getElementById(
+        "startButton"
+      );
 
-    const contentArea =
-      document.getElementById("contentArea");
+    const feedScroll =
+      document.getElementById(
+        "feedScroll"
+      );
 
 
     /* =========================================================
@@ -1024,128 +1280,201 @@
 
     function getTodayKey() {
 
-      const now = new Date();
+      const now =
+        new Date();
 
       return (
         now.getFullYear() +
         "-" +
-        String(now.getMonth() + 1).padStart(2, "0") +
+        String(
+          now.getMonth() + 1
+        ).padStart(2, "0") +
         "-" +
-        String(now.getDate()).padStart(2, "0")
+        String(
+          now.getDate()
+        ).padStart(2, "0")
       );
+
     }
 
 
     /* =========================================================
-       LOCAL STORAGE
+       DAILY STATE SPEICHERN
     ========================================================== */
 
     function saveDailyState() {
 
       const state = {
 
-        date: getTodayKey(),
+        date:
+          getTodayKey(),
 
-        dailyEdition: dailyEdition,
+        dailyEdition:
+          dailyEdition,
 
-        currentIndex: currentIndex,
+        currentIndex:
+          currentIndex,
 
-        selectedSources: selectedSources,
+        selectedSources:
+          selectedSources,
 
-        selectedMode: selectedMode,
+        selectedMode:
+          selectedMode,
 
-        selectedAccounts: selectedAccounts,
+        selectedAccounts:
+          selectedAccounts,
 
-        limitMode: limitMode,
+        limitMode:
+          limitMode,
 
-        contentLimit: contentLimit,
+        contentLimit:
+          contentLimit,
 
-        timeLimitMinutes: timeLimitMinutes,
+        timeLimitMinutes:
+          timeLimitMinutes,
 
-        startedAt: startedAt,
+        startedAt:
+          startedAt,
 
-        editionFinished: editionFinished
+        editionFinished:
+          editionFinished
 
       };
+
 
       localStorage.setItem(
         DAILY_STATE_KEY,
         JSON.stringify(state)
       );
+
     }
 
+
+    /* =========================================================
+       DAILY STATE LADEN
+    ========================================================== */
 
     function loadDailyState() {
 
       const saved =
-        localStorage.getItem(DAILY_STATE_KEY);
+        localStorage.getItem(
+          DAILY_STATE_KEY
+        );
+
 
       if (!saved) {
+
         return false;
+
       }
+
 
       try {
 
-        const state = JSON.parse(saved);
+        const state =
+          JSON.parse(saved);
 
-        if (state.date !== getTodayKey()) {
 
-          localStorage.removeItem(DAILY_STATE_KEY);
+        /*
+          Neuer Tag:
+          alte Ausgabe löschen.
+        */
+
+        if (
+          state.date !==
+          getTodayKey()
+        ) {
+
+          localStorage.removeItem(
+            DAILY_STATE_KEY
+          );
 
           return false;
+
         }
 
+
         dailyEdition =
-          Array.isArray(state.dailyEdition)
+          Array.isArray(
+            state.dailyEdition
+          )
             ? state.dailyEdition
             : [];
 
+
         currentIndex =
-          Number.isInteger(state.currentIndex)
+          Number.isInteger(
+            state.currentIndex
+          )
             ? state.currentIndex
             : 0;
 
+
         selectedSources =
-          Array.isArray(state.selectedSources)
+          Array.isArray(
+            state.selectedSources
+          )
             ? state.selectedSources
             : [];
+
 
         selectedMode =
           state.selectedMode || "";
 
+
         selectedAccounts =
-          Array.isArray(state.selectedAccounts)
+          Array.isArray(
+            state.selectedAccounts
+          )
             ? state.selectedAccounts
             : [];
+
 
         limitMode =
           state.limitMode || "";
 
+
         contentLimit =
-          Number(state.contentLimit) || 0;
+          Number(
+            state.contentLimit
+          ) || 0;
+
 
         timeLimitMinutes =
-          Number(state.timeLimitMinutes) || 0;
+          Number(
+            state.timeLimitMinutes
+          ) || 0;
+
 
         startedAt =
           state.startedAt || null;
 
-        editionFinished =
-          Boolean(state.editionFinished);
 
-        return dailyEdition.length > 0;
+        editionFinished =
+          Boolean(
+            state.editionFinished
+          );
+
+
+        return (
+          dailyEdition.length > 0
+        );
 
       } catch (error) {
 
         console.error(
-          "Fehler beim Laden des Tageszustands:",
+          "Fehler beim Laden:",
           error
         );
 
-        localStorage.removeItem(DAILY_STATE_KEY);
+        localStorage.removeItem(
+          DAILY_STATE_KEY
+        );
 
         return false;
+
       }
+
     }
 
 
@@ -1156,33 +1485,58 @@
     function loadUserAccounts() {
 
       const saved =
-        localStorage.getItem(USER_ACCOUNTS_KEY);
+        localStorage.getItem(
+          USER_ACCOUNTS_KEY
+        );
+
 
       if (!saved) {
+
         return;
+
       }
+
 
       try {
 
-        const savedAccounts = JSON.parse(saved);
+        const savedAccounts =
+          JSON.parse(saved);
 
-        if (!Array.isArray(savedAccounts)) {
+
+        if (
+          !Array.isArray(
+            savedAccounts
+          )
+        ) {
+
           return;
+
         }
 
-        savedAccounts.forEach(account => {
 
-          const exists = accounts.some(
-            existing =>
-              existing.platform === account.platform &&
-              existing.username === account.username
-          );
+        savedAccounts.forEach(
+          account => {
 
-          if (!exists) {
-            accounts.push(account);
+            const exists =
+              accounts.some(
+                existing =>
+                  existing.platform ===
+                    account.platform &&
+                  existing.username ===
+                    account.username
+              );
+
+
+            if (!exists) {
+
+              accounts.push(
+                account
+              );
+
+            }
+
           }
-
-        });
+        );
 
       } catch (error) {
 
@@ -1192,6 +1546,7 @@
         );
 
       }
+
     }
 
 
@@ -1202,18 +1557,31 @@
     function loadMyAccounts() {
 
       const saved =
-        localStorage.getItem(MY_ACCOUNTS_KEY);
+        localStorage.getItem(
+          MY_ACCOUNTS_KEY
+        );
+
 
       if (!saved) {
+
         return;
+
       }
+
 
       try {
 
-        const loaded = JSON.parse(saved);
+        const loaded =
+          JSON.parse(saved);
 
-        if (Array.isArray(loaded)) {
-          selectedAccounts = loaded;
+
+        if (
+          Array.isArray(loaded)
+        ) {
+
+          selectedAccounts =
+            loaded;
+
         }
 
       } catch (error) {
@@ -1224,6 +1592,7 @@
         );
 
       }
+
     }
 
 
@@ -1235,64 +1604,96 @@
 
       platformGrid.innerHTML = "";
 
-      platforms.forEach(platform => {
 
-        const button =
-          document.createElement("button");
+      platforms.forEach(
+        platform => {
 
-        button.type = "button";
+          const button =
+            document.createElement(
+              "button"
+            );
 
-        button.className =
-          "platform-button";
 
-        button.textContent =
-          platform;
+          button.type =
+            "button";
 
-        if (
-          selectedSources.includes(platform)
-        ) {
 
-          button.classList.add("selected");
+          button.className =
+            "platform-button";
+
+
+          button.textContent =
+            platform;
+
+
+          if (
+            selectedSources.includes(
+              platform
+            )
+          ) {
+
+            button.classList.add(
+              "selected"
+            );
+
+          }
+
+
+          button.addEventListener(
+            "click",
+            () =>
+              togglePlatform(
+                platform
+              )
+          );
+
+
+          platformGrid.appendChild(
+            button
+          );
 
         }
-
-        button.addEventListener(
-          "click",
-          () => togglePlatform(platform)
-        );
-
-        platformGrid.appendChild(button);
-
-      });
+      );
 
     }
 
 
     /* =========================================================
-       PLATTFORM AUSWÄHLEN
+       PLATTFORM TOGGLE
     ========================================================== */
 
-    function togglePlatform(platform) {
+    function togglePlatform(
+      platform
+    ) {
 
       if (
-        selectedSources.includes(platform)
+        selectedSources.includes(
+          platform
+        )
       ) {
 
         selectedSources =
           selectedSources.filter(
-            item => item !== platform
+            item =>
+              item !== platform
           );
+
 
         selectedAccounts =
           selectedAccounts.filter(
-            item => item.platform !== platform
+            item =>
+              item.platform !==
+              platform
           );
 
       } else {
 
-        selectedSources.push(platform);
+        selectedSources.push(
+          platform
+        );
 
       }
+
 
       renderPlatforms();
 
@@ -1313,94 +1714,156 @@
 
     function renderConnectedAccounts() {
 
-      connectedAccountsList.innerHTML = "";
+      connectedAccountsList.innerHTML =
+        "";
 
-      selectedSources.forEach(platform => {
 
-        const row =
-          document.createElement("div");
+      selectedSources.forEach(
+        platform => {
 
-        row.className =
-          "connected-account-row";
+          const row =
+            document.createElement(
+              "div"
+            );
 
-        const info =
-          document.createElement("div");
 
-        info.className =
-          "connected-account-info";
+          row.className =
+            "connected-account-row";
 
-        const icon =
-          document.createElement("div");
 
-        icon.className =
-          "platform-icon";
+          const info =
+            document.createElement(
+              "div"
+            );
 
-        icon.textContent =
-          platformIcons[platform] || "•";
 
-        const text =
-          document.createElement("div");
+          info.className =
+            "connected-account-info";
 
-        const name =
-          document.createElement("div");
 
-        name.className =
-          "connected-account-name";
+          const icon =
+            document.createElement(
+              "div"
+            );
 
-        name.textContent =
-          platform;
 
-        const status =
-          document.createElement("div");
+          icon.className =
+            "platform-icon";
 
-        status.className =
-          "connected-account-status";
 
-        status.textContent =
-          "Noch nicht verbunden";
+          icon.textContent =
+            platformIcons[
+              platform
+            ] || "•";
 
-        text.appendChild(name);
 
-        text.appendChild(status);
+          const text =
+            document.createElement(
+              "div"
+            );
 
-        info.appendChild(icon);
 
-        info.appendChild(text);
+          const name =
+            document.createElement(
+              "div"
+            );
 
-        const button =
-          document.createElement("button");
 
-        button.type = "button";
+          name.className =
+            "connected-account-name";
 
-        button.className =
-          "connect-button";
 
-        button.textContent =
-          "Konto verbinden";
+          name.textContent =
+            platform;
 
-        button.addEventListener(
-          "click",
-          () => connectPlatform(platform)
-        );
 
-        row.appendChild(info);
+          const status =
+            document.createElement(
+              "div"
+            );
 
-        row.appendChild(button);
 
-        connectedAccountsList.appendChild(row);
+          status.className =
+            "connected-account-status";
 
-      });
+
+          status.textContent =
+            "Noch nicht verbunden";
+
+
+          text.appendChild(
+            name
+          );
+
+          text.appendChild(
+            status
+          );
+
+
+          info.appendChild(
+            icon
+          );
+
+          info.appendChild(
+            text
+          );
+
+
+          const button =
+            document.createElement(
+              "button"
+            );
+
+
+          button.type =
+            "button";
+
+
+          button.className =
+            "connect-button";
+
+
+          button.textContent =
+            "Konto verbinden";
+
+
+          button.addEventListener(
+            "click",
+            () =>
+              connectPlatform(
+                platform
+              )
+          );
+
+
+          row.appendChild(
+            info
+          );
+
+          row.appendChild(
+            button
+          );
+
+
+          connectedAccountsList.appendChild(
+            row
+          );
+
+        }
+      );
 
     }
 
 
-    function connectPlatform(platform) {
+    function connectPlatform(
+      platform
+    ) {
 
       alert(
         `${platform}-Login kommt später.\n\n` +
         `Das ist dein eigenes ${platform}-Konto.\n` +
         `Der echte offizielle Login wird später ` +
-        `über die jeweilige Plattform eingebaut.`
+        `über die Plattform eingebaut.`
       );
 
     }
@@ -1410,29 +1873,37 @@
        MODUS
     ========================================================== */
 
-    function selectMode(mode) {
+    function selectMode(
+      mode
+    ) {
 
-      selectedMode = mode;
+      selectedMode =
+        mode;
+
 
       const myAccountsButton =
         document.getElementById(
           "myAccountsModeButton"
         );
 
+
       const myFeedButton =
         document.getElementById(
           "myFeedModeButton"
         );
+
 
       myAccountsButton.classList.toggle(
         "selected",
         mode === "Meine Accounts"
       );
 
+
       myFeedButton.classList.toggle(
         "selected",
         mode === "Mein Feed"
       );
+
 
       renderMyAccounts();
 
@@ -1449,1530 +1920,97 @@
 
     function renderMyAccounts() {
 
-      myAccountsList.innerHTML = "";
+      myAccountsList.innerHTML =
+        "";
+
 
       if (
-        selectedSources.length === 0 ||
-        selectedMode !== "Meine Accounts"
+        selectedSources.length ===
+          0 ||
+        selectedMode !==
+          "Meine Accounts"
       ) {
 
         return;
 
       }
 
-      selectedSources.forEach(platform => {
 
-        const group =
-          document.createElement("div");
+      selectedSources.forEach(
+        platform => {
 
-        group.className =
-          "account-platform-group";
-
-        const title =
-          document.createElement("div");
-
-        title.className =
-          "account-platform-title";
-
-        title.innerHTML =
-          `${platformIcons[platform] || "•"} ${platform}`;
-
-        group.appendChild(title);
-
-
-        const platformAccounts =
-          accounts.filter(
-            account =>
-              account.platform === platform
-          );
-
-
-        const selectedForPlatform =
-          selectedAccounts.filter(
-            account =>
-              account.platform === platform
-          );
-
-
-        const list =
-          document.createElement("div");
-
-        list.className =
-          "account-list";
-
-
-        if (platformAccounts.length === 0) {
-
-          const empty =
-            document.createElement("div");
-
-          empty.className =
-            "empty-accounts";
-
-          empty.textContent =
-            "Noch keine Accounts vorhanden.";
-
-          list.appendChild(empty);
-
-        } else {
-
-          platformAccounts.forEach(account => {
-
-            const label =
-              document.createElement("label");
-
-            label.className =
-              "account-item";
-
-            const checkbox =
-              document.createElement("input");
-
-            checkbox.type =
-              "checkbox";
-
-            checkbox.checked =
-              selectedForPlatform.some(
-                selected =>
-                  selected.username === account.username
-              );
-
-            checkbox.addEventListener(
-              "change",
-              () =>
-                toggleMyAccount(
-                  platform,
-                  account.username,
-                  checkbox.checked
-                )
+          const group =
+            document.createElement(
+              "div"
             );
 
-            const text =
-              document.createElement("span");
 
-            text.textContent =
-              account.username;
-
-            label.appendChild(checkbox);
-
-            label.appendChild(text);
-
-            list.appendChild(label);
-
-          });
-
-        }
+          group.className =
+            "account-platform-group";
 
 
-        group.appendChild(list);
-
-
-        /* MANUELLES ACCOUNT-FELD */
-
-        const addArea =
-          document.createElement("div");
-
-        addArea.className =
-          "add-account-area";
-
-
-        const input =
-          document.createElement("input");
-
-        input.type =
-          "text";
-
-        input.className =
-          "account-input";
-
-        input.placeholder =
-          platform === "Pinterest"
-            ? "@meinPinterest"
-            : "z. B. @meinAccount";
-
-        input.autocomplete =
-          "off";
-
-
-        const addButton =
-          document.createElement("button");
-
-        addButton.type =
-          "button";
-
-        addButton.className =
-          "add-account-button";
-
-        addButton.textContent =
-          "Account hinzufügen";
-
-
-        addButton.addEventListener(
-          "click",
-          () => {
-
-            addMyAccount(
-              platform,
-              input.value
+          const title =
+            document.createElement(
+              "div"
             );
 
-            input.value = "";
 
-          }
-        );
-
-
-        input.addEventListener(
-          "keydown",
-          event => {
-
-            if (event.key === "Enter") {
-
-              event.preventDefault();
-
-              addMyAccount(
-                platform,
-                input.value
-              );
-
-              input.value = "";
-
-            }
-
-          }
-        );
+          title.className =
+            "account-platform-title";
 
 
-        addArea.appendChild(input);
-
-        addArea.appendChild(addButton);
-
-        group.appendChild(addArea);
-
-
-        myAccountsList.appendChild(group);
-
-      });
-
-    }
+          title.innerHTML =
+            `${
+              platformIcons[
+                platform
+              ] || "•"
+            } ${platform}`;
 
 
-    /* =========================================================
-       ACCOUNT AUSWÄHLEN
-    ========================================================== */
-
-    function toggleMyAccount(
-      platform,
-      username,
-      checked
-    ) {
-
-      const exists =
-        selectedAccounts.some(
-          account =>
-            account.platform === platform &&
-            account.username === username
-        );
-
-
-      if (checked && !exists) {
-
-        selectedAccounts.push({
-          platform: platform,
-          username: username
-        });
-
-      }
-
-
-      if (!checked) {
-
-        selectedAccounts =
-          selectedAccounts.filter(
-            account =>
-              !(
-                account.platform === platform &&
-                account.username === username
-              )
+          group.appendChild(
+            title
           );
 
-      }
 
-
-      localStorage.setItem(
-        MY_ACCOUNTS_KEY,
-        JSON.stringify(selectedAccounts)
-      );
-
-      updateStartButton();
-
-    }
-
-
-    /* =========================================================
-       ACCOUNT MANUELL HINZUFÜGEN
-    ========================================================== */
-
-    function addMyAccount(
-      platform,
-      username
-    ) {
-
-      username =
-        String(username || "").trim();
-
-      if (!username) {
-
-        return;
-
-      }
-
-
-      if (
-        !username.startsWith("@") &&
-        platform !== "Reddit"
-      ) {
-
-        username =
-          "@" + username;
-
-      }
-
-
-      const alreadySelected =
-        selectedAccounts.some(
-          account =>
-            account.platform === platform &&
-            account.username.toLowerCase() ===
-              username.toLowerCase()
-        );
-
-
-      if (alreadySelected) {
-
-        alert(
-          "Dieser Account ist bereits ausgewählt."
-        );
-
-        return;
-
-      }
-
-
-      const accountExists =
-        accounts.some(
-          account =>
-            account.platform === platform &&
-            account.username.toLowerCase() ===
-              username.toLowerCase()
-        );
-
-
-      if (!accountExists) {
-
-        const newAccount = {
-          platform: platform,
-          username: username
-        };
-
-        accounts.push(newAccount);
-
-
-        const saved =
-          localStorage.getItem(
-            USER_ACCOUNTS_KEY
-          );
-
-        let customAccounts = [];
-
-        if (saved) {
-
-          try {
-
-            customAccounts =
-              JSON.parse(saved);
-
-          } catch (error) {
-
-            customAccounts = [];
-
-          }
-
-        }
-
-
-        customAccounts.push(newAccount);
-
-        localStorage.setItem(
-          USER_ACCOUNTS_KEY,
-          JSON.stringify(customAccounts)
-        );
-
-      }
-
-
-      selectedAccounts.push({
-        platform: platform,
-        username: username
-      });
-
-
-      localStorage.setItem(
-        MY_ACCOUNTS_KEY,
-        JSON.stringify(selectedAccounts)
-      );
-
-
-      renderMyAccounts();
-
-      updateStartButton();
-
-    }
-
-
-    /* =========================================================
-       LIMIT AUSWÄHLEN
-    ========================================================== */
-
-    function selectLimitMode(mode) {
-
-      limitMode = mode;
-
-      const contentButton =
-        document.getElementById(
-          "limitContentButton"
-        );
-
-      const timeButton =
-        document.getElementById(
-          "limitTimeButton"
-        );
-
-      const bothButton =
-        document.getElementById(
-          "limitBothButton"
-        );
-
-      contentButton.classList.toggle(
-        "selected",
-        mode === "content"
-      );
-
-      timeButton.classList.toggle(
-        "selected",
-        mode === "time"
-      );
-
-      bothButton.classList.toggle(
-        "selected",
-        mode === "both"
-      );
-
-
-      const limitInputs =
-        document.getElementById(
-          "limitInputs"
-        );
-
-      const contentGroup =
-        document.getElementById(
-          "contentLimitGroup"
-        );
-
-      const timeGroup =
-        document.getElementById(
-          "timeLimitGroup"
-        );
-
-
-      limitInputs.classList.remove(
-        "hidden"
-      );
-
-      contentGroup.classList.toggle(
-        "hidden",
-        mode === "time"
-      );
-
-      timeGroup.classList.toggle(
-        "hidden",
-        mode === "content"
-      );
-
-
-      updateStartButton();
-
-    }
-
-
-    /* =========================================================
-       BEREICHE AKTUALISIEREN
-    ========================================================== */
-
-    function updateSections() {
-
-      const hasPlatforms =
-        selectedSources.length > 0;
-
-      connectedAccountsSection.classList.toggle(
-        "hidden",
-        !hasPlatforms
-      );
-
-      modeSection.classList.toggle(
-        "hidden",
-        !hasPlatforms
-      );
-
-
-      const showMyAccounts =
-        hasPlatforms &&
-        selectedMode === "Meine Accounts";
-
-      myAccountsSection.classList.toggle(
-        "hidden",
-        !showMyAccounts
-      );
-
-
-      const showLimit =
-        hasPlatforms &&
-        selectedMode !== "";
-
-      limitSection.classList.toggle(
-        "hidden",
-        !showLimit
-      );
-
-    }
-
-
-    /* =========================================================
-       START-BUTTON
-    ========================================================== */
-
-    function updateStartButton() {
-
-      let valid = true;
-
-
-      if (selectedSources.length === 0) {
-        valid = false;
-      }
-
-
-      if (!selectedMode) {
-        valid = false;
-      }
-
-
-      if (
-        selectedMode === "Meine Accounts" &&
-        selectedAccounts.length === 0
-      ) {
-
-        valid = false;
-
-      }
-
-
-      if (!limitMode) {
-        valid = false;
-      }
-
-
-      if (
-        limitMode === "content" ||
-        limitMode === "both"
-      ) {
-
-        const value =
-          Number(
-            document.getElementById(
-              "contentLimitInput"
-            ).value
-          );
-
-        if (!value || value < 1) {
-          valid = false;
-        }
-
-      }
-
-
-      if (
-        limitMode === "time" ||
-        limitMode === "both"
-      ) {
-
-        const value =
-          Number(
-            document.getElementById(
-              "timeLimitInput"
-            ).value
-          );
-
-        if (!value || value < 1) {
-          valid = false;
-        }
-
-      }
-
-
-      startButton.disabled =
-        !valid;
-
-    }
-
-
-    /* =========================================================
-       CONTENT ERSTELLEN
-    ========================================================== */
-
-    function createContentForAccount(
-      account,
-      index
-    ) {
-
-      const titles = [
-
-        "Ein kleiner Impuls für heute",
-
-        "Das könnte dich interessieren",
-
-        "Eine neue Perspektive",
-
-        "Inspiration für deinen Tag",
-
-        "Interessanter Fund",
-
-        "Heute entdeckt",
-
-        "Ein Beitrag aus deinem Feed",
-
-        "Etwas, das du dir ansehen kannst"
-
-      ];
-
-
-      const descriptions = [
-
-        "Dieser Inhalt wurde für deine heutige daily-feed-Ausgabe ausgewählt.",
-
-        "Ein Beispielinhalt für deine persönliche Ausgabe.",
-
-        "daily feed bündelt deine Auswahl in einer begrenzten Ausgabe.",
-
-        "Du entscheidest, wie viel du heute davon sehen möchtest."
-
-      ];
-
-
-      const imageNumber =
-        (index % 8) + 1;
-
-
-      return {
-
-        id:
-          `${account.platform}-${account.username}-${index}`,
-
-        platform:
-          account.platform,
-
-        username:
-          account.username,
-
-        title:
-          titles[
-            index % titles.length
-          ],
-
-        description:
-          descriptions[
-            index % descriptions.length
-          ],
-
-        image:
-          `https://picsum.photos/seed/dailyfeed-${encodeURIComponent(
-            account.platform +
-            "-" +
-            account.username +
-            "-" +
-            imageNumber
-          )}/800/1000`
-
-      };
-
-    }
-
-
-    /* =========================================================
-       AUSGABE ERSTELLEN
-    ========================================================== */
-
-    function buildEdition() {
-
-      let sourceAccounts = [];
-
-
-      if (
-        selectedMode === "Meine Accounts"
-      ) {
-
-        sourceAccounts =
-          selectedAccounts.filter(
-            account =>
-              selectedSources.includes(
-                account.platform
-              )
-          );
-
-      } else {
-
-        sourceAccounts =
-          accounts.filter(
-            account =>
-              selectedSources.includes(
-                account.platform
-              )
-          );
-
-      }
-
-
-      /*
-        Wenn Mein Feed gewählt wurde,
-        nehmen wir alle verfügbaren Accounts
-        der ausgewählten Plattformen und
-        erstellen daraus eine begrenzte Ausgabe.
-      */
-
-
-      if (sourceAccounts.length === 0) {
-
-        return [];
-
-      }
-
-
-      let edition = [];
-
-
-      /*
-        Mehrere Inhalte pro Account,
-        damit die Ausgabe nicht nach einem
-        einzigen Beitrag endet.
-      */
-
-      sourceAccounts.forEach(
-        (account, accountIndex) => {
-
-          for (
-            let i = 0;
-            i < 5;
-            i++
-          ) {
-
-            edition.push(
-              createContentForAccount(
-                account,
-                accountIndex * 5 + i
-              )
+          const platformAccounts =
+            accounts.filter(
+              account =>
+                account.platform ===
+                platform
             );
 
-          }
 
-        }
-      );
+          const selectedForPlatform =
+            selectedAccounts.filter(
+              account =>
+                account.platform ===
+                platform
+            );
 
 
-      /*
-        Mischung der Inhalte.
-      */
+          const list =
+            document.createElement(
+              "div"
+            );
 
-      edition =
-        shuffleArray(edition);
 
+          list.className =
+            "account-list";
 
-      /*
-        Anzahl-Limit.
-      */
-
-      if (
-        limitMode === "content" ||
-        limitMode === "both"
-      ) {
-
-        edition =
-          edition.slice(
-            0,
-            contentLimit
-          );
-
-      }
-
-
-      return edition;
-
-    }
-
-
-    /* =========================================================
-       SHUFFLE
-    ========================================================== */
-
-    function shuffleArray(array) {
-
-      const result =
-        [...array];
-
-
-      for (
-        let i = result.length - 1;
-        i > 0;
-        i--
-      ) {
-
-        const j =
-          Math.floor(
-            Math.random() * (i + 1)
-          );
-
-        [
-          result[i],
-          result[j]
-        ] = [
-          result[j],
-          result[i]
-        ];
-
-      }
-
-
-      return result;
-
-    }
-
-
-    /* =========================================================
-       AUSGABE STARTEN
-    ========================================================== */
-
-    function startEdition() {
-
-      /*
-        Falls heute bereits eine Ausgabe
-        existiert, wird sie NICHT neu erstellt.
-      */
-
-      const existingState =
-        loadDailyState();
-
-
-      if (existingState) {
-
-        showEdition();
-
-        if (editionFinished) {
-
-          showEndScreen();
-
-        } else {
-
-          showContent();
-
-          if (timeLimitMinutes > 0) {
-
-            startTimer();
-
-          }
-
-        }
-
-        return;
-
-      }
-
-
-      if (
-        limitMode === "content" ||
-        limitMode === "both"
-      ) {
-
-        contentLimit =
-          Number(
-            document.getElementById(
-              "contentLimitInput"
-            ).value
-          );
-
-      } else {
-
-        contentLimit = 0;
-
-      }
-
-
-      if (
-        limitMode === "time" ||
-        limitMode === "both"
-      ) {
-
-        timeLimitMinutes =
-          Number(
-            document.getElementById(
-              "timeLimitInput"
-            ).value
-          );
-
-      } else {
-
-        timeLimitMinutes = 0;
-
-      }
-
-
-      dailyEdition =
-        buildEdition();
-
-
-      if (dailyEdition.length === 0) {
-
-        alert(
-          "Es konnten keine Inhalte für deine Auswahl erstellt werden."
-        );
-
-        return;
-
-      }
-
-
-      currentIndex = 0;
-
-      editionFinished = false;
-
-      startedAt =
-        timeLimitMinutes > 0
-          ? Date.now()
-          : null;
-
-
-      saveDailyState();
-
-      showEdition();
-
-      showContent();
-
-
-      if (timeLimitMinutes > 0) {
-
-        startTimer();
-
-      }
-
-    }
-
-
-    /* =========================================================
-       EDITION ANZEIGEN
-    ========================================================== */
-
-    function showEdition() {
-
-      setupScreen.classList.add(
-        "hidden"
-      );
-
-      endScreen.classList.add(
-        "hidden"
-      );
-
-      editionScreen.classList.remove(
-        "hidden"
-      );
-
-    }
-
-
-    /* =========================================================
-       CONTENT ANZEIGEN
-    ========================================================== */
-
-    function showContent() {
-
-      if (
-        dailyEdition.length === 0
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        currentIndex < 0
-      ) {
-
-        currentIndex = 0;
-
-      }
-
-
-      if (
-        currentIndex >= dailyEdition.length
-      ) {
-
-        currentIndex =
-          dailyEdition.length - 1;
-
-      }
-
-
-      const content =
-        dailyEdition[currentIndex];
-
-
-      document.getElementById(
-        "editionCounter"
-      ).textContent =
-        `${currentIndex + 1} / ${dailyEdition.length}`;
-
-
-      document.getElementById(
-        "contentImage"
-      ).src =
-        content.image;
-
-
-      document.getElementById(
-        "contentImage"
-      ).alt =
-        content.title;
-
-
-      document.getElementById(
-        "contentPlatform"
-      ).textContent =
-        content.platform;
-
-
-      document.getElementById(
-        "contentAccount"
-      ).textContent =
-        content.username;
-
-
-      document.getElementById(
-        "contentTitle"
-      ).textContent =
-        content.title;
-
-
-      document.getElementById(
-        "contentDescription"
-      ).textContent =
-        content.description;
-
-
-      saveDailyState();
-
-    }
-
-
-    /* =========================================================
-       NÄCHSTER CONTENT
-    ========================================================== */
-
-    function nextContent() {
-
-      if (
-        dailyEdition.length === 0
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        currentIndex >=
-        dailyEdition.length - 1
-      ) {
-
-        editionFinished = true;
-
-        saveDailyState();
-
-        stopTimer();
-
-        showEndScreen();
-
-        return;
-
-      }
-
-
-      currentIndex++;
-
-      showContent();
-
-    }
-
-
-    /* =========================================================
-       VORHERIGER CONTENT
-    ========================================================== */
-
-    function previousContent() {
-
-      if (
-        dailyEdition.length === 0
-      ) {
-
-        return;
-
-      }
-
-
-      if (
-        currentIndex <= 0
-      ) {
-
-        return;
-
-      }
-
-
-      currentIndex--;
-
-      editionFinished = false;
-
-      showContent();
-
-    }
-
-
-    /* =========================================================
-       END SCREEN
-    ========================================================== */
-
-    function showEndScreen() {
-
-      editionScreen.classList.add(
-        "hidden"
-      );
-
-      setupScreen.classList.add(
-        "hidden"
-      );
-
-      endScreen.classList.remove(
-        "hidden"
-      );
-
-    }
-
-
-    /* =========================================================
-       AUSGABE NOCH EINMAL ANSEHEN
-    ========================================================== */
-
-    function reviewEdition() {
-
-      if (
-        dailyEdition.length === 0
-      ) {
-
-        return;
-
-      }
-
-
-      currentIndex = 0;
-
-      editionFinished = false;
-
-
-      if (
-        timeLimitMinutes > 0
-      ) {
-
-        startedAt =
-          Date.now();
-
-      }
-
-
-      saveDailyState();
-
-      showEdition();
-
-      showContent();
-
-
-      if (
-        timeLimitMinutes > 0
-      ) {
-
-        startTimer();
-
-      }
-
-    }
-
-
-    /* =========================================================
-       TIMER
-    ========================================================== */
-
-    function startTimer() {
-
-      stopTimer();
-
-
-      if (
-        !timeLimitMinutes ||
-        timeLimitMinutes <= 0
-      ) {
-
-        return;
-
-      }
-
-
-      if (!startedAt) {
-
-        startedAt =
-          Date.now();
-
-        saveDailyState();
-
-      }
-
-
-      updateTimer();
-
-
-      timerInterval =
-        setInterval(
-          updateTimer,
-          1000
-        );
-
-    }
-
-
-    function stopTimer() {
-
-      if (timerInterval) {
-
-        clearInterval(
-          timerInterval
-        );
-
-        timerInterval = null;
-
-      }
-
-    }
-
-
-    function updateTimer() {
-
-      if (
-        !startedAt ||
-        !timeLimitMinutes
-      ) {
-
-        return;
-
-      }
-
-
-      const elapsed =
-        Date.now() -
-        startedAt;
-
-
-      const total =
-        timeLimitMinutes *
-        60 *
-        1000;
-
-
-      const remaining =
-        Math.max(
-          0,
-          total - elapsed
-        );
-
-
-      const minutes =
-        Math.floor(
-          remaining / 60000
-        );
-
-
-      const seconds =
-        Math.floor(
-          (remaining % 60000) /
-          1000
-        );
-
-
-      document.getElementById(
-        "timer"
-      ).textContent =
-        `Noch ${minutes}:${String(seconds).padStart(2, "0")} Minuten`;
-
-
-      if (
-        remaining <= 0
-      ) {
-
-        finishByTime();
-
-      }
-
-    }
-
-
-    /* =========================================================
-       ZEITLIMIT ERREICHT
-    ========================================================== */
-
-    function finishByTime() {
-
-      stopTimer();
-
-      editionFinished = true;
-
-      saveDailyState();
-
-      showEndScreen();
-
-    }
-
-
-    /* =========================================================
-       TOUCH / SWIPE
-    ========================================================== */
-
-    let touchStartY = 0;
-
-    let touchEndY = 0;
-
-
-    contentArea.addEventListener(
-      "touchstart",
-      event => {
-
-        touchStartY =
-          event.changedTouches[0].screenY;
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-    contentArea.addEventListener(
-      "touchend",
-      event => {
-
-        touchEndY =
-          event.changedTouches[0].screenY;
-
-
-        const difference =
-          touchStartY -
-          touchEndY;
-
-
-        if (
-          Math.abs(difference) < 50
-        ) {
-
-          return;
-
-        }
-
-
-        if (
-          difference > 0
-        ) {
-
-          nextContent();
-
-        } else {
-
-          previousContent();
-
-        }
-
-      },
-      {
-        passive: true
-      }
-    );
-
-
-    /* =========================================================
-       TASTATUR
-    ========================================================== */
-
-    document.addEventListener(
-      "keydown",
-      event => {
-
-        if (
-          editionScreen.classList.contains(
-            "hidden"
-          )
-        ) {
-
-          return;
-
-        }
-
-
-        if (
-          event.key === "ArrowUp"
-        ) {
-
-          previousContent();
-
-        }
-
-
-        if (
-          event.key === "ArrowDown"
-        ) {
-
-          nextContent();
-
-        }
-
-      }
-    );
-
-
-    /* =========================================================
-       INPUT-ÄNDERUNGEN
-    ========================================================== */
-
-    document.getElementById(
-      "contentLimitInput"
-    ).addEventListener(
-      "input",
-      updateStartButton
-    );
-
-
-    document.getElementById(
-      "timeLimitInput"
-    ).addEventListener(
-      "input",
-      updateStartButton
-    );
-
-
-    /* =========================================================
-       APP START
-    ========================================================== */
-
-    function initializeApp() {
-
-      loadUserAccounts();
-
-      loadMyAccounts();
-
-      renderPlatforms();
-
-      renderConnectedAccounts();
-
-      updateSections();
-
-
-      /*
-        Wenn heute bereits eine Ausgabe
-        erstellt wurde, wird die Setup-Seite
-        nicht erneut geöffnet.
-      */
-
-      const existingState =
-        loadDailyState();
-
-
-      if (existingState) {
-
-        selectedSources =
-          selectedSources.length
-            ? selectedSources
-            : [];
-
-
-        showEdition();
-
-
-        if (editionFinished) {
-
-          showEndScreen();
-
-        } else {
-
-          showContent();
 
           if (
-            timeLimitMinutes > 0
+            platformAccounts.length ===
+            0
           ) {
 
-            startTimer();
-
-          }
-
-        }
-
-        return;
-
-      }
+            const empty =
+              document.createElement(
+                "div"
+              );
 
 
-      /*
-        Kein Tageszustand vorhanden:
-        Setup anzeigen.
-      */
-
-      setupScreen.classList.remove(
-        "hidden"
-      );
-
-      editionScreen.classList.add(
-        "hidden"
-      );
-
-      endScreen.classList.add(
-        "hidden"
-      );
+            empty.className =
+              "empty-accounts";
 
 
-      renderPlatforms();
-
-      renderConnectedAccounts();
-
-      renderMyAccounts();
-
-      updateSections();
-
-      updateStartButton();
-
-    }
-
-
-    initializeApp();
-
-  </script>
-
-</body>
-</html>
+           
