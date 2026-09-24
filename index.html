@@ -32,6 +32,7 @@ h2{font-size:20px;margin:0 0 8px}
   color:#222;
   font-weight:700;
 }
+
 .platform-button.selected,
 .mode-button.selected,
 .limit-button.selected{
@@ -55,20 +56,37 @@ h2{font-size:20px;margin:0 0 8px}
   padding:10px 2px;
   border-bottom:1px solid #e8e8e8;
 }
-.connected-account-row:last-child{border-bottom:0}
+
+.connected-account-row:last-child{
+  border-bottom:0;
+}
 
 .connected-account-info{
   display:flex;
   align-items:center;
   gap:10px;
 }
+
 .platform-icon{
-  width:38px;height:38px;border-radius:50%;
+  width:38px;
+  height:38px;
+  border-radius:50%;
   background:#eee;
-  display:flex;align-items:center;justify-content:center;
+  display:flex;
+  align-items:center;
+  justify-content:center;
 }
-.connected-account-name{font-weight:700;font-size:14px}
-.connected-account-status{font-size:12px;color:#888;margin-top:3px}
+
+.connected-account-name{
+  font-weight:700;
+  font-size:14px;
+}
+
+.connected-account-status{
+  font-size:12px;
+  color:#888;
+  margin-top:3px;
+}
 
 .connect-button{
   border:0;
@@ -80,14 +98,43 @@ h2{font-size:20px;margin:0 0 8px}
   font-weight:700;
 }
 
-.mode-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.mode-button{text-align:left;min-height:90px}
-.mode-title{font-size:15px;margin-bottom:5px}
-.mode-description{font-size:12px;line-height:1.4;opacity:.7;font-weight:400}
+.mode-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
 
-.account-platform-group{margin-bottom:22px}
-.account-platform-title{font-weight:750;margin-bottom:9px}
-.account-list{display:flex;flex-direction:column;gap:8px}
+.mode-button{
+  text-align:left;
+  min-height:90px;
+}
+
+.mode-title{
+  font-size:15px;
+  margin-bottom:5px;
+}
+
+.mode-description{
+  font-size:12px;
+  line-height:1.4;
+  opacity:.7;
+  font-weight:400;
+}
+
+.account-platform-group{
+  margin-bottom:22px;
+}
+
+.account-platform-title{
+  font-weight:750;
+  margin-bottom:9px;
+}
+
+.account-list{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
 
 .account-row{
   display:flex;
@@ -98,8 +145,18 @@ h2{font-size:20px;margin:0 0 8px}
   border:1px solid #e5e5e5;
   border-radius:11px;
 }
-.account-row input{width:18px;height:18px;accent-color:#111}
-.account-row span{font-size:14px;font-weight:600;flex:1}
+
+.account-row input{
+  width:18px;
+  height:18px;
+  accent-color:#111;
+}
+
+.account-row span{
+  font-size:14px;
+  font-weight:600;
+  flex:1;
+}
 
 .account-remove{
   border:0;
@@ -114,6 +171,7 @@ h2{font-size:20px;margin:0 0 8px}
   gap:8px;
   margin-top:8px;
 }
+
 .account-input{
   flex:1;
   min-width:0;
@@ -123,12 +181,28 @@ h2{font-size:20px;margin:0 0 8px}
   outline:none;
   background:#fff;
 }
-.account-input:focus{border-color:#111}
 
-.limit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.limit-button{padding:13px 8px;font-size:13px}
+.account-input:focus{
+  border-color:#111;
+}
 
-.limit-inputs{margin-top:12px;display:grid;gap:10px}
+.limit-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.limit-button{
+  padding:13px 8px;
+  font-size:13px;
+}
+
+.limit-inputs{
+  margin-top:12px;
+  display:grid;
+  gap:10px;
+}
+
 .limit-input-group{
   display:flex;
   align-items:center;
@@ -138,7 +212,13 @@ h2{font-size:20px;margin:0 0 8px}
   padding:10px 12px;
   background:#fff;
 }
-.limit-input-group label{flex:1;font-size:14px;font-weight:650}
+
+.limit-input-group label{
+  flex:1;
+  font-size:14px;
+  font-weight:650;
+}
+
 .limit-input-group input{
   width:90px;
   border:0;
@@ -158,14 +238,21 @@ h2{font-size:20px;margin:0 0 8px}
   font-size:16px;
   font-weight:800;
 }
+
 .start-button:disabled{
   background:#ddd;
   color:#999;
 }
 
-/* FEED */
 
-#editionScreen{min-height:100vh;background:#fff}
+/* =========================
+   FEED
+========================= */
+
+#editionScreen{
+  min-height:100vh;
+  background:#fff;
+}
 
 .feed-header{
   position:sticky;
@@ -181,10 +268,20 @@ h2{font-size:20px;margin:0 0 8px}
   border-bottom:1px solid #eee;
 }
 
-.feed-logo{font-size:19px;font-weight:800}
-.feed-counter{font-size:12px;color:#777;font-weight:700}
+.feed-logo{
+  font-size:19px;
+  font-weight:800;
+}
 
-.feed-scroll{width:100%}
+.feed-counter{
+  font-size:12px;
+  color:#777;
+  font-weight:700;
+}
+
+.feed-scroll{
+  width:100%;
+}
 
 .feed-post{
   width:100%;
@@ -198,16 +295,33 @@ h2{font-size:20px;margin:0 0 8px}
   gap:11px;
   padding:13px 14px;
 }
+
 .post-avatar{
-  width:38px;height:38px;
+  width:38px;
+  height:38px;
   border-radius:50%;
-  background:#111;color:#fff;
-  display:flex;align-items:center;justify-content:center;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-weight:750;
 }
-.post-user-info{flex:1}
-.post-username{font-size:14px;font-weight:750}
-.post-platform{font-size:11px;color:#888;margin-top:3px}
+
+.post-user-info{
+  flex:1;
+}
+
+.post-username{
+  font-size:14px;
+  font-weight:750;
+}
+
+.post-platform{
+  font-size:11px;
+  color:#888;
+  margin-top:3px;
+}
 
 .post-image{
   display:block;
@@ -221,19 +335,24 @@ h2{font-size:20px;margin:0 0 8px}
   gap:17px;
   padding:12px 14px 6px;
 }
+
 .post-action{
   border:0;
   background:transparent;
   padding:0;
   font-size:23px;
 }
+
 .post-caption{
   padding:0 14px 18px;
   font-size:14px;
   line-height:1.4;
 }
 
-/* ENDE */
+
+/* =========================
+   ENDE
+========================= */
 
 #endScreen{
   min-height:100vh;
@@ -243,6 +362,7 @@ h2{font-size:20px;margin:0 0 8px}
   padding:25px;
   background:#f5f5f5;
 }
+
 .end-card{
   width:100%;
   max-width:430px;
@@ -251,16 +371,32 @@ h2{font-size:20px;margin:0 0 8px}
   padding:30px 22px;
   text-align:center;
 }
+
 .end-icon{
-  width:58px;height:58px;
+  width:58px;
+  height:58px;
   margin:0 auto 16px;
   border-radius:50%;
-  background:#111;color:#fff;
-  display:flex;align-items:center;justify-content:center;
+  background:#111;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
   font-size:25px;
 }
-.end-card h1{font-size:25px;margin:0 0 10px}
-.end-card p{color:#777;line-height:1.5;font-size:14px;margin-bottom:22px}
+
+.end-card h1{
+  font-size:25px;
+  margin:0 0 10px;
+}
+
+.end-card p{
+  color:#777;
+  line-height:1.5;
+  font-size:14px;
+  margin-bottom:22px;
+}
+
 .review-button{
   width:100%;
   border:0;
@@ -272,10 +408,24 @@ h2{font-size:20px;margin:0 0 8px}
 }
 
 @media(max-width:500px){
-  #setupScreen{padding:24px 14px 40px}
-  .mode-grid{grid-template-columns:1fr}
-  .account-add-box{flex-direction:column}
-  .account-add-box button{width:100%;padding:12px}
+
+  #setupScreen{
+    padding:24px 14px 40px;
+  }
+
+  .mode-grid{
+    grid-template-columns:1fr;
+  }
+
+  .account-add-box{
+    flex-direction:column;
+  }
+
+  .account-add-box button{
+    width:100%;
+    padding:12px;
+  }
+
 }
 </style>
 </head>
@@ -284,35 +434,56 @@ h2{font-size:20px;margin:0 0 8px}
 
 <div class="app">
 
-<!-- STARTSEITE -->
+<!-- =========================
+     STARTSEITE
+========================= -->
 
 <div id="setupScreen">
 
   <div>
     <div class="logo">daily feed</div>
+
     <div class="tagline">
       Der Algorithmus entscheidet, <b>was</b> du siehst.<br>
       Du entscheidest, <b>wie viel</b> du davon siehst.
     </div>
   </div>
 
+
+  <!-- PLATTFORMEN -->
+
   <section>
+
     <h2>Woher sollen die Inhalte kommen?</h2>
+
     <p class="subtitle">
       Wähle die Plattformen, aus denen deine Ausgabe zusammengestellt werden soll.
     </p>
+
     <div id="platformGrid" class="platform-grid"></div>
+
   </section>
+
+
+  <!-- KONTO VERBINDEN -->
 
   <section id="connectedSection" class="hidden">
+
     <h2>Konto verbinden</h2>
+
     <p class="subtitle">
-      Hier verbindest du später dein eigenes Konto.
+      Hier verbindest du dein eigenes Konto.
     </p>
+
     <div class="connected-box" id="connectedList"></div>
+
   </section>
 
+
+  <!-- MODUS -->
+
   <section id="modeSection" class="hidden">
+
     <h2>Wie sollen die Inhalte ausgewählt werden?</h2>
 
     <div class="mode-grid">
@@ -323,11 +494,17 @@ h2{font-size:20px;margin:0 0 8px}
         type="button"
         onclick="selectMode('Meine Accounts')"
       >
-        <div class="mode-title">🧑 Meine Accounts</div>
+
+        <div class="mode-title">
+          🧑 Meine Accounts
+        </div>
+
         <div class="mode-description">
           Du bestimmst, von welchen Accounts Inhalte erscheinen.
         </div>
+
       </button>
+
 
       <button
         id="myFeedButton"
@@ -335,16 +512,26 @@ h2{font-size:20px;margin:0 0 8px}
         type="button"
         onclick="selectMode('Mein Feed')"
       >
-        <div class="mode-title">✨ Mein Feed</div>
+
+        <div class="mode-title">
+          ✨ Mein Feed
+        </div>
+
         <div class="mode-description">
           daily feed stellt die Inhalte algorithmisch zusammen.
         </div>
+
       </button>
 
     </div>
+
   </section>
 
+
+  <!-- MEINE ACCOUNTS -->
+
   <section id="accountsSection" class="hidden">
+
     <h2>Meine Accounts</h2>
 
     <p class="subtitle">
@@ -353,7 +540,11 @@ h2{font-size:20px;margin:0 0 8px}
     </p>
 
     <div class="accounts-box" id="accountsList"></div>
+
   </section>
+
+
+  <!-- LIMIT -->
 
   <section id="limitSection" class="hidden">
 
@@ -392,22 +583,48 @@ h2{font-size:20px;margin:0 0 8px}
 
       </div>
 
+
       <div class="limit-inputs">
 
-        <div id="contentInputBox" class="limit-input-group hidden">
+        <div
+          id="contentInputBox"
+          class="limit-input-group hidden"
+        >
+
           <label>Beiträge</label>
-          <input id="contentLimit" type="number" min="1" value="10">
+
+          <input
+            id="contentLimit"
+            type="number"
+            min="1"
+            value="10"
+          >
+
         </div>
 
-        <div id="timeInputBox" class="limit-input-group hidden">
+
+        <div
+          id="timeInputBox"
+          class="limit-input-group hidden"
+        >
+
           <label>Minuten</label>
-          <input id="timeLimit" type="number" min="1" value="10">
+
+          <input
+            id="timeLimit"
+            type="number"
+            min="1"
+            value="10"
+          >
+
         </div>
 
       </div>
 
     </div>
+
   </section>
+
 
   <button
     id="startButton"
@@ -422,29 +639,51 @@ h2{font-size:20px;margin:0 0 8px}
 </div>
 
 
-<!-- FEED -->
+<!-- =========================
+     FEED
+========================= -->
 
 <div id="editionScreen" class="hidden">
 
   <header class="feed-header">
-    <div class="feed-logo">daily feed</div>
-    <div id="feedCounter" class="feed-counter">0 / 0</div>
+
+    <div class="feed-logo">
+      daily feed
+    </div>
+
+    <div
+      id="feedCounter"
+      class="feed-counter"
+    >
+      0 / 0
+    </div>
+
   </header>
 
-  <main id="feedScroll" class="feed-scroll"></main>
+
+  <main
+    id="feedScroll"
+    class="feed-scroll"
+  ></main>
 
 </div>
 
 
-<!-- ENDE -->
+<!-- =========================
+     ENDE
+========================= -->
 
 <div id="endScreen" class="hidden">
 
   <div class="end-card">
 
-    <div class="end-icon">✓</div>
+    <div class="end-icon">
+      ✓
+    </div>
 
-    <h1>Das war's für heute.</h1>
+    <h1>
+      Das war's für heute.
+    </h1>
 
     <p>
       Deine Ausgabe ist vorbei.
@@ -474,6 +713,7 @@ h2{font-size:20px;margin:0 0 8px}
 ========================= */
 
 const platforms = [
+
   "Instagram",
   "TikTok",
   "YouTube",
@@ -482,9 +722,12 @@ const platforms = [
   "LinkedIn",
   "Snapchat",
   "Facebook"
+
 ];
 
+
 const icons = {
+
   Instagram:"📸",
   TikTok:"🎵",
   YouTube:"▶️",
@@ -493,6 +736,7 @@ const icons = {
   LinkedIn:"💼",
   Snapchat:"👻",
   Facebook:"f"
+
 };
 
 
@@ -551,32 +795,58 @@ let editionFinished = false;
    STORAGE
 ========================= */
 
-const DAILY_KEY = "dailyFeedDailyState";
-const ACCOUNTS_KEY = "dailyFeedMyAccounts";
-const USER_ACCOUNTS_KEY = "dailyFeedUserAccounts";
+const DAILY_KEY =
+  "dailyFeedDailyState";
+
+const ACCOUNTS_KEY =
+  "dailyFeedMyAccounts";
+
+const USER_ACCOUNTS_KEY =
+  "dailyFeedUserAccounts";
 
 
 /* =========================
    ELEMENTE
 ========================= */
 
-const setup = document.getElementById("setupScreen");
-const edition = document.getElementById("editionScreen");
-const end = document.getElementById("endScreen");
+const setup =
+  document.getElementById("setupScreen");
 
-const platformGrid = document.getElementById("platformGrid");
-const connectedSection = document.getElementById("connectedSection");
-const connectedList = document.getElementById("connectedList");
+const edition =
+  document.getElementById("editionScreen");
 
-const modeSection = document.getElementById("modeSection");
-const accountsSection = document.getElementById("accountsSection");
-const accountsList = document.getElementById("accountsList");
+const end =
+  document.getElementById("endScreen");
 
-const limitSection = document.getElementById("limitSection");
-const startButton = document.getElementById("startButton");
+const platformGrid =
+  document.getElementById("platformGrid");
 
-const feedScroll = document.getElementById("feedScroll");
-const feedCounter = document.getElementById("feedCounter");
+const connectedSection =
+  document.getElementById("connectedSection");
+
+const connectedList =
+  document.getElementById("connectedList");
+
+const modeSection =
+  document.getElementById("modeSection");
+
+const accountsSection =
+  document.getElementById("accountsSection");
+
+const accountsList =
+  document.getElementById("accountsList");
+
+const limitSection =
+  document.getElementById("limitSection");
+
+const startButton =
+  document.getElementById("startButton");
+
+const feedScroll =
+  document.getElementById("feedScroll");
+
+const feedCounter =
+  document.getElementById("feedCounter");
 
 
 /* =========================
@@ -599,7 +869,7 @@ function today(){
 
 
 /* =========================
-   PLATTFORMEN
+   PLATTFORMEN RENDERN
 ========================= */
 
 function renderPlatforms(){
@@ -608,39 +878,51 @@ function renderPlatforms(){
 
   platforms.forEach(platform=>{
 
-    const button = document.createElement("button");
+    const button =
+      document.createElement("button");
 
     button.type = "button";
-    button.className = "platform-button";
+
+    button.className =
+      "platform-button";
 
     if(selectedSources.includes(platform)){
+
       button.classList.add("selected");
+
     }
 
     button.textContent =
       `${icons[platform]} ${platform}`;
 
-    button.addEventListener("click",()=>{
 
-      if(selectedSources.includes(platform)){
+    button.addEventListener(
+      "click",
+      ()=>{
 
-        selectedSources =
-          selectedSources.filter(x=>x!==platform);
+        if(selectedSources.includes(platform)){
 
-        selectedAccounts =
-          selectedAccounts.filter(
-            x=>x.platform!==platform
-          );
+          selectedSources =
+            selectedSources.filter(
+              x=>x!==platform
+            );
 
-      }else{
+          selectedAccounts =
+            selectedAccounts.filter(
+              x=>x.platform!==platform
+            );
 
-        selectedSources.push(platform);
+        }else{
+
+          selectedSources.push(platform);
+
+        }
+
+        renderAll();
 
       }
+    );
 
-      renderAll();
-
-    });
 
     platformGrid.appendChild(button);
 
@@ -657,40 +939,78 @@ function renderConnected(){
 
   connectedList.innerHTML = "";
 
+
   selectedSources.forEach(platform=>{
 
-    const row = document.createElement("div");
-    row.className = "connected-account-row";
+    const row =
+      document.createElement("div");
+
+    row.className =
+      "connected-account-row";
+
 
     row.innerHTML = `
+
       <div class="connected-account-info">
-        <div class="platform-icon">${icons[platform]}</div>
+
+        <div class="platform-icon">
+          ${icons[platform]}
+        </div>
+
         <div>
-          <div class="connected-account-name">${platform}</div>
+
+          <div class="connected-account-name">
+            ${platform}
+          </div>
+
           <div class="connected-account-status">
             Noch nicht verbunden
           </div>
+
         </div>
+
       </div>
+
     `;
 
-    const button = document.createElement("button");
+
+    const button =
+      document.createElement("button");
 
     button.type = "button";
-    button.className = "connect-button";
-    button.textContent = "Konto verbinden";
+
+    button.className =
+      "connect-button";
+
+    button.textContent =
+      "Konto verbinden";
+
+
+    /* =========================
+       PINTEREST OAUTH
+    ========================= */
 
     button.onclick = ()=>{
 
+      if(platform === "Pinterest"){
+
+        window.location.href =
+          "https://daily-feed-pinterest.johanna-ulbrich.workers.dev/auth/pinterest";
+
+        return;
+
+      }
+
+
       alert(
-        `${platform}-Login kommt später.\n\n`+
-        `Hier wird später der offizielle Login `+
-        `von ${platform} eingebaut.`
+        `${platform}-Login kommt später.`
       );
 
     };
 
+
     row.appendChild(button);
+
     connectedList.appendChild(row);
 
   });
@@ -706,12 +1026,14 @@ function selectMode(mode){
 
   selectedMode = mode;
 
+
   document
     .getElementById("myAccountsButton")
     .classList.toggle(
       "selected",
       mode==="Meine Accounts"
     );
+
 
   document
     .getElementById("myFeedButton")
@@ -720,8 +1042,11 @@ function selectMode(mode){
       mode==="Mein Feed"
     );
 
+
   renderAccounts();
+
   updateSections();
+
   updateStartButton();
 
 }
@@ -735,9 +1060,13 @@ function renderAccounts(){
 
   accountsList.innerHTML = "";
 
+
   if(selectedMode!=="Meine Accounts"){
+
     return;
+
   }
+
 
   selectedSources.forEach(platform=>{
 
@@ -746,6 +1075,7 @@ function renderAccounts(){
 
     group.className =
       "account-platform-group";
+
 
     const title =
       document.createElement("div");
@@ -756,29 +1086,41 @@ function renderAccounts(){
     title.textContent =
       `${icons[platform]} ${platform}`;
 
+
     group.appendChild(title);
+
 
     const list =
       document.createElement("div");
 
-    list.className = "account-list";
+    list.className =
+      "account-list";
 
 
-    /* VORHANDENE ACCOUNTS */
+    /* =========================
+       VORHANDENE ACCOUNTS
+    ========================= */
 
     accounts
-      .filter(account=>account.platform===platform)
+      .filter(
+        account =>
+          account.platform===platform
+      )
       .forEach(account=>{
 
         const row =
           document.createElement("label");
 
-        row.className = "account-row";
+        row.className =
+          "account-row";
+
 
         const checkbox =
           document.createElement("input");
 
-        checkbox.type = "checkbox";
+        checkbox.type =
+          "checkbox";
+
 
         checkbox.checked =
           selectedAccounts.some(
@@ -786,6 +1128,7 @@ function renderAccounts(){
               x.platform===account.platform &&
               x.username===account.username
           );
+
 
         checkbox.onchange = ()=>{
 
@@ -800,8 +1143,13 @@ function renderAccounts(){
             ){
 
               selectedAccounts.push({
-                platform:account.platform,
-                username:account.username
+
+                platform:
+                  account.platform,
+
+                username:
+                  account.username
+
               });
 
             }
@@ -819,7 +1167,9 @@ function renderAccounts(){
 
           }
 
+
           saveAccounts();
+
           updateStartButton();
 
         };
@@ -831,25 +1181,37 @@ function renderAccounts(){
         name.textContent =
           account.username;
 
+
         row.appendChild(checkbox);
+
         row.appendChild(name);
 
 
-        /* EIGENE ACCOUNTS KÖNNEN GELÖSCHT WERDEN */
+        /* =========================
+           EIGENE ACCOUNTS LÖSCHEN
+        ========================= */
 
         if(!account.demo){
 
           const remove =
             document.createElement("button");
 
-          remove.type = "button";
-          remove.className = "account-remove";
-          remove.textContent = "×";
+          remove.type =
+            "button";
+
+          remove.className =
+            "account-remove";
+
+          remove.textContent =
+            "×";
+
 
           remove.onclick = event=>{
 
             event.preventDefault();
+
             event.stopPropagation();
+
 
             accounts =
               accounts.filter(
@@ -860,6 +1222,7 @@ function renderAccounts(){
                   )
               );
 
+
             selectedAccounts =
               selectedAccounts.filter(
                 x =>
@@ -869,30 +1232,43 @@ function renderAccounts(){
                   )
               );
 
+
             saveAccounts();
 
+
             localStorage.setItem(
+
               USER_ACCOUNTS_KEY,
+
               JSON.stringify(
-                accounts.filter(x=>!x.demo)
+                accounts.filter(
+                  x=>!x.demo
+                )
               )
+
             );
 
+
             renderAccounts();
+
             updateStartButton();
 
           };
 
+
           row.appendChild(remove);
 
         }
+
 
         list.appendChild(row);
 
       });
 
 
-    /* ACCOUNT HINZUFÜGEN */
+    /* =========================
+       ACCOUNT HINZUFÜGEN
+    ========================= */
 
     const addBox =
       document.createElement("div");
@@ -900,11 +1276,16 @@ function renderAccounts(){
     addBox.className =
       "account-add-box";
 
+
     const input =
       document.createElement("input");
 
-    input.className = "account-input";
-    input.type = "text";
+    input.className =
+      "account-input";
+
+    input.type =
+      "text";
+
 
     input.placeholder =
       platform==="Pinterest"
@@ -915,9 +1296,14 @@ function renderAccounts(){
     const add =
       document.createElement("button");
 
-    add.type = "button";
-    add.className = "connect-button";
-    add.textContent = "Account hinzufügen";
+    add.type =
+      "button";
+
+    add.className =
+      "connect-button";
+
+    add.textContent =
+      "Account hinzufügen";
 
 
     function addAccount(){
@@ -925,23 +1311,35 @@ function renderAccounts(){
       let username =
         input.value.trim();
 
+
       if(!username){
+
         input.focus();
+
         return;
+
       }
+
 
       if(
         !username.startsWith("@") &&
         platform!=="Reddit"
       ){
-        username = "@"+username;
+
+        username =
+          "@"+username;
+
       }
+
 
       if(
         platform==="Reddit" &&
         !username.startsWith("r/")
       ){
-        username = "r/"+username;
+
+        username =
+          "r/"+username;
+
       }
 
 
@@ -953,61 +1351,96 @@ function renderAccounts(){
             username.toLowerCase()
         );
 
+
       if(exists){
 
-        alert("Diesen Account gibt es bereits.");
+        alert(
+          "Diesen Account gibt es bereits."
+        );
+
         return;
 
       }
 
 
       const account = {
-        platform:platform,
-        username:username,
-        demo:false
+
+        platform:
+          platform,
+
+        username:
+          username,
+
+        demo:
+          false
+
       };
+
 
       accounts.push(account);
 
+
       selectedAccounts.push({
-        platform:platform,
-        username:username
+
+        platform:
+          platform,
+
+        username:
+          username
+
       });
+
 
       saveAccounts();
 
+
       localStorage.setItem(
+
         USER_ACCOUNTS_KEY,
+
         JSON.stringify(
-          accounts.filter(x=>!x.demo)
+          accounts.filter(
+            x=>!x.demo
+          )
         )
+
       );
+
 
       input.value = "";
 
+
       renderAccounts();
+
       updateStartButton();
 
     }
 
 
-    add.onclick = addAccount;
+    add.onclick =
+      addAccount;
 
-    input.onkeydown = event=>{
 
-      if(event.key==="Enter"){
-        addAccount();
-      }
+    input.onkeydown =
+      event=>{
 
-    };
+        if(event.key==="Enter"){
+
+          addAccount();
+
+        }
+
+      };
 
 
     addBox.appendChild(input);
+
     addBox.appendChild(add);
 
     list.appendChild(addBox);
 
     group.appendChild(list);
+
     accountsList.appendChild(group);
 
   });
@@ -1022,8 +1455,13 @@ function renderAccounts(){
 function saveAccounts(){
 
   localStorage.setItem(
+
     ACCOUNTS_KEY,
-    JSON.stringify(selectedAccounts)
+
+    JSON.stringify(
+      selectedAccounts
+    )
+
   );
 
 }
@@ -1039,10 +1477,18 @@ function loadUserAccounts(){
 
     const saved =
       JSON.parse(
-        localStorage.getItem(USER_ACCOUNTS_KEY)
+        localStorage.getItem(
+          USER_ACCOUNTS_KEY
+        )
       );
 
-    if(!Array.isArray(saved)) return;
+
+    if(!Array.isArray(saved)){
+
+      return;
+
+    }
+
 
     saved.forEach(account=>{
 
@@ -1055,8 +1501,11 @@ function loadUserAccounts(){
       ){
 
         accounts.push({
+
           ...account,
+
           demo:false
+
         });
 
       }
@@ -1078,11 +1527,17 @@ function loadAccounts(){
 
     const saved =
       JSON.parse(
-        localStorage.getItem(ACCOUNTS_KEY)
+        localStorage.getItem(
+          ACCOUNTS_KEY
+        )
       );
 
+
     if(Array.isArray(saved)){
-      selectedAccounts = saved;
+
+      selectedAccounts =
+        saved;
+
     }
 
   }catch{}
@@ -1099,15 +1554,18 @@ function updateSections(){
   const hasPlatforms =
     selectedSources.length>0;
 
+
   connectedSection.classList.toggle(
     "hidden",
     !hasPlatforms
   );
 
+
   modeSection.classList.toggle(
     "hidden",
     !hasPlatforms
   );
+
 
   accountsSection.classList.toggle(
     "hidden",
@@ -1116,6 +1574,7 @@ function updateSections(){
       selectedMode==="Meine Accounts"
     )
   );
+
 
   limitSection.classList.toggle(
     "hidden",
@@ -1134,7 +1593,9 @@ function updateSections(){
 
 function selectLimit(mode){
 
-  limitMode = mode;
+  limitMode =
+    mode;
+
 
   document
     .getElementById("contentMode")
@@ -1143,12 +1604,14 @@ function selectLimit(mode){
       mode==="content"
     );
 
+
   document
     .getElementById("timeMode")
     .classList.toggle(
       "selected",
       mode==="time"
     );
+
 
   document
     .getElementById("bothMode")
@@ -1157,6 +1620,7 @@ function selectLimit(mode){
       mode==="both"
     );
 
+
   document
     .getElementById("contentInputBox")
     .classList.toggle(
@@ -1164,12 +1628,14 @@ function selectLimit(mode){
       !(mode==="content"||mode==="both")
     );
 
+
   document
     .getElementById("timeInputBox")
     .classList.toggle(
       "hidden",
       !(mode==="time"||mode==="both")
     );
+
 
   updateStartButton();
 
@@ -1198,34 +1664,39 @@ function updateStartButton(){
 
 
   if(
-    limitMode==="content"||
+    limitMode==="content" ||
     limitMode==="both"
   ){
 
     valid =
       valid &&
       Number(
-        document.getElementById("contentLimit").value
+        document.getElementById(
+          "contentLimit"
+        ).value
       )>0;
 
   }
 
 
   if(
-    limitMode==="time"||
+    limitMode==="time" ||
     limitMode==="both"
   ){
 
     valid =
       valid &&
       Number(
-        document.getElementById("timeLimit").value
+        document.getElementById(
+          "timeLimit"
+        ).value
       )>0;
 
   }
 
 
-  startButton.disabled = !valid;
+  startButton.disabled =
+    !valid;
 
 }
 
@@ -1239,10 +1710,14 @@ function createPost(account,index){
   const seed =
     `${account.platform}-${account.username}-${index}`;
 
+
   return {
 
-    platform:account.platform,
-    username:account.username,
+    platform:
+      account.platform,
+
+    username:
+      account.username,
 
     image:
       `https://picsum.photos/seed/`+
@@ -1257,44 +1732,68 @@ function createPost(account,index){
 
 
 /* =========================
-   DAILY STATE
+   DAILY STATE SPEICHERN
 ========================= */
 
 function saveDaily(){
 
   localStorage.setItem(
+
     DAILY_KEY,
+
     JSON.stringify({
 
-      date:today(),
+      date:
+        today(),
 
-      dailyEdition,
-      currentIndex,
+      dailyEdition:
+        dailyEdition,
 
-      selectedSources,
-      selectedMode,
-      selectedAccounts,
+      currentIndex:
+        currentIndex,
 
-      limitMode,
+      selectedSources:
+        selectedSources,
+
+      selectedMode:
+        selectedMode,
+
+      selectedAccounts:
+        selectedAccounts,
+
+      limitMode:
+        limitMode,
 
       contentLimit:
         Number(
-          document.getElementById("contentLimit").value
+          document.getElementById(
+            "contentLimit"
+          ).value
         )||0,
 
       timeLimitMinutes:
         Number(
-          document.getElementById("timeLimit").value
+          document.getElementById(
+            "timeLimit"
+          ).value
         )||0,
 
-      startedAt,
-      editionFinished
+      startedAt:
+        startedAt,
+
+      editionFinished:
+        editionFinished
 
     })
+
   );
 
 }
 
+
+/* =========================
+   DAILY STATE LADEN
+========================= */
 
 function loadDaily(){
 
@@ -1302,59 +1801,103 @@ function loadDaily(){
 
     const saved =
       JSON.parse(
-        localStorage.getItem(DAILY_KEY)
+        localStorage.getItem(
+          DAILY_KEY
+        )
       );
 
-    if(!saved) return false;
 
-    if(saved.date!==today()){
+    if(!saved){
 
-      localStorage.removeItem(DAILY_KEY);
       return false;
 
     }
 
+
+    if(saved.date!==today()){
+
+      localStorage.removeItem(
+        DAILY_KEY
+      );
+
+      return false;
+
+    }
+
+
     dailyEdition =
-      Array.isArray(saved.dailyEdition)
+      Array.isArray(
+        saved.dailyEdition
+      )
         ? saved.dailyEdition
         : [];
 
+
     currentIndex =
-      Number(saved.currentIndex)||0;
+      Number(
+        saved.currentIndex
+      )||0;
+
 
     selectedSources =
-      Array.isArray(saved.selectedSources)
+      Array.isArray(
+        saved.selectedSources
+      )
         ? saved.selectedSources
         : [];
 
+
     selectedMode =
-      saved.selectedMode||"";
+      saved.selectedMode ||
+      "";
+
 
     selectedAccounts =
-      Array.isArray(saved.selectedAccounts)
+      Array.isArray(
+        saved.selectedAccounts
+      )
         ? saved.selectedAccounts
         : [];
 
+
     limitMode =
-      saved.limitMode||"";
+      saved.limitMode ||
+      "";
 
-    document.getElementById("contentLimit").value =
-      saved.contentLimit||10;
 
-    document.getElementById("timeLimit").value =
-      saved.timeLimitMinutes||10;
+    document.getElementById(
+      "contentLimit"
+    ).value =
+      saved.contentLimit ||
+      10;
+
+
+    document.getElementById(
+      "timeLimit"
+    ).value =
+      saved.timeLimitMinutes ||
+      10;
+
 
     startedAt =
-      saved.startedAt||null;
+      saved.startedAt ||
+      null;
+
 
     editionFinished =
-      Boolean(saved.editionFinished);
+      Boolean(
+        saved.editionFinished
+      );
+
 
     return dailyEdition.length>0;
 
   }catch{
 
-    localStorage.removeItem(DAILY_KEY);
+    localStorage.removeItem(
+      DAILY_KEY
+    );
+
     return false;
 
   }
@@ -1368,15 +1911,21 @@ function loadDaily(){
 
 function startEdition(){
 
-  /* Wenn heute schon eine Ausgabe existiert:
-     nicht neu erzeugen */
+  /*
+    Wenn heute schon eine Ausgabe existiert,
+    wird sie NICHT neu erzeugt.
+  */
 
   if(loadDaily()){
 
     if(editionFinished){
+
       showEnd();
+
     }else{
+
       showEdition();
+
     }
 
     return;
@@ -1386,19 +1935,26 @@ function startEdition(){
 
   const contentLimit =
     Number(
-      document.getElementById("contentLimit").value
+      document.getElementById(
+        "contentLimit"
+      ).value
     )||0;
+
 
   const timeLimit =
     Number(
-      document.getElementById("timeLimit").value
+      document.getElementById(
+        "timeLimit"
+      ).value
     )||0;
 
 
   let sourceAccounts;
 
 
-  if(selectedMode==="Meine Accounts"){
+  if(
+    selectedMode==="Meine Accounts"
+  ){
 
     sourceAccounts =
       selectedAccounts.filter(
@@ -1426,10 +1982,17 @@ function startEdition(){
 
   sourceAccounts.forEach(account=>{
 
-    for(let i=0;i<3;i++){
+    for(
+      let i=0;
+      i<3;
+      i++
+    ){
 
       dailyEdition.push(
-        createPost(account,i)
+        createPost(
+          account,
+          i
+        )
       );
 
     }
@@ -1437,7 +2000,10 @@ function startEdition(){
   });
 
 
-  if(limitMode==="content"||limitMode==="both"){
+  if(
+    limitMode==="content" ||
+    limitMode==="both"
+  ){
 
     dailyEdition =
       dailyEdition.slice(
@@ -1448,12 +2014,22 @@ function startEdition(){
   }
 
 
-  if(!dailyEdition.length) return;
+  if(!dailyEdition.length){
+
+    return;
+
+  }
 
 
-  currentIndex = 0;
-  startedAt = Date.now();
-  editionFinished = false;
+  currentIndex =
+    0;
+
+  startedAt =
+    Date.now();
+
+  editionFinished =
+    false;
+
 
   saveDaily();
 
@@ -1461,11 +2037,13 @@ function startEdition(){
 
 
   if(
-    limitMode==="time"||
+    limitMode==="time" ||
     limitMode==="both"
   ){
 
-    startTimer(timeLimit);
+    startTimer(
+      timeLimit
+    );
 
   }
 
@@ -1473,86 +2051,110 @@ function startEdition(){
 
 
 /* =========================
-   FEED
+   FEED RENDERN
 ========================= */
 
 function renderFeed(){
 
   feedScroll.innerHTML = "";
 
-  dailyEdition.forEach((item,index)=>{
 
-    const post =
-      document.createElement("article");
+  dailyEdition.forEach(
+    (item,index)=>{
 
-    post.className = "feed-post";
-
-    const avatar =
-      item.username
-        .replace("@","")
-        .charAt(0)
-        .toUpperCase();
+      const post =
+        document.createElement(
+          "article"
+        );
 
 
-    post.innerHTML = `
+      post.className =
+        "feed-post";
 
-      <div class="post-header">
 
-        <div class="post-avatar">
-          ${avatar}
+      const avatar =
+        item.username
+          .replace("@","")
+          .charAt(0)
+          .toUpperCase();
+
+
+      post.innerHTML = `
+
+        <div class="post-header">
+
+          <div class="post-avatar">
+            ${avatar}
+          </div>
+
+          <div class="post-user-info">
+
+            <div class="post-username">
+              ${item.username}
+            </div>
+
+            <div class="post-platform">
+              ${icons[item.platform]}
+              ${item.platform}
+            </div>
+
+          </div>
+
         </div>
 
-        <div class="post-user-info">
 
-          <div class="post-username">
+        <img
+          class="post-image"
+          src="${item.image}"
+          alt=""
+        >
+
+
+        <div class="post-actions">
+
+          <button
+            class="post-action"
+            type="button"
+          >
+            ♡
+          </button>
+
+          <button
+            class="post-action"
+            type="button"
+          >
+            ◯
+          </button>
+
+          <button
+            class="post-action"
+            type="button"
+          >
+            ↗
+          </button>
+
+        </div>
+
+
+        <div class="post-caption">
+
+          <strong>
             ${item.username}
-          </div>
+          </strong>
 
-          <div class="post-platform">
-            ${icons[item.platform]} ${item.platform}
-          </div>
+          ${item.caption}
 
         </div>
 
-      </div>
+      `;
 
 
-      <img
-        class="post-image"
-        src="${item.image}"
-        alt=""
-      >
+      feedScroll.appendChild(
+        post
+      );
 
-
-      <div class="post-actions">
-
-        <button class="post-action" type="button">
-          ♡
-        </button>
-
-        <button class="post-action" type="button">
-          ◯
-        </button>
-
-        <button class="post-action" type="button">
-          ↗
-        </button>
-
-      </div>
-
-
-      <div class="post-caption">
-
-        <strong>${item.username}</strong>
-        ${item.caption}
-
-      </div>
-
-    `;
-
-    feedScroll.appendChild(post);
-
-  });
+    }
+  );
 
 
   updateCounter();
@@ -1565,64 +2167,103 @@ function renderFeed(){
 ========================= */
 
 feedScroll.addEventListener(
+
   "scroll",
+
   ()=>{
 
     const posts =
-      [...feedScroll.querySelectorAll(".feed-post")];
+      [
+        ...feedScroll.querySelectorAll(
+          ".feed-post"
+        )
+      ];
 
-    if(!posts.length) return;
+
+    if(!posts.length){
+
+      return;
+
+    }
 
 
     const center =
       window.innerHeight/2;
 
-    let best = 0;
-    let distance = Infinity;
+
+    let best =
+      0;
+
+    let distance =
+      Infinity;
 
 
-    posts.forEach((post,index)=>{
+    posts.forEach(
+      (post,index)=>{
 
-      const rect =
-        post.getBoundingClientRect();
+        const rect =
+          post.getBoundingClientRect();
 
-      const middle =
-        (rect.top+rect.bottom)/2;
 
-      const d =
-        Math.abs(middle-center);
+        const middle =
+          (rect.top+
+           rect.bottom)/2;
 
-      if(d<distance){
 
-        distance=d;
-        best=index;
+        const d =
+          Math.abs(
+            middle-center
+          );
+
+
+        if(d<distance){
+
+          distance =
+            d;
+
+          best =
+            index;
+
+        }
 
       }
+    );
 
-    });
 
+    currentIndex =
+      best;
 
-    currentIndex=best;
 
     updateCounter();
+
     saveDaily();
 
 
     const last =
-      posts[posts.length-1];
+      posts[
+        posts.length-1
+      ];
+
 
     const rect =
       last.getBoundingClientRect();
 
 
-    if(rect.bottom<=window.innerHeight+5){
+    if(
+      rect.bottom <=
+      window.innerHeight+5
+    ){
 
       finishEdition();
 
     }
 
   },
-  {passive:true}
+
+  {
+    passive:true
+  }
+
 );
 
 
@@ -1647,25 +2288,43 @@ function updateCounter(){
 
 function showEdition(){
 
-  setup.classList.add("hidden");
-  end.classList.add("hidden");
-  edition.classList.remove("hidden");
+  setup.classList.add(
+    "hidden"
+  );
+
+  end.classList.add(
+    "hidden"
+  );
+
+  edition.classList.remove(
+    "hidden"
+  );
+
 
   renderFeed();
+
 
   setTimeout(()=>{
 
     const posts =
-      feedScroll.querySelectorAll(".feed-post");
+      feedScroll.querySelectorAll(
+        ".feed-post"
+      );
+
 
     if(posts[currentIndex]){
 
-      posts[currentIndex].scrollIntoView({
-        block:"start",
-        behavior:"auto"
-      });
+      posts[currentIndex]
+        .scrollIntoView({
+
+          block:"start",
+
+          behavior:"auto"
+
+        });
 
     }
+
 
     updateCounter();
 
@@ -1680,11 +2339,19 @@ function showEdition(){
 
 function finishEdition(){
 
-  if(editionFinished) return;
+  if(editionFinished){
 
-  editionFinished=true;
+    return;
+
+  }
+
+
+  editionFinished =
+    true;
+
 
   stopTimer();
+
   saveDaily();
 
   showEnd();
@@ -1694,9 +2361,17 @@ function finishEdition(){
 
 function showEnd(){
 
-  setup.classList.add("hidden");
-  edition.classList.add("hidden");
-  end.classList.remove("hidden");
+  setup.classList.add(
+    "hidden"
+  );
+
+  edition.classList.add(
+    "hidden"
+  );
+
+  end.classList.remove(
+    "hidden"
+  );
 
 }
 
@@ -1707,20 +2382,37 @@ function showEnd(){
 
 function reviewEdition(){
 
-  editionFinished=false;
-  currentIndex=0;
+  editionFinished =
+    false;
+
+
+  currentIndex =
+    0;
+
 
   saveDaily();
 
-  end.classList.add("hidden");
-  edition.classList.remove("hidden");
+
+  end.classList.add(
+    "hidden"
+  );
+
+  edition.classList.remove(
+    "hidden"
+  );
+
 
   renderFeed();
 
+
   feedScroll.scrollTo({
+
     top:0,
+
     behavior:"auto"
+
   });
+
 
   updateCounter();
 
@@ -1732,16 +2424,21 @@ function reviewEdition(){
 
     const minutes =
       Number(
-        document.getElementById("timeLimit").value
+        document.getElementById(
+          "timeLimit"
+        ).value
       )||0;
+
 
     if(
       minutes>0 &&
-      Date.now()-startedAt<
+      Date.now()-startedAt <
       minutes*60000
     ){
 
-      startTimer(minutes);
+      startTimer(
+        minutes
+      );
 
     }
 
@@ -1758,21 +2455,30 @@ function startTimer(minutes){
 
   stopTimer();
 
-  if(!minutes) return;
+
+  if(!minutes){
+
+    return;
+
+  }
+
 
   timer =
-    setInterval(()=>{
+    setInterval(
+      ()=>{
 
-      if(
-        Date.now()-startedAt >=
-        minutes*60000
-      ){
+        if(
+          Date.now()-startedAt >=
+          minutes*60000
+        ){
 
-        finishEdition();
+          finishEdition();
 
-      }
+        }
 
-    },1000);
+      },
+      1000
+    );
 
 }
 
@@ -1781,8 +2487,12 @@ function stopTimer(){
 
   if(timer){
 
-    clearInterval(timer);
-    timer=null;
+    clearInterval(
+      timer
+    );
+
+    timer =
+      null;
 
   }
 
@@ -1790,16 +2500,19 @@ function stopTimer(){
 
 
 /* =========================
-   RENDER
+   ALLES RENDERN
 ========================= */
 
 function renderAll(){
 
   renderPlatforms();
+
   renderConnected();
+
   renderAccounts();
 
   updateSections();
+
   updateStartButton();
 
 }
@@ -1816,14 +2529,30 @@ function renderAll(){
       window.location.search
     );
 
-  if(params.get("reset")!=="1") return;
+
+  if(
+    params.get("reset")!=="1"
+  ){
+
+    return;
+
+  }
 
 
   Object.keys(localStorage)
-    .filter(key=>key.startsWith("dailyFeed"))
-    .forEach(key=>{
-      localStorage.removeItem(key);
-    });
+    .filter(
+      key =>
+        key.startsWith(
+          "dailyFeed"
+        )
+    )
+    .forEach(
+      key=>{
+        localStorage.removeItem(
+          key
+        );
+      }
+    );
 
 
   history.replaceState(
@@ -1843,14 +2572,19 @@ function renderAll(){
 ========================= */
 
 document
-  .getElementById("contentLimit")
+  .getElementById(
+    "contentLimit"
+  )
   .addEventListener(
     "input",
     updateStartButton
   );
 
+
 document
-  .getElementById("timeLimit")
+  .getElementById(
+    "timeLimit"
+  )
   .addEventListener(
     "input",
     updateStartButton
@@ -1864,6 +2598,7 @@ document
 function init(){
 
   loadUserAccounts();
+
   loadAccounts();
 
   renderAll();
@@ -1879,21 +2614,27 @@ function init(){
 
       showEdition();
 
+
       const minutes =
         Number(
-          document.getElementById("timeLimit").value
+          document.getElementById(
+            "timeLimit"
+          ).value
         )||0;
+
 
       if(
         minutes>0 &&
         startedAt &&
         (
-          limitMode==="time"||
+          limitMode==="time" ||
           limitMode==="both"
         )
       ){
 
-        startTimer(minutes);
+        startTimer(
+          minutes
+        );
 
       }
 
@@ -1902,6 +2643,7 @@ function init(){
   }
 
 }
+
 
 init();
 
